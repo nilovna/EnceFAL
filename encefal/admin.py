@@ -5,6 +5,7 @@ from encefal.models import Vendeur, Session, Livre
 class VendeurAdmin(admin.ModelAdmin):
    exclude = ('actif',)
    list_display = ('_vendeur', 'code_permanent', 'telephone', 'email', )
+   search_fields = ['nom', 'prenom']
 
    def _vendeur(self, obj):
       return obj
@@ -24,6 +25,7 @@ class LivreAdmin(admin.ModelAdmin):
    fields = ('session', 'vendeur', 'etat', 'isbn', 'titre', 'auteur', 'annee', 
             'prix',)
    list_display = ('_titre', 'auteur', 'prix', 'annee', 'isbn', 'vendeur', 'etat',)
+   search_fields = ['titre', 'auteur', 'isbn']
 
    def _titre(self, obj):
       return obj
