@@ -68,4 +68,4 @@ class Livre(Metadata):
                            default='VENT', verbose_name='État', )	
 
    def __unicode__(self):
-      return '%s - %s [%s]' % (self.titre, self.auteur, self.id)    	      								 
+      return '%s [%s]' % (self.titre, self.id)
