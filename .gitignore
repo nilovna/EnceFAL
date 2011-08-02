@@ -1,0 +1,19 @@
+# binaires
+*.pyc
+*.pyo
+
+# Fichier temporaires:
+.*.swp
+*~
+\#*#
+# src/*
+
+# DB de dev
+*.db
+encefal_dev
+
+# Configuration du projet - par environnement
+conf.py
+django.wsgi
+local.cfg
+
