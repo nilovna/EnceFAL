@@ -1,0 +1,60 @@
+{% extends 'admin/base_site.html' %}
+ 
+{% block title %}Encefal{% endblock %}
+{% block sous_titre %}Facture #{{ facture.id }}{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="/admin/">Accueil</a> &rsaquo;
+    <a href="/admin/encefal">Encefal</a> &rsaquo;
+    <a href="/admin/encefal/facture">Factures</a> &rsaquo;
+    Facture #{{ facture.id }}
+</div>
+{% endblock %}
+{% block extrahead %}
+ 
+{{ form.media }}
+{% endblock %}
+{% block content %}
+<div id="content-main"> 
+    {% block object-tools %}{% endblock %}
+    <h1>Foire aux livres de l'AESSUQAM</h1> 
+    <h2>Facture #{{ facture.id }}</h2>  
+<form action="" method="post">{% csrf_token %}
+
+    <div class="module"> 
+        <h2>{{ facture.date_creation }}</h2>  
+        
+        <table id="livre"> 
+            <tr> 
+                <th>ISBN:</th> 
+                <th>Titre:</th> 
+                <th>Auteur:</th> 
+                <th>Année:</th> 
+                <th>Prix:</th> 
+            </tr>
+        {% for livre in livres %}
+            <tr> 
+                <td>Non disponible</td> 
+                <td>{{ livre.titre }}</td> 
+                <td>{{ livre.auteur }}</td> 
+                <td>{{ livre.annee }}</td> 
+                <td>{{ livre.prix|floatformat:"2" }} $</td>      
+            </tr>
+        {% endfor %}
+        </table> 
+    </div> 
+
+    <table id="total" style="color:green;"> 
+        <tr> 
+            <td>Total:</td> 
+            <td>{{ total|floatformat:"2" }} $</td> 
+        </tr>
+    </table>  
+
+    <div class="submit-row">
+        <input type="submit" name="_save" class="default" value="Terminer">
+    </div>
+</form>
+</div> 
+ 
+{% endblock %}  

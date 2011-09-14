@@ -1,19 +1,20 @@
-# binaires
 *.pyc
 *.pyo
-
-# Fichier temporaires:
+.installed.cfg
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
 .*.swp
 *~
 \#*#
-# src/*
-
-# DB de dev
 *.db
 encefal_dev
-
-# Configuration du projet - par environnement
 conf.py
 django.wsgi
 local.cfg
-
+devel.cfg
+buildout.cfg

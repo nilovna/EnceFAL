@@ -1,0 +1,52 @@
+{% extends 'admin/base_site.html' %}
+ 
+{% block title %}Encefal{% endblock %}
+{% block sous_titre %}{{ vendeur.nom }}, {{ vendeur.prenom }}{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="/admin/">Accueil</a> &rsaquo;
+    <a href="/admin/encefal">Encefal</a> &rsaquo;
+    <a href="/admin/encefal/vendeur">Vendeurs</a> &rsaquo;
+    {{ vendeur.nom }}, {{ vendeur.prenom }} 
+</div>
+{% endblock %}
+{% block extrahead %}
+ 
+{{ form.media }}
+{% endblock %}
+{% block content %}
+<div id="content-main"> 
+    {% block object-tools %}{% endblock %}
+    <h1>Foire aux livres de l'AESSUQAM</h1> 
+    <h2>Liste des livres de {{ vendeur.nom }}, {{ vendeur.prenom }}</h2>
+<form action="" method="post">{% csrf_token %}
+    <div class="module"> 
+
+        <table id="livre"> 
+        <h2>{{ date }}</h2>  
+            <tr> 
+                <th>ISBN:</th> 
+                <th>Titre:</th> 
+                <th>Auteur:</th> 
+                <th>Année:</th> 
+                <th>Prix:</th> 
+            </tr>
+        {% for livre in livres %}
+            <tr> 
+                <td>Non disponible</td> 
+                <td>{{ livre.titre }}</td> 
+                <td>{{ livre.auteur }}</td> 
+                <td>{{ livre.annee }}</td> 
+                <td>{{ livre.prix|floatformat:"2" }} $</td>      
+            </tr>
+        {% endfor %}
+        </table> 
+    </div> 
+
+    <div class="submit-row">
+        <input type="submit" name="_save" class="default" value="Terminer">
+    </div>
+</form>
+</div> 
+ 
+{% endblock %}  
