@@ -17,4 +17,3 @@ conf.py
 django.wsgi
 local.cfg
 devel.cfg
-buildout.cfg
