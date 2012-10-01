@@ -65,7 +65,7 @@ class Livre(Metadata):
     titre = models.CharField(max_length=255)
     auteur = models.CharField(max_length=255)
     annee = models.PositiveIntegerField(verbose_name='Année', blank=True, )	
-    editeur = models.CharField(max_length=255)
+    #editeur = models.CharField(max_length=255)
     #annee = models.CharField(max_length=255)
     prix = models.DecimalField(max_digits=5, decimal_places=2, help_text="Format 00.00")				
     etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES, 
