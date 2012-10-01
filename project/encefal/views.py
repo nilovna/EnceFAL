@@ -9,7 +9,7 @@ from django.db.models import Sum
 from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES
 
 def index(request):
-    return render_to_response('encefal/index.html', {}, 
+    return render_to_response('admin', {}, 
                                 RequestContext(request))
 
 def paiement(request):

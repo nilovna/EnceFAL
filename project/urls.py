@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
+    #(r'^$', include(admin.site.urls)),
     (r'^$', 'project.views.index'),
     (r'^admin/', include(admin.site.urls)),
     url(r'^paiement/$', 'encefal.views.paiement', name='paiement'), 

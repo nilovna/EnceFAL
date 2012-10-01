@@ -55,6 +55,7 @@ ETAT_LIVRE_CHOICES = (
     ('VEND', 'Vendu'),
     ('PERD', 'Perdu'),
     ('VOLE', 'Volé'),
+    ('REND', 'Rendu'),
 )
 
 class Livre(Metadata):
@@ -64,6 +65,7 @@ class Livre(Metadata):
     titre = models.CharField(max_length=255)
     auteur = models.CharField(max_length=255)
     annee = models.PositiveIntegerField(verbose_name='Année', blank=True, )	
+    editeur = models.CharField(max_length=255)
     #annee = models.CharField(max_length=255)
     prix = models.DecimalField(max_digits=5, decimal_places=2, help_text="Format 00.00")				
     etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES, 
@@ -76,7 +78,7 @@ class Livre(Metadata):
         super(Livre, self).save(*args, **kwargs)
 
     def __unicode__(self):
-      return '[%s] %s, %s | Vendeur: %s %s' % (self.id, self.titre, self.auteur, self.vendeur.prenom, self.vendeur.nom)
+      return '[%s] %s, %s' % (self.id, self.titre, self.auteur)
 
 ################################################################################
 # FACTURE (INVOICE)
