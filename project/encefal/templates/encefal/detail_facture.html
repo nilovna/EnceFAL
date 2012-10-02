@@ -1,0 +1,48 @@
+{% extends 'admin/base_site.html' %}
+ 
+{% block title %}Encefal{% endblock %}
+{% block sous_titre %}{{ vendeur.nom }}, {{ vendeur.prenom }}{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="/admin/">Accueil</a> &rsaquo;
+    <a href="/admin/encefal">Encefal</a> &rsaquo;
+    <a href="/admin/encefal/facture">Factures</a> &rsaquo;
+</div>
+{% endblock %}
+{% block extrahead %}
+ 
+{{ form.media }}
+{% endblock %}
+{% block content %}
+<div id="content-main"> 
+    {% block object-tools %}{% endblock %}
+    <h1>Foire aux livres de l'AESSUQAM</h1>
+    <h2>Détail de la facture #{{ facture.id }}</h2>
+    <div class="module">
+        <table id="livre"> 
+            <h2>Date: {{ facture.date_creation }} </h2>
+                <tr> 
+                    <th>No identification:</th> 
+                <th>ISBN:</th> 
+                <th>Titre:</th> 
+                <th>Auteur:</th> 
+                <th>Année:</th> 
+                <th>Prix:</th> 
+                <th>État:</th> 
+            </tr>
+            {% for livre in livres %}
+            <tr> 
+                <td>{{ livre.id }}</td> 
+                <td>{{ livre.titre }}</td> 
+                <td>Non disponible</td> 
+                <td>{{ livre.auteur }}</td> 
+                <td>{{ livre.annee }}</td> 
+                <td>{{ livre.prix|floatformat:"2" }} $</td>      
+                <td>{{ livre.get_etat_display }}</td> 
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div> 
+ 
+{% endblock %}  

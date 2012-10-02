@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
+from django.db.models import Q
 
 from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES
 
@@ -25,8 +26,8 @@ def paiement(request):
         prix = livres.aggregate(total=Sum('prix'))
 
     return render_to_response('encefal/paiement.html', 
-                {'facture':facture, 'livres':livres, 'total': prix['total']}, 
-                                context_instance = RequestContext(request))
+                {'facture':facture, 'livres':livres, 'total': prix['total']},
+                context_instance = RequestContext(request))
 
 def vendre(request):
     livre_ids = request.GET.get('ids').split(',')
@@ -44,8 +45,16 @@ def liste_livres(request):
     vendeur = Vendeur.objects.get(id=request.GET.get('id'))
     date = datetime.date.today()
     livres = Livre.objects.filter(vendeur=vendeur)
+    prix = livres.filter(Q(etat=ETAT_LIVRE_CHOICES[1][0])|Q(etat=ETAT_LIVRE_CHOICES[2][0])| Q(etat=ETAT_LIVRE_CHOICES[3][0])).aggregate(total=Sum('prix'))
     return render_to_response('encefal/liste_livres.html', 
-                {'vendeur':vendeur, 'livres':livres, 'date':date}, 
+            {'vendeur':vendeur, 'livres':livres, 'date':date, 'total': prix['total']}, 
                                 context_instance = RequestContext(request))
 
+def detail_facture(request):
+    if request.method == "POST":
+        return HttpResponseRedirect(reverse('admin:encefal_facture_changelist'))
+
+    facture = Facture.objects.get(id=request.GET.get('id'))
+    livres = facture.livres.all()
+    return render_to_response('encefal/detail_facture.html', {'facture':facture, 'livres': livres}, context_instance = RequestContext(request))
     

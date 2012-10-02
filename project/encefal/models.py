@@ -28,8 +28,8 @@ class Vendeur(Metadata):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
     code_permanent = models.CharField(max_length=12, )	
-    telephone = models.CharField(max_length=255, verbose_name='Téléphone', )
-    email = models.EmailField(max_length=255)
+    telephone = models.CharField(max_length=255, verbose_name='Téléphone', blank=True)
+    email = models.EmailField(max_length=255, blank=True)
 
     def __unicode__(self):	
         return '%s, %s [%s]' % (self.nom, self.prenom, self.id)     
@@ -63,7 +63,7 @@ class Livre(Metadata):
     session = models.ForeignKey(Session, db_column='session', related_name='+',)
     isbn = models.CharField(max_length=255, blank=True, )
     titre = models.CharField(max_length=255)
-    auteur = models.CharField(max_length=255)
+    auteur = models.CharField(max_length=255, blank=True)
     annee = models.PositiveIntegerField(verbose_name='Année', blank=True, )	
     #editeur = models.CharField(max_length=255)
     #annee = models.CharField(max_length=255)
@@ -78,7 +78,7 @@ class Livre(Metadata):
         super(Livre, self).save(*args, **kwargs)
 
     def __unicode__(self):
-      return '[%s] %s, %s' % (self.id, self.titre, self.auteur)
+      return '%s, %s [%s]' % (self.id, self.titre, self.auteur)
 
 ################################################################################
 # FACTURE (INVOICE)
