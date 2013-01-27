@@ -44,8 +44,8 @@
         {% for livre in livres %}
             <tr> 
                 <td>{{ livre.id }}</td>
-                <td>{{ livre.titre }}</td>
                 <td>Non disponible</td>
+                <td>{{ livre.titre }}</td>
                 <td>{{ livre.auteur }}</td>
                 <td>{{ livre.annee }}</td>
                 <td>{{ livre.prix|floatformat:"2" }} $</td>
