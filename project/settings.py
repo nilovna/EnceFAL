@@ -92,6 +92,8 @@ INSTALLED_APPS = (
     'project.encefal',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
+    'ajax_select',
 )
 
 TEMPLATE_DIRS = (
