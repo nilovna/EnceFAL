@@ -9,7 +9,8 @@ import simplejson
 # CONSTANTES (CONSTANTS)
 ################################################################################ 
 HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ-MM-AAAA"
-ISBN_DB_API_KEY = "CDT1NTQZ"
+#Ajouter une KEY propre a Encefal. On doit creer un compte sur isbndb
+ISBN_DB_API_KEY = ""
 ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}"
 
 ################################################################################
@@ -112,7 +113,7 @@ class Livre(Metadata):
             self.titre = reponse['title']
             self.auteur = reponse['author_data'][0]['name']
             #Impossible d'avoir l'annee avec isbndb
-            self.annee = 2013
+            #self.annee = 2013
             trouvees = True
 
         return trouvees
