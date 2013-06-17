@@ -1,7 +1,6 @@
 # TODO
 
-Générer codes barres personnalisés
------------------------------------
+###Générer codes barres personnalisés
 
 
 Conception logo
