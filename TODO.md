@@ -1,5 +1,7 @@
 # TODO
 
+### 0. Mettre la licence pour le projet
+
 ### 1. Générer codes barres personnalisés
 
 
