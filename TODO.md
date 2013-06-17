@@ -1,31 +1,27 @@
 # TODO
 
-###Générer codes barres personnalisés
+### 1. Générer codes barres personnalisés
 
 
-Conception logo
------------------
+
+### Conception logo
 
 
-Envoi de courriel automatique aux vendeurs
--------------------------------------------
+### Envoi de courriel automatique aux vendeurs
 * Envoi du "contrat" et listing des livres, lors du dépôt des livres.
 * Fin période (rappel de venir chercher livres et chèque)
 
 
-Autocomplete des autres champs du livres lorsque ISBN trouvé dans bd ou isbndb
---------------------------------------------------------------------------------
+### Autocomplete des autres champs du livres lorsque ISBN trouvé dans bd ou isbndb
 
-Rapport d'activité 
---------------------
+
+### Rapport d'activité 
 Journalier et fin de la foire aux livres. Envoyé à gérantE
 
-Aide pour prix
----------------
+### Aide pour prix
 Indiquer le prix moyen du même livre, présentement à la foire
 
-Identification avec carte étudiante (compte vendeur)
-----------------------------------------------------
+### Identification avec carte étudiante (compte vendeur)
 
-Crédit pour compte vendeur
----------------------------
+### Crédit pour compte vendeur
+
