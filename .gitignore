@@ -12,6 +12,7 @@ src/*.egg-info
 *~
 \#*#
 *.db
+*.sql
 encefal_dev
 conf.py
 django.wsgi
