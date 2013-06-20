@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 from django.forms import ValidationError
 import urllib
-import simplejson
+import json
 
 ################################################################################
 # CONSTANTES (CONSTANTS)
