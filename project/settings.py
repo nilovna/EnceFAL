@@ -89,11 +89,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'bootstrap_toolkit',
     'project.encefal',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south',
-    'ajax_select',
 )
 
 TEMPLATE_DIRS = (

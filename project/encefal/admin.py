@@ -5,8 +5,6 @@ from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
 
-from ajax_select import make_ajax_form
-
 from project.encefal.models import Vendeur, Session, Livre, Facture, ETAT_LIVRE_CHOICES
 
 class LivreInline(admin.TabularInline):
