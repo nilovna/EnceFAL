@@ -12,9 +12,10 @@ urlpatterns = patterns(
     #(r'^$', include(admin.site.urls)),
     (r'^$', 'project.views.index'),
     (r'^admin/', include(admin.site.urls)),
-    url(r'^paiement/$', 'encefal.views.paiement', name='paiement'), 
-    url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),   
-    url(r'^liste_livres/$', 'encefal.views.liste_livres', name='liste_livres'),   
+    url(r'^employee/$', 'encefal.views.index_employee', name='index_employee'),
+    url(r'^paiement/$', 'encefal.views.paiement', name='paiement'),
+    url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
+    url(r'^liste_livres/$', 'encefal.views.liste_livres', name='liste_livres'),
     url(r'^detail_facture/$', 'encefal.views.detail_facture', name='detail_facture'),
 )
 

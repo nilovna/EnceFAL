@@ -10,7 +10,7 @@ from django.db.models import Q
 from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES
 
 def index(request):
-    return render_to_response('admin', {}, 
+    return render_to_response('admin', {},
                                 RequestContext(request))
 
 def paiement(request):
@@ -25,7 +25,7 @@ def paiement(request):
     else:
         prix = livres.aggregate(total=Sum('prix'))
 
-    return render_to_response('encefal/paiement.html', 
+    return render_to_response('encefal/paiement.html',
                 {'facture':facture, 'livres':livres, 'total': prix['total']},
                 context_instance = RequestContext(request))
 
@@ -37,7 +37,7 @@ def vendre(request):
     facture.livres = livres
     facture.save()
     return HttpResponseRedirect(reverse('paiement')+"?id=%s" % (facture.id))
-  
+
 def liste_livres(request):
     if request.method == "POST":
         return HttpResponseRedirect(reverse('admin:encefal_vendeur_changelist'))
@@ -46,8 +46,8 @@ def liste_livres(request):
     date = datetime.date.today()
     livres = Livre.objects.filter(vendeur=vendeur)
     prix = livres.filter(Q(etat=ETAT_LIVRE_CHOICES[1][0])|Q(etat=ETAT_LIVRE_CHOICES[2][0])| Q(etat=ETAT_LIVRE_CHOICES[3][0])).aggregate(total=Sum('prix'))
-    return render_to_response('encefal/liste_livres.html', 
-            {'vendeur':vendeur, 'livres':livres, 'date':date, 'total': prix['total']}, 
+    return render_to_response('encefal/liste_livres.html',
+            {'vendeur':vendeur, 'livres':livres, 'date':date, 'total': prix['total']},
                                 context_instance = RequestContext(request))
 
 def detail_facture(request):
@@ -57,4 +57,9 @@ def detail_facture(request):
     facture = Facture.objects.get(id=request.GET.get('id'))
     livres = facture.livres.all()
     return render_to_response('encefal/detail_facture.html', {'facture':facture, 'livres': livres}, context_instance = RequestContext(request))
-    
+
+
+# Default employee index page
+def index_employee(request):
+    return render_to_response('encefal/employee/index.html', {},
+                              RequestContext(request))
