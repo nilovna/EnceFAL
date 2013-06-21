@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+     'django.contrib.staticfiles',
     'bootstrap_toolkit',
     'project.encefal',
     # Uncomment the next line to enable admin documentation:
@@ -100,4 +101,4 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),
 )
 
-
+STATIC_URL = '/static/'

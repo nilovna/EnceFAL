@@ -1,0 +1,26 @@
+/* General
+-------------------------------------------------------------- */
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  padding-top: 40px;
+  position: relative;
+}
+
+/* Buttons
+-------------------------------------------------------------- */
+.btn {
+  text-transform: uppercase;
+}
+
+/* Index employee page
+-------------------------------------------------------------- */
+.first-action-container {
+  text-align: center;
+  margin-top: 250px;
+}
+
+.first-action-container .btn {
+  font-weight: 700;
+  padding: 20px 30px;
+}
+
