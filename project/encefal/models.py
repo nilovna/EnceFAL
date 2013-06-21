@@ -1,6 +1,8 @@
 # -=- encoding: utf-8 -=-
 import datetime
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.forms import ValidationError
 import urllib
 import json
@@ -10,7 +12,6 @@ import json
 ################################################################################ 
 HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ-MM-AAAA"
 #Ajouter une KEY propre a Encefal. On doit creer un compte sur isbndb
-ISBN_DB_API_KEY = ""
 ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}"
 
 ################################################################################
@@ -51,31 +52,28 @@ class Session(Metadata):
 
     def __unicode__(self):  
         return '%s' % (self.nom)                
-      
+
+################################################################################
+# FACTURE (INVOICE)
+################################################################################  
+class Facture(Metadata):
+
+    employe = models.ForeignKey(User, db_column='employe', related_name='factures',)
+    session = models.ForeignKey(Session, db_column='session', related_name='factures',)
+
+    def __unicode__(self):
+      return 'Facture #%s' % (self.id)
+
 ################################################################################
 # LIVRE (BOOK)
 ################################################################################  
-### CHOICES ###
-ETAT_LIVRE_CHOICES = (
-    ('VENT', 'En vente'),
-    ('VEND', 'Vendu'),
-    ('PERD', 'Perdu'),
-    ('VOLE', 'Volé'),
-    ('REND', 'Rendu'),
-)
-
 class Livre(Metadata):
-    vendeur = models.ForeignKey(Vendeur, db_column='vendeur', related_name='+',)
-    session = models.ForeignKey(Session, db_column='session', related_name='+',)
-    isbn = models.CharField(max_length=255, blank=True, )
+
+    vendeur = models.ManyToManyField(Vendeur, db_column='vendeur', related_name='livres', through='Exemplaire')
+    isbn = models.CharField(max_length=13, blank=True, null=False, unique=True)
     titre = models.CharField(max_length=255, blank=True, )
     auteur = models.CharField(max_length=255, blank=True)
-    annee = models.PositiveIntegerField(verbose_name='Année', blank=True, ) 
-    #editeur = models.CharField(max_length=255)
-    #annee = models.CharField(max_length=255)
-    prix = models.DecimalField(max_digits=5, decimal_places=2, help_text="Format 00.00")                
-    etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES, 
-                           default='VENT', verbose_name='État', )   
+    edition = models.PositiveIntegerField(verbose_name='Édition', default=1, blank=True, null=False,) 
 
     def clean(self, *args, **kwargs):
 
@@ -87,13 +85,12 @@ class Livre(Metadata):
                     raise ValidationError('Impossible de populer les infos avec ce isbn.\n \
                                            Veuillez les saisir manuellement.')
 
-        if not self.annee:
-            raise ValidationError('Veuillez saisir l\'Annee !')
-
-
         super(Livre, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+
+        if not self.edition:
+            self.edition = 1
 
         session = Session.objects.get(date_debut__lte=datetime.date.today(), 
                                         date_fin__gte=datetime.date.today())
@@ -104,8 +101,8 @@ class Livre(Metadata):
 
         trouvees = False
 
-        query = ISBN_DB_BASE_QUERY.format(ISBN_DB_API_KEY, self.isbn)
-        reponse = simplejson.load(urllib.urlopen(query))
+        query = ISBN_DB_BASE_QUERY.format(settings.ISBNDB_API_KEY, self.isbn)
+        reponse = json.load(urllib.urlopen(query))
         if  'error' in reponse:
             trouvees = False
         else:
@@ -121,11 +118,23 @@ class Livre(Metadata):
     def __unicode__(self):
       return '%s, %s [%s]' % (self.id, self.titre, self.auteur)
 
+      
 ################################################################################
-# FACTURE (INVOICE)
+# EXEMPLAIRE (COPY)
 ################################################################################  
-class Facture(Metadata):
-    livres = models.ManyToManyField(Livre, db_column='livre', related_name='livres',)
+### CHOICES ###
+ETAT_LIVRE_CHOICES = (
+    ('VENT', 'En vente'),
+    ('VEND', 'Vendu'),
+    ('PERD', 'Perdu'),
+    ('VOLE', 'Volé'),
+    ('REND', 'Rendu'),
+)
+class Exemplaire(Metadata):
+    facture = models.ForeignKey(Facture, db_column='facture', related_name='exemplaires', null=True, blank=True)
+    livre = models.ForeignKey(Livre, db_column='livre', related_name='exemplaires',)
+    vendeur = models.ForeignKey(Vendeur, db_column='vendeur', related_name='exemplaires',)
+    etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES, 
+                           default='VENT', verbose_name='État', )   
+    prix = models.DecimalField(max_digits=5, decimal_places=2, help_text="Format 00.00")                
 
-    def __unicode__(self):
-      return 'Facture #%s' % (self.id)
