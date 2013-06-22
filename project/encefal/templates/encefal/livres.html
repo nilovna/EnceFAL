@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table, td, th{
+
+    }
+
+    td, th {
+        padding:15px;
+    }
+
+</style>
+<table class="livres">
+    <thead>
+        <th>ISBN</th>
+        <th>Titre</th>
+        <th>Prix Moyen</th>
+        <th>Quantité</th>
+    </thead>
+    <tbody>
+        {% for livre in livres %}
+        <tr>
+            <td>{{ livre.isbn }}</td> 
+            <td>{{ livre.titre }}</td> 
+            <td></td> 
+            <td></td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}  

@@ -49,6 +49,16 @@ def liste_livres(request):
     return render_to_response('encefal/liste_livres.html',
             {'vendeur':vendeur, 'livres':livres, 'date':date, 'total': prix['total']},
                                 context_instance = RequestContext(request))
+def livres(request):
+
+    livres = Livre.objects.all()
+
+    context = {
+            'livres':livres,
+            }
+
+    return render_to_response('encefal/livres.html',
+            context, context_instance = RequestContext(request))
 
 def detail_facture(request):
     if request.method == "POST":
