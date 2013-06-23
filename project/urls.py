@@ -1,18 +1,17 @@
 # -*- encoding: utf-8 -*-
 
-from django.conf.urls.defaults import *
 from django.conf import settings
+from django.conf.urls.defaults import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns(
-    '',
-    #(r'^$', include(admin.site.urls)),
-    (r'^$', 'project.views.index'),
+
+urlpatterns = patterns('',
+    (r'^$', include(admin.site.urls)),
     (r'^admin/', include(admin.site.urls)),
-    url(r'^employee/$', 'encefal.views.index_employee', name='index_employee'),
+    (r'^employee/', include('encefal.urls')),
     url(r'^paiement/$', 'encefal.views.paiement', name='paiement'),
     url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
     url(r'^livres/$', 'encefal.views.livres', name='livres'),
