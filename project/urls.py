@@ -2,16 +2,18 @@
 
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib import admin
+from django.views.generic.base import RedirectView
 
 # Uncomment the next two lines to enable the admin:
-from django.contrib import admin
 admin.autodiscover()
 
 
+
 urlpatterns = patterns('',
-    (r'^$', include(admin.site.urls)),
-    (r'^admin/', include(admin.site.urls)),
-    (r'^employee/', include('encefal.urls')),
+    url(r'^$', RedirectView.as_view(url='/admin')),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^employee/', include('encefal.urls')),
     url(r'^paiement/$', 'encefal.views.paiement', name='paiement'),
     url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
     url(r'^livres/$', 'encefal.views.livres', name='livres'),
