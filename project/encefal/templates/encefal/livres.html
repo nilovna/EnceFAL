@@ -20,10 +20,23 @@
     <tbody>
         {% for livre in livres %}
         <tr>
+
             <td>{{ livre.isbn }}</td> 
+
             <td>{{ livre.titre }}</td> 
-            <td></td> 
-            <td></td> 
+
+	    {% if livre.prix_moyen %}
+            <td>{{ livre.prix_moyen|floatformat:2 }}$</td> 
+	    {% else %}
+            <td>N.A.</td> 
+	    {% endif %}
+
+	    {% if livre.quantite %}
+            <td>{{ livre.quantite }}</td> 
+	    {% else %}
+            <td>N.A.</td> 
+	    {% endif %}
+
         </tr>
         {% endfor %}
     </tbody>

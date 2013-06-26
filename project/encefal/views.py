@@ -5,8 +5,9 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
+from django.db.models import Count, Min, Sum, Avg
 
-from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES
+from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire
 from project.encefal.forms import ExemplaireForm
 
 def index(request):
@@ -53,7 +54,9 @@ def liste_livres(request):
                               context_instance = RequestContext(request))
 def livres(request):
 
-    livres = Livre.objects.all()
+    #TODO redefinier le default Manager pour quil ne retourne que les exemplaires en vente
+    livres = Livre.objects.all().annotate(prix_moyen=Avg('exemplaires__prix'),\
+                                          quantite=Count('exemplaires__id'))
 
     context = {
             'livres':livres,
