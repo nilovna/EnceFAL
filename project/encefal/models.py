@@ -95,9 +95,6 @@ class Livre(Metadata):
         if not self.edition:
             self.edition = 1
 
-        session = Session.objects.get(date_debut__lte=datetime.date.today(),
-                                      date_fin__gte=datetime.date.today())
-        self.session = session
         super(Livre, self).save(*args, **kwargs)
 
     def rechercher_infos(self):
