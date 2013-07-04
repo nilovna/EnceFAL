@@ -20,8 +20,6 @@
 ### 5. Rapport d'activité 
 Journalier et fin de la foire aux livres. Envoyé à gérantE
 
-### 6. Aide pour prix
-Indiquer le prix moyen du même livre, présentement à la foire
 
 ### 7. Identification avec carte étudiante (compte vendeur)
 
