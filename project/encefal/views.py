@@ -1,14 +1,17 @@
 # -*- encoding: utf-8 -*-
 import datetime
+import json
+import urllib
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
 from django.db.models import Count, Min, Sum, Avg
 
-from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire
+from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire, ISBN_DB_BASE_QUERY
 from project.encefal.forms import ExemplaireForm
+from django.conf import settings
 
 def index(request):
     return render_to_response('admin', {},
@@ -64,6 +67,38 @@ def livres(request):
 
     return render_to_response('encefal/livres.html',
             context, context_instance = RequestContext(request))
+
+def livre(request):
+
+    assert('isbn' in request.GET)
+    assert(len(request.GET['isbn']) == 13 or
+           len(request.GET['isbn']) == 10)
+
+    reponse = None
+    livre = None
+    isbn = request.GET['isbn']
+
+    try:
+        livre = Livre.objects.get(isbn=isbn)
+    except Livre.DoesNotExist:
+        pass
+
+    if not livre:
+        query = ISBN_DB_BASE_QUERY.format(settings.ISBNDB_API_KEY, isbn)
+        reponse_query = json.load(urllib.urlopen(query))
+        if 'error' not in reponse_query:
+            reponse_query = reponse_query['data'][0]
+            reponse = {'titre':reponse_query['title'],
+                       'auteur':reponse_query['author_data'][0]['name']}
+
+    else:
+        reponse = {'titre':livre.titre,
+                   'auteur':livre.auteur}
+
+    if reponse:
+        return HttpResponse(json.dumps(reponse), content_type="application/json")
+    else:
+        return HttpResponseNotFound()
 
 def detail_facture(request):
     if request.method == "POST":

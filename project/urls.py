@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^paiement/$', 'encefal.views.paiement', name='paiement'),
     url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
     url(r'^livres/$', 'encefal.views.livres', name='livres'),
+    url(r'^livre/$', 'encefal.views.livre', name='livre'),
     url(r'^liste_livres/$', 'encefal.views.liste_livres', name='liste_livres'),
     url(r'^detail_facture/$', 'encefal.views.detail_facture', name='detail_facture'),
 )
