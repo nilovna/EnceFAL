@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="first-action-container">
+    <form method="post">{% csrf_token %}
+        <table>
+            <thead>
+                <th>ISBN</th> 
+                <th>titre</th> 
+                <th>Auteur</th> 
+                <th>Prix</th> 
+            </thead>
+        
+            <tbody>
+                <td>{{ form.isbn }}</td>
+                <td>{{ form.titre }}</td>
+                <td>{{ form.auteur }}</td>
+                <td>{{ form.prix }}</td>
+        
+        
+            </tbody>
+        </table>
+    </form>
+  </div>
+{% endblock content %}

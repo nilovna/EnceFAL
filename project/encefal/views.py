@@ -2,7 +2,7 @@
 import datetime
 import json
 import urllib
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.core.urlresolvers import reverse
@@ -10,7 +10,7 @@ from django.db.models import Sum, Q
 from django.db.models import Count, Min, Sum, Avg
 
 from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire, ISBN_DB_BASE_QUERY
-from project.encefal.forms import ExemplaireForm
+from project.encefal.forms import ExemplaireForm,LivreVendreForm
 from django.conf import settings
 
 def index(request):
@@ -42,6 +42,19 @@ def vendre(request):
     facture.livres = livres
     facture.save()
     return HttpResponseRedirect(reverse('paiement')+"?id=%s" % (facture.id))
+
+def ajouter_livres(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST) 
+        if form.is_valid():
+          
+            return HttpResponseRedirect('/thanks/') 
+    else:
+        form = LivreVendreForm() 
+
+    return render(request, 'encefal/employee/ajouter_livres.html', {
+        'form': form,
+    }) 
 
 def liste_livres(request):
     if request.method == "POST":
