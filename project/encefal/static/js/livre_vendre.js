@@ -3,6 +3,9 @@ $(document).ready(function () {
     document.getElementById('id_code_carte_etudiante').onchange = function () {
 
         code = document.getElementById('id_code_carte_etudiante').value;
+        if (code.length == 0){
+            return;
+        } 
 
         var query = new XMLHttpRequest();
         query.onreadystatechange=function(){
