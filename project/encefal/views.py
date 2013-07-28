@@ -8,9 +8,10 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
 from django.db.models import Count, Min, Sum, Avg
+from django.forms.formsets import formset_factory
 
 from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire, ISBN_DB_BASE_QUERY
-from project.encefal.forms import ExemplaireForm,LivreVendreForm
+from project.encefal.forms import ExemplaireForm,LivreVendreForm, VendeurForm
 from django.conf import settings
 
 def index(request):
@@ -45,15 +46,17 @@ def vendre(request):
 
 def ajouter_livres(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST) 
-        if form.is_valid():
+        formset = formset_factory(LivreVendreFrom, request.POST) 
+        if formset.is_valid():
           
             return HttpResponseRedirect('/thanks/') 
     else:
-        form = LivreVendreForm() 
+        formset = formset_factory(LivreVendreForm, extra=5)
+        vendeur = VendeurForm()
 
     return render(request, 'encefal/employee/ajouter_livres.html', {
-        'form': form,
+        'formset': formset,
+        'vendeur': vendeur,
     }) 
 
 def liste_livres(request):
@@ -84,8 +87,7 @@ def livres(request):
 def livre(request):
 
     assert('isbn' in request.GET)
-    assert(len(request.GET['isbn']) == 13 or
-           len(request.GET['isbn']) == 10)
+    assert(len(request.GET['isbn']) not in [10,13])
 
     reponse = None
     livre = None
@@ -112,6 +114,26 @@ def livre(request):
         return HttpResponse(json.dumps(reponse), content_type="application/json")
     else:
         return HttpResponseNotFound()
+
+def vendeur(request):
+
+    assert('code' in request.GET)
+    #TODO Problablement ajouter le lenght du code
+
+    vendeur = None
+    code = request.GET['code']
+
+    try:
+        vendeur = Vendeur.objects.get(code_carte_etudiante=code)
+    except Vendeur.DoesNotExist:
+        return HttpResponseNotFound()
+
+    reponse = {'nom':vendeur.nom,
+               'prenom':vendeur.prenom,
+               'code_permanent':vendeur.code_permanent,
+               'email':vendeur.email}
+    
+    return HttpResponse(json.dumps(reponse), content_type="application/json")
 
 def detail_facture(request):
     if request.method == "POST":

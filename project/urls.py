@@ -8,8 +8,6 @@ from django.views.generic.base import RedirectView
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
-
-
 urlpatterns = patterns('',
     url(r'^$', RedirectView.as_view(url='/admin')),
     url(r'^admin/', include(admin.site.urls)),
@@ -18,10 +16,10 @@ urlpatterns = patterns('',
     url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
     url(r'^livres/$', 'encefal.views.livres', name='livres'),
     url(r'^livre/$', 'encefal.views.livre', name='livre'),
+    url(r'^vendeur/$', 'encefal.views.vendeur', name='vendeur'),
     url(r'^liste_livres/$', 'encefal.views.liste_livres', name='liste_livres'),
     url(r'^detail_facture/$', 'encefal.views.detail_facture', name='detail_facture'),
 )
-
 
 if settings.DEBUG:
     urlpatterns += patterns('',

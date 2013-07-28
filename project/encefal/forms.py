@@ -10,13 +10,18 @@ class ExemplaireForm(ModelForm):
 class VendeurForm(ModelForm):
     class Meta:
         model = Vendeur
+        exclude = ['actif']
+        fields = ['code_carte_etudiante', 
+                  'code_permanent', 
+                  'prenom', 
+                  'nom' , 
+                  'email']
 
 class LivreVendreForm(Form):
-    isbn = IntegerField(required=True, 
-                        help_text="Veuillez scanner le code barre du livre")
+    isbn = CharField(required=True, 
+                        help_text="Veuillez scanner le code barre du livre",
+                        max_length=13)
     titre = CharField(required=True)
     auteur = CharField(required=True)
     prix = DecimalField(required=True)
 
-    def is_valid():
-        return False

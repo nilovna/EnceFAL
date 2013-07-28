@@ -42,7 +42,7 @@ class Vendeur(Metadata):
     email = models.EmailField(max_length=255, blank=True)
 
     def __unicode__(self):
-        return '%s, %s [%s]' % (self.nom, self.prenom, self.id)
+        return '%s, %s' % (self.nom, self.prenom)
 
 ################################################################################
 # SESSION (SEMESTER)
