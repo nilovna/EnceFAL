@@ -96,8 +96,4 @@ INSTALLED_APPS = (
     'south',
 )
 
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), "templates"),
-)
-
 STATIC_URL = '/static/'
