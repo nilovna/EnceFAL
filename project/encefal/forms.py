@@ -16,12 +16,30 @@ class VendeurForm(ModelForm):
                   'prenom', 
                   'nom' , 
                   'email']
+    class Media:
+        js = {
+                all: ('js/vente.js',)
+                }
 
-class LivreVendreForm(Form):
+class LivreVendreForm(ModelForm):
+    exclude = ( 'actif', 'livre', 'etat',)
+
     isbn = CharField(required=True, 
-                        help_text="Veuillez scanner le code barre du livre",
+                        help_text="Scannez le code barre du livre",
+                        label="ISBN",
                         max_length=13)
-    titre = CharField(required=True)
-    auteur = CharField(required=True)
-    prix = DecimalField(required=True)
+
+    titre = CharField(required=True, 
+                      label="Titre",
+                      help_text="Titre")
+
+    auteur = CharField(required=True, 
+                       label="Auteur",
+                       help_text="Auteur")
+    
+    prix = DecimalField(required=True, 
+                        label="Prix demandé",
+                        help_text="Prix")
+    class Meta:
+        model = Exemplaire
 

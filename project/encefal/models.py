@@ -44,6 +44,10 @@ class Vendeur(Metadata):
     def __unicode__(self):
         return '%s, %s' % (self.nom, self.prenom)
 
+class Vente(Vendeur):
+    class Meta:
+        proxy = True
+
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
