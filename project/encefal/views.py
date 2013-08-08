@@ -87,11 +87,13 @@ def livres(request):
 def livre(request):
 
     assert('isbn' in request.GET)
-    assert(len(request.GET['isbn']) not in [10,13])
+    assert('nb' in request.GET)
+    assert(len(request.GET['isbn']) in [10,13])
 
     reponse = None
     livre = None
     isbn = request.GET['isbn']
+    nb = request.GET['nb']
 
     try:
         livre = Livre.objects.get(isbn=isbn)
@@ -104,11 +106,13 @@ def livre(request):
         if 'error' not in reponse_query:
             reponse_query = reponse_query['data'][0]
             reponse = {'titre':reponse_query['title'],
-                       'auteur':reponse_query['author_data'][0]['name']}
+                       'auteur':reponse_query['author_data'][0]['name'],
+                       'nb':nb}
 
     else:
         reponse = {'titre':livre.titre,
-                   'auteur':livre.auteur}
+                   'auteur':livre.auteur,
+                   'nb':nb}
 
     if reponse:
         return HttpResponse(json.dumps(reponse), content_type="application/json")

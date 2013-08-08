@@ -1,30 +1,56 @@
-window.onload = function () {
+django.jQuery(document).ready(function () {
 
-    document.getElementById('id_code_carte_etudiante').onchange = function () {
+    django.jQuery('#id_code_carte_etudiante').change(function () {
 
-        code = document.getElementById('id_code_carte_etudiante').value;
+        code = django.jQuery('#id_code_carte_etudiante').val();
         if (code.length == 0){
             return;
         } 
 
-        var query = new XMLHttpRequest();
-        query.onreadystatechange=function(){
-            if (query.readyState == 4 && query.status != 404){
-                infos = JSON.parse(query.responseText);
-
-                document.getElementById('id_code_permanent').value = JSON.parse(query.responseText).code_permanent;
-                document.getElementById('id_prenom').value = JSON.parse(query.responseText).prenom;
-                document.getElementById('id_email').value = JSON.parse(query.responseText).email;
-                document.getElementById('id_nom').value = JSON.parse(query.responseText).nom;
-
-            } else if (query.readyState == 4 && query.status == 404){
-                // Ecrire un message d'erreur pour que l'employee entre les infos
-            }
-        };
         url = "/vendeur/?code=" + code;
-        query.open("GET",url,true);
-        query.send();
+        django.jQuery.get(url, function(response, status){
+            if (status == "success"){
 
-    };
+                django.jQuery('#id_code_permanent').val(response.code_permanent);
+                django.jQuery('#id_prenom').val(response.prenom);
+                django.jQuery('#id_email').val(response.email);
+                django.jQuery('#id_nom').val( response.nom);
 
-};
+            }
+        });
+
+
+    });
+
+    function get_isbn(){
+
+        code = django.jQuery('#id_exemplaires-' + this.nb + '-isbn').val();
+        if (code.length == 0){
+            return;
+        } 
+
+        url = "/livre/?isbn=" + code + '&nb=' + this.nb;
+        django.jQuery.get(url, function(response, status){
+            if (status == "success"){
+
+                django.jQuery('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
+                django.jQuery('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
+                django.jQuery('#id_exemplaires-' + response.nb + '-prix').focus();
+
+            }
+
+        });
+
+    }
+
+    var i = 0;
+    id = 'id_exemplaires-' + i + '-isbn';
+    input = document.getElementById('id_exemplaires-' + i + '-isbn');
+
+    while(input){
+        input.onchange = get_isbn.bind({nb:i});
+        i++;
+        input = document.getElementById('id_exemplaires-' + i + '-isbn');
+    }
+
+});
