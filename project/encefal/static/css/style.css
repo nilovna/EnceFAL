@@ -12,6 +12,12 @@ body {
   text-transform: uppercase;
 }
 
+/* Page Content
+-------------------------------------------------------------- */
+.page-content {
+  padding-top: 30px;
+}
+
 /* Index employee page
 -------------------------------------------------------------- */
 .first-action-container {
