@@ -1,4 +1,4 @@
-$(document).ready(function () {
+window.onload = function () {
 
     document.getElementById('id_code_carte_etudiante').onchange = function () {
 
@@ -21,10 +21,10 @@ $(document).ready(function () {
                 // Ecrire un message d'erreur pour que l'employee entre les infos
             }
         };
-        url = "../vendeur/?code=" + code;
+        url = "/vendeur/?code=" + code;
         query.open("GET",url,true);
         query.send();
 
     };
 
-});
+};
