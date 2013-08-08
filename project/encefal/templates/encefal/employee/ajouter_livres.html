@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="{{ STATIC_URL }}/js/livre_vendre.js"></script>
+  {{ vendeur.as_p }}
+  <div class="first-action-container">
+    <form method="post">{% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            <thead>
+                <th>ISBN</th> 
+                <th>titre</th> 
+                <th>Auteur</th> 
+                <th>Prix</th> 
+            </thead>
+        
+            {% for form in formset %}
+            <tbody>
+                <td>{{ form.isbn }}</td>
+                <td>{{ form.titre }}</td>
+                <td>{{ form.auteur }}</td>
+                <td>{{ form.prix }}</td>
+            </tbody>
+            {% endfor %}
+        </table>
+    </form>
+  </div>
+{% endblock content %}
