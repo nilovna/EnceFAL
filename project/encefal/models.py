@@ -48,6 +48,11 @@ class Reception(Vendeur):
     class Meta:
         proxy = True
 
+    def __unicode__(self):
+        return ("Reception de livres de " + 
+                self.nom + ', ' + 
+                self.prenom)
+
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
@@ -123,7 +128,7 @@ class Livre(Metadata):
         return trouvees
 
     def __unicode__(self):
-      return '%s, %s [%s]' % (self.id, self.titre, self.auteur)
+      return '%s [%s]' % (self.titre, self.auteur)
 
 
 ################################################################################
@@ -149,4 +154,7 @@ class Exemplaire(Metadata):
                             default='VENT', verbose_name='État', )
     prix = models.DecimalField(max_digits=5, decimal_places=2,
                                help_text="Format 00.00")
+
+    def __unicode__(self):
+        return self.livre.__unicode__()
 

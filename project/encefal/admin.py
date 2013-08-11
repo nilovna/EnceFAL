@@ -19,7 +19,7 @@ class LivreFormInline(admin.TabularInline):
     model = Exemplaire
     form = LivreVendreForm
     fields = ['isbn', 'titre', 'auteur', 'prix']
-    extra = 15
+    extra = 1
 
 class SessionAdmin(admin.ModelAdmin):
     exclude = ('actif',)

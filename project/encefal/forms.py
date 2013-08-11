@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.forms import ModelForm,Form
 from django.forms import IntegerField, CharField, DecimalField
-from project.encefal.models import Exemplaire,Vendeur
+from project.encefal.models import Exemplaire,Vendeur,Livre,ETAT_LIVRE_CHOICES
 
 class ExemplaireForm(ModelForm):
     class Meta:
@@ -40,6 +40,20 @@ class LivreVendreForm(ModelForm):
     prix = DecimalField(required=True, 
                         label="Prix demandé",
                         help_text="Prix")
+
+    def clean(self):
+        cleaned_data = super(LivreVendreForm, self).clean()
+        
+        livre, created = Livre.objects.get_or_create(isbn=cleaned_data.get('isbn'))
+        if created:
+            livre.auteur = cleaned_data.get('auteur')
+            livre.titre = cleaned_data.get('titre')
+
+        livre.save()
+        self.instance.livre = livre
+        
+        return cleaned_data
+
     class Meta:
         model = Exemplaire
 
