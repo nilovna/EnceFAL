@@ -53,6 +53,15 @@ class Reception(Vendeur):
                 self.nom + ', ' + 
                 self.prenom)
 
+class Vente(User):
+    class Meta:
+        proxy = True
+
+    def __unicode__(self):
+        return ("Vente par" + 
+                self.last_name + ', ' + 
+                self.first_name)
+
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
@@ -89,43 +98,12 @@ class Livre(Metadata):
     edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
                                           blank=True, null=False,)
 
-    def clean(self, *args, **kwargs):
-
-        #TODO: verifier le isbn avec un regex
-
-        if self.pk is None:
-            if self.isbn and not self.titre:
-                if not self.rechercher_infos():
-                    raise ValidationError('Impossible de populer les infos \
-                                          avec ce isbn.\n \
-                                          Veuillez les saisir manuellement.')
-
-        super(Livre, self).clean(*args, **kwargs)
-
     def save(self, *args, **kwargs):
 
         if not self.edition:
             self.edition = 1
 
         super(Livre, self).save(*args, **kwargs)
-
-    def rechercher_infos(self):
-
-        trouvees = False
-
-        query = ISBN_DB_BASE_QUERY.format(settings.ISBNDB_API_KEY, self.isbn)
-        reponse = json.load(urllib.urlopen(query))
-        if  'error' in reponse:
-            trouvees = False
-        else:
-            reponse = reponse['data'][0]
-            self.titre = reponse['title']
-            self.auteur = reponse['author_data'][0]['name']
-            #Impossible d'avoir l'annee avec isbndb
-            #self.annee = 2013
-            trouvees = True
-
-        return trouvees
 
     def __unicode__(self):
       return '%s [%s]' % (self.titre, self.auteur)

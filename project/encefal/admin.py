@@ -11,7 +11,8 @@ from project.encefal.models import (
                                     Vendeur, Session,
                                     Livre, Facture,
                                     ETAT_LIVRE_CHOICES,
-                                    Exemplaire, Reception
+                                    Exemplaire, Reception,
+                                    Vente
                                    )
 
 class LivreFormInline(admin.TabularInline):
@@ -30,16 +31,19 @@ class ReceptionAdmin(admin.ModelAdmin):
     exclude = ('actif',)
     inlines = [ LivreFormInline, ]
 
+class VenteAdmin(admin.ModelAdmin):
+    model = Vente
+    readonly_fields = ('last_name','email','first_name')
+    fields = ('last_name','email','first_name')
+
 class LivreAdmin(admin.ModelAdmin):
-    # TODO: Le champ session doit être automatiquement mis à la session courante
-    #      Vérifier que l'ajout d'un livre soit seulement possible si la date
-    #      d'aujourd'hui correspond à une période de la foire aux livre
     fields = ('isbn', 'titre', 'auteur', 'edition')
     list_display = ('isbn', 'titre', 'auteur', 'edition')
     search_fields = ['titre', 'auteur', 'isbn']
 
 admin.site.register(Vendeur)
 admin.site.register(Reception, ReceptionAdmin)
+admin.site.register(Vente, VenteAdmin)
 admin.site.register(Session, SessionAdmin)
 admin.site.register(Livre, LivreAdmin)
 admin.site.register(Facture)
