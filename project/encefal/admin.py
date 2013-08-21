@@ -23,12 +23,14 @@ class LivreFormInline(admin.TabularInline):
     extra = 1
 
 class LivreVenteFormInline(admin.TabularInline):
+ 
+
     exclude = [ 'actif', 'etat', 'livre']
     model = Exemplaire
     form = LivreVenteForm
-    fields = ['id','isbn', 'titre', 'auteur', 'prix']
+    fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
     #readonly_fields = ('isbn','titre','auteur', 'prix')
-    extra = 1
+    extra = 15
 
 class SessionAdmin(admin.ModelAdmin):
     exclude = ('actif',)
@@ -42,7 +44,7 @@ class ReceptionAdmin(admin.ModelAdmin):
 class VenteAdmin(admin.ModelAdmin):
     model = Facture
     #readonly_fields = ('last_name','email','first_name')
-    fields = ()
+    exclude = ('actif',)
     inlines = [ LivreVenteFormInline, ]
 
 class LivreAdmin(admin.ModelAdmin):

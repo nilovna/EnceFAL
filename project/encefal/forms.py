@@ -54,6 +54,7 @@ class LivreVendreForm(ModelForm):
         model = Exemplaire
 
 class LivreVenteForm(ModelForm):
+
     exclude = ( 'actif', 'livre', 'etat',)
 
     isbn = CharField(required=True, 
@@ -65,7 +66,7 @@ class LivreVenteForm(ModelForm):
                       label="Titre",
                       help_text="Titre")
 
-    id = IntegerField(required=True, 
+    identifiant = IntegerField(required=True, 
                       label="Identifiant",
                       help_text="Identifiant")
 
