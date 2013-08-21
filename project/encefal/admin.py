@@ -6,13 +6,13 @@ from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
 
-from project.encefal.forms import LivreVendreForm, VendeurForm
+from project.encefal.forms import LivreVendreForm, VendeurForm, LivreVenteForm
 from project.encefal.models import (
                                     Vendeur, Session,
                                     Livre, Facture,
                                     ETAT_LIVRE_CHOICES,
                                     Exemplaire, Reception,
-                                    Vente
+                                    Vente, Facture
                                    )
 
 class LivreFormInline(admin.TabularInline):
@@ -20,6 +20,14 @@ class LivreFormInline(admin.TabularInline):
     model = Exemplaire
     form = LivreVendreForm
     fields = ['isbn', 'titre', 'auteur', 'prix']
+    extra = 1
+
+class LivreVenteFormInline(admin.TabularInline):
+    exclude = [ 'actif', 'etat', 'livre']
+    model = Exemplaire
+    form = LivreVenteForm
+    fields = ['id','isbn', 'titre', 'auteur', 'prix']
+    #readonly_fields = ('isbn','titre','auteur', 'prix')
     extra = 1
 
 class SessionAdmin(admin.ModelAdmin):
@@ -32,9 +40,10 @@ class ReceptionAdmin(admin.ModelAdmin):
     inlines = [ LivreFormInline, ]
 
 class VenteAdmin(admin.ModelAdmin):
-    model = Vente
-    readonly_fields = ('last_name','email','first_name')
-    fields = ('last_name','email','first_name')
+    model = Facture
+    #readonly_fields = ('last_name','email','first_name')
+    fields = ()
+    inlines = [ LivreVenteFormInline, ]
 
 class LivreAdmin(admin.ModelAdmin):
     fields = ('isbn', 'titre', 'auteur', 'edition')

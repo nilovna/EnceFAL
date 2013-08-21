@@ -53,15 +53,6 @@ class Reception(Vendeur):
                 self.nom + ', ' + 
                 self.prenom)
 
-class Vente(User):
-    class Meta:
-        proxy = True
-
-    def __unicode__(self):
-        return ("Vente par" + 
-                self.last_name + ', ' + 
-                self.first_name)
-
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
@@ -108,6 +99,13 @@ class Livre(Metadata):
     def __unicode__(self):
       return '%s [%s]' % (self.titre, self.auteur)
 
+
+class Vente(Facture):
+    class Meta:
+        proxy = True
+
+    def __unicode__(self):
+        return ""
 
 ################################################################################
 # EXEMPLAIRE (COPY)

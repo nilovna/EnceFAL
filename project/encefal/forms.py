@@ -37,6 +37,42 @@ class LivreVendreForm(ModelForm):
                        label="Auteur",
                        help_text="Auteur")
     
+    def clean(self):
+        cleaned_data = super(LivreVendreForm, self).clean()
+        
+        livre, created = Livre.objects.get_or_create(isbn=cleaned_data.get('isbn'))
+        if created:
+            livre.auteur = cleaned_data.get('auteur')
+            livre.titre = cleaned_data.get('titre')
+
+        livre.save()
+        self.instance.livre = livre
+        
+        return cleaned_data
+
+    class Meta:
+        model = Exemplaire
+
+class LivreVenteForm(ModelForm):
+    exclude = ( 'actif', 'livre', 'etat',)
+
+    isbn = CharField(required=True, 
+                        help_text="Scannez le code barre du livre",
+                        label="ISBN",
+                        max_length=13)
+
+    titre = CharField(required=True, 
+                      label="Titre",
+                      help_text="Titre")
+
+    id = IntegerField(required=True, 
+                      label="Identifiant",
+                      help_text="Identifiant")
+
+    auteur = CharField(required=True, 
+                       label="Auteur",
+                       help_text="Auteur")
+    
     prix = DecimalField(required=True, 
                         label="Prix demandé",
                         help_text="Prix")
