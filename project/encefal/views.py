@@ -119,6 +119,28 @@ def livre(request):
     else:
         return HttpResponseNotFound()
 
+def exemplaire(request):
+
+    assert('identifiant' in request.GET)
+
+    identifiant = request.GET['identifiant']
+
+    try:
+        exemplaire = Livre.objects.get(pk=identifiant)
+    except Exemplaire.DoesNotExist:
+        return HttpResponseNotFound()
+
+    assert(exemplaire.livre)
+
+    reponse = {
+               'titre':exemplaire.livre.titre,
+               'auteur':exemplaire.livre.auteur,
+               'prix':exemplaire.prix,
+               'isbn':exemplaire.livre.isbn
+              }
+
+    return HttpResponse(json.dumps(reponse), content_type="application/json")
+
 def vendeur(request):
 
     assert('code' in request.GET)
