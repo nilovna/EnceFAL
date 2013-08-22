@@ -22,12 +22,17 @@ django.jQuery(document).ready(function () {
 
     });
 
-    function get_isbn(){
+    get_isbn = function (event) {
 
-        code = django.jQuery('#id_exemplaires-' + this.nb + '-isbn').val();
+        var isbn_regex = /id_exemplaires-(\d+)-isbn/;
+
+        code = django.jQuery('#' + event.target.id).val();
         if (code.length == 0){
             return;
         } 
+
+        nb = isbn_regex.exec(event.target.id);
+        nb = nb[1];
 
         url = "/livre/?isbn=" + code + '&nb=' + this.nb;
         django.jQuery.get(url, function(response, status){
@@ -41,16 +46,6 @@ django.jQuery(document).ready(function () {
 
         });
 
-    }
-
-    var i = 0;
-    id = 'id_exemplaires-' + i + '-isbn';
-    input = document.getElementById('id_exemplaires-' + i + '-isbn');
-
-    while(input){
-        input.onchange = get_isbn.bind({nb:i});
-        i++;
-        input = document.getElementById('id_exemplaires-' + i + '-isbn');
     }
 
 });

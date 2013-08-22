@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.forms import ModelForm,Form
+from django.forms import ModelForm,Form, TextInput
 from django.forms import IntegerField, CharField, DecimalField
 from project.encefal.models import Exemplaire,Vendeur,Livre,ETAT_LIVRE_CHOICES
 
@@ -21,13 +21,26 @@ class VendeurForm(ModelForm):
                 all: ('js/vente.js',)
                 }
 
+class IsbnTextInput(TextInput):
+
+    def __init__(self, attrs=None):
+        if attrs:
+            attrs['onchange'] = 'get_isbn(event);'
+        else:
+            attrs = {'onchange':'get_isbn(event);'}
+
+        super(TextInput, self).__init__(attrs) 
+
 class LivreVendreForm(ModelForm):
     exclude = ( 'actif', 'livre', 'etat',)
 
-    isbn = CharField(required=True, 
-                        help_text="Scannez le code barre du livre",
-                        label="ISBN",
-                        max_length=13)
+    isbn = CharField(
+                     required=True, 
+                     help_text="Scannez le code barre du livre",
+                     label="ISBN",
+                     widget=IsbnTextInput,
+                     max_length=13
+                    )
 
     titre = CharField(required=True, 
                       label="Titre",
