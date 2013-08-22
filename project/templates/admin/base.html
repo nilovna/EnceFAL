@@ -89,9 +89,10 @@
 
       <!-- Content -->
       <div class="container {% block coltype %}colM{% endblock %}">
-        <div class="row-fluid">
           {% block pretitle %}{% endblock %}
-          {% comment %}{% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}{% endcomment %}
+          {% block content_title %}{% if title %}<h2 class="section caption">{{ title }}</h2>{% endif %}{% endblock %}
+        <div class="row-fluid">
+
           {% block content %}
           {% block object-tools %}{% endblock %}
           {{ content }}
