@@ -122,11 +122,13 @@ def livre(request):
 def exemplaire(request):
 
     assert('identifiant' in request.GET)
+    assert('nb' in request.GET)
 
+    nb = request.GET['nb']
     identifiant = request.GET['identifiant']
 
     try:
-        exemplaire = Livre.objects.get(pk=identifiant)
+        exemplaire = Exemplaire.objects.get(pk=identifiant)
     except Exemplaire.DoesNotExist:
         return HttpResponseNotFound()
 
@@ -135,8 +137,9 @@ def exemplaire(request):
     reponse = {
                'titre':exemplaire.livre.titre,
                'auteur':exemplaire.livre.auteur,
-               'prix':exemplaire.prix,
-               'isbn':exemplaire.livre.isbn
+               'prix':int(exemplaire.prix),
+               'isbn':exemplaire.livre.isbn,
+               'nb':nb
               }
 
     return HttpResponse(json.dumps(reponse), content_type="application/json")

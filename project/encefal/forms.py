@@ -31,6 +31,16 @@ class IsbnTextInput(TextInput):
 
         super(TextInput, self).__init__(attrs) 
 
+class IdentifiantTextInput(TextInput):
+
+    def __init__(self, attrs=None):
+        if attrs:
+            attrs['onchange'] = 'get_exemplaire(event);'
+        else:
+            attrs = {'onchange':'get_exemplaire(event);'}
+
+        super(TextInput, self).__init__(attrs) 
+
 class LivreVendreForm(ModelForm):
     exclude = ( 'actif', 'livre', 'etat',)
 
@@ -81,7 +91,8 @@ class LivreVenteForm(ModelForm):
 
     identifiant = IntegerField(required=True, 
                       label="Identifiant",
-                      help_text="Identifiant")
+                      help_text="Identifiant",
+                      widget=IdentifiantTextInput)
 
     auteur = CharField(required=True, 
                        label="Auteur",

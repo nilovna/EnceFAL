@@ -61,10 +61,13 @@ class LivreAdmin(admin.ModelAdmin):
     list_display = ('isbn', 'titre', 'auteur', 'edition')
     search_fields = ['titre', 'auteur', 'isbn']
 
+class ExemplaireAdmin(admin.ModelAdmin):
+    list_display = ('vendeur', 'etat', 'pk',)
+
 admin.site.register(Vendeur)
 admin.site.register(Reception, ReceptionAdmin)
 admin.site.register(Vente, VenteAdmin)
 admin.site.register(Session, SessionAdmin)
 admin.site.register(Livre, LivreAdmin)
 admin.site.register(Facture)
-admin.site.register(Exemplaire)
+admin.site.register(Exemplaire, ExemplaireAdmin)
