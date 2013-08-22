@@ -4,6 +4,8 @@
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+<script type="text/javascript" src="{% get_static_prefix %}js/vente.js"></script>
+
 {{ media }}
 {% endblock %}
 
