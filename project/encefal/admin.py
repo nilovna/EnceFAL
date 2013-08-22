@@ -24,7 +24,6 @@ class LivreFormInline(admin.TabularInline):
 
 class LivreVenteFormInline(admin.TabularInline):
  
-
     exclude = [ 'actif', 'etat', 'livre']
     model = Exemplaire
     form = LivreVenteForm
@@ -42,8 +41,14 @@ class ReceptionAdmin(admin.ModelAdmin):
     inlines = [ LivreFormInline, ]
 
 class VenteAdmin(admin.ModelAdmin):
+
+    def __init__(self, *args, **kwargs):
+        super(VenteAdmin, self).__init__(*args, **kwargs)
+        self.model.session = Session.current_session()
+        #self.model.employe = current_user()
+
     model = Facture
-    #readonly_fields = ('last_name','email','first_name')
+    readonly_fields = ('employe','session',)
     exclude = ('actif',)
     inlines = [ LivreVenteFormInline, ]
 

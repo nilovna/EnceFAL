@@ -65,6 +65,18 @@ class Session(Metadata):
     def __unicode__(self):
         return '%s' % (self.nom)
 
+    @staticmethod
+    def current_session():
+        try:
+            reponse = Session.objects.get(date_debut__lte=datetime.date.today(),
+                                       date_fin__gte=datetime.date.today())
+        except Session.DoesNotExist:
+            reponse = None
+
+        return reponse
+
+
+
 ################################################################################
 # FACTURE (INVOICE)
 ################################################################################
