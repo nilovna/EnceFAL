@@ -1,20 +1,20 @@
-django.jQuery(document).ready(function () {
+$(document).ready(function () {
 
-    django.jQuery('#id_code_carte_etudiante').change(function () {
+    $('#id_code_carte_etudiante').change(function () {
 
-        code = django.jQuery('#id_code_carte_etudiante').val();
+        code = $('#id_code_carte_etudiante').val();
         if (code.length == 0){
             return;
         } 
 
         url = "/vendeur/?code=" + code;
-        django.jQuery.get(url, function(response, status){
+        $.get(url, function(response, status){
             if (status == "success"){
 
-                django.jQuery('#id_code_permanent').val(response.code_permanent);
-                django.jQuery('#id_prenom').val(response.prenom);
-                django.jQuery('#id_email').val(response.email);
-                django.jQuery('#id_nom').val( response.nom);
+                $('#id_code_permanent').val(response.code_permanent);
+                $('#id_prenom').val(response.prenom);
+                $('#id_email').val(response.email);
+                $('#id_nom').val( response.nom);
 
             }
         });
@@ -26,7 +26,7 @@ django.jQuery(document).ready(function () {
 
         var identifiant_regex = /id_exemplaires-(\d+)-identifiant/;
 
-        identifiant = django.jQuery('#' + event.target.id).val();
+        identifiant = $('#' + event.target.id).val();
         if (identifiant.length == 0){
             return;
         } 
@@ -35,13 +35,13 @@ django.jQuery(document).ready(function () {
         nb = nb[1];
 
         url = "/exemplaire/?identifiant=" + identifiant + '&nb=' + this.nb;
-        django.jQuery.get(url, function(response, status){
+        $.get(url, function(response, status){
             if (status == "success"){
 
-                django.jQuery('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
-                django.jQuery('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
-                django.jQuery('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
-                django.jQuery('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
+                $('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
+                $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
+                $('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
+                $('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
 
             }
 
@@ -53,7 +53,7 @@ django.jQuery(document).ready(function () {
 
         var isbn_regex = /id_exemplaires-(\d+)-isbn/;
 
-        code = django.jQuery('#' + event.target.id).val();
+        code = $('#' + event.target.id).val();
         if (code.length == 0){
             return;
         } 
@@ -62,12 +62,12 @@ django.jQuery(document).ready(function () {
         nb = nb[1];
 
         url = "/livre/?isbn=" + code + '&nb=' + this.nb;
-        django.jQuery.get(url, function(response, status){
+        $.get(url, function(response, status){
             if (status == "success"){
 
-                django.jQuery('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
-                django.jQuery('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
-                django.jQuery('#id_exemplaires-' + response.nb + '-prix').focus();
+                $('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
+                $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
+                $('#id_exemplaires-' + response.nb + '-prix').focus();
 
             }
 
