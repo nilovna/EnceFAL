@@ -1,24 +1,56 @@
-/* General
+/* $GENERAL
 -------------------------------------------------------------- */
 body {
   font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100%;
   padding-top: 40px;
   position: relative;
 }
 
-/* Buttons
+h1 {
+  font-size: 2rem;
+  line-height: 1.33333;
+}
+
+h2 {
+  font-size: 1.8rem;
+  line-height: 1.6;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+h4, .section {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h6 {
+  font-size: 0.875rem;
+  line-height: 1.71429;
+}
+/* $BUTTONS
 -------------------------------------------------------------- */
 .btn {
   text-transform: uppercase;
 }
 
-/* Page Content
+/* $PAGE CONTENT
 -------------------------------------------------------------- */
 .page-content {
-  padding-top: 30px;
+  padding-top: 54px;
 }
 
-/* Index employee page
+/* $INDEX EMPLOYEE
 -------------------------------------------------------------- */
 .first-action-container {
   text-align: center;
@@ -31,8 +63,40 @@ body {
   padding: 20px 30px;
 }
 
-/* Admin
+/* $ADMIN
 -------------------------------------------------------------- */
 .user-tools {
-  padding: 1.2em 10px;
+  padding: 1rem 10px;
+}
+
+.module caption {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  border-color: #0044cc #0044cc #002a80;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0 ;
+  border-radius: 4px 4px 0 0;
+  padding: 0.5rem 0;
+}
+
+.section {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.section:active,
+.section:hover {
+  color: #ffffff;
+}
+
+/* $NAVBAR
+-------------------------------------------------------------- */
+.navbar .nav > li > a {
+  padding: 1rem;
 }

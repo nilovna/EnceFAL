@@ -1,69 +1,10 @@
-<!DOCTYPE html>
-{% load bootstrap_toolkit %}
-{% load url from future %}
-{% load static %}
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>EnceFAL - {%block pagetitle %}{% endblock pagetitle %}</title>
-    <meta name="description" content="">
-    <!-- <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" /> -->
-    {% bootstrap_stylesheet_tag %}
-    {% bootstrap_stylesheet_tag "responsive" %}
-    {% block extrastyle %}{% endblock %}
-    <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
-    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
-    <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
-    {% block extrahead %}{% endblock %}
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    {% bootstrap_javascript_tag %}
-    
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% get_static_prefix %}css/style.css" type='text/css'>
-    
-    {% block extra_head %}{% endblock %}
+{% extends "admin/base.html" %}
+{% load i18n %}
 
-  </head>
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/">
-            {% block branding %}{% endblock branding %}EnceFAL
-          </a>
-          <ul class="nav">
-            <li class="">
-              <a href="/">Home</a>
-            </li>
-	           <li>
-              <a href="/livres">Livres</a>
-            </li>
-          </ul>
-        {% if user.is_active and user.is_staff %}
-        <div class="pull-right user-tools">
-            Bienvenue,
-            <strong>{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %}</strong>.
-            {% block userlinks %}
-                {% url 'django-admindocs-docroot' as docsroot %}
-                {% if docsroot %}
-                    <a href="{{ docsroot }}">Documentation</a> /
-                {% endif %}
-                {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">Change password</a> /
-                {% endif %}
-                <a href="{% url 'admin:logout' %}">Deconnecter</a>
-            {% endblock %}
-        </div>
-        {% endif %}
-        </div>
-      </div>
-    </div>
-    <div class="container page-content">
-      {% block content %}{% endblock content %}
-    </div>
-  </body>
-</html>
+{% block branding %}
+Administration d'EnceFAL
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
