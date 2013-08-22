@@ -30,13 +30,13 @@
             {% endif %}
 
             {% if model.add_url %}
-                <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
+                <td><a href="{{ model.add_url }}" class="addlink"><i class="icon-plus"></i>{% trans 'Add' %}</a></td>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
 
             {% if model.admin_url %}
-                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                <td><a href="{{ model.admin_url }}" class="changelink"><i class="icon-pencil"></i>{% trans 'Change' %}</a></td>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
@@ -54,7 +54,7 @@
 {% block sidebar %}
 <div class="content-related span6">
     <div class="module" id="recent-actions-module">
-        <h2>{% trans 'Recent Actions' %}</h2>
+        <h2 class="caption section">{% trans 'Recent Actions' %}</h2>
         <h3>{% trans 'My Actions' %}</h3>
             {% load log %}
             {% get_admin_log 10 as admin_log for_user user %}
