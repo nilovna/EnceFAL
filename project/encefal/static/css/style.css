@@ -44,10 +44,18 @@ h6 {
   text-transform: uppercase;
 }
 
+.btn-small {
+  font-weight: 700;
+}
+
 /* $PAGE CONTENT
 -------------------------------------------------------------- */
 .page-content {
   padding-top: 40px;
+}
+
+.breadcrumbs {
+  margin-bottom: 1rem;
 }
 
 /* $INDEX EMPLOYEE
@@ -104,7 +112,7 @@ h6 {
     }
 
   .module caption,
-  .module .caption {
+  .caption {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #006dcc;
     background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
