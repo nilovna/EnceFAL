@@ -105,13 +105,7 @@ class LivreVenteForm(ModelForm):
     def clean(self):
         cleaned_data = super(LivreVendreForm, self).clean()
         
-        livre, created = Livre.objects.get_or_create(isbn=cleaned_data.get('isbn'))
-        if created:
-            livre.auteur = cleaned_data.get('auteur')
-            livre.titre = cleaned_data.get('titre')
-
-        livre.save()
-        self.instance.livre = livre
+        self.instance.etat = ETAT_LIVRE_CHOICES.VEND
         
         return cleaned_data
 
