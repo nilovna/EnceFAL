@@ -39,10 +39,26 @@
             <li class="">
               <a href="/">Home</a>
             </li>
-	    <li>
+	           <li>
               <a href="/livres">Livres</a>
             </li>
           </ul>
+        {% if user.is_active and user.is_staff %}
+        <div class="pull-right user-tools">
+            Bienvenue,
+            <strong>{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %}</strong>.
+            {% block userlinks %}
+                {% url 'django-admindocs-docroot' as docsroot %}
+                {% if docsroot %}
+                    <a href="{{ docsroot }}">Documentation</a> /
+                {% endif %}
+                {% if user.has_usable_password %}
+                <a href="{% url 'admin:password_change' %}">Change password</a> /
+                {% endif %}
+                <a href="{% url 'admin:logout' %}">Deconnecter</a>
+            {% endblock %}
+        </div>
+        {% endif %}
         </div>
       </div>
     </div>
