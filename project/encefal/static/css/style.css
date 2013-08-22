@@ -81,6 +81,28 @@ h6 {
     margin-bottom: 0;
   }
 
+  .recent-actions-module-title {
+    margin: 1rem;
+  }
+
+  .actionlist {
+    list-style: none;
+    margin: 0;
+  }
+
+    .actionlist small {
+      color: #6B6b6b;
+      padding-left: 1.2rem;
+    }
+
+    .actionlist li {
+      padding: 0.5rem 1rem;
+    }
+
+    .actionlist li:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+
   .module caption,
   .module .caption {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -109,6 +131,7 @@ h6 {
     .section:hover {
       color: #ffffff;
     }
+
 
 /* $NAVBAR
 -------------------------------------------------------------- */

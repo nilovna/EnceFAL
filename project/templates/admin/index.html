@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_static %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+{% block extrastyle %}{{ block.super }}{% endblock %}
 
 {% block coltype %}colMS{% endblock %}
 
@@ -55,7 +55,7 @@
 <div class="content-related span6">
     <div class="module" id="recent-actions-module">
         <h2 class="caption section">{% trans 'Recent Actions' %}</h2>
-        <h3>{% trans 'My Actions' %}</h3>
+        <h4 class="recent-actions-module-title">{% trans 'My Actions' %}</h4>
             {% load log %}
             {% get_admin_log 10 as admin_log for_user user %}
             {% if not admin_log %}
@@ -67,11 +67,23 @@
                 {% if entry.is_deletion or not entry.get_admin_url %}
                     {{ entry.object_repr }}
                 {% else %}
-                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                    <a href="{{ entry.get_admin_url }}">
+                        {% if entry.is_deletion %}
+                            <i class="icon-remove"></i>
+                        {% endif %}
+                        {% if entry.is_addition %}
+                            <i class="icon-plus"></i>
+                        {% endif %}
+                        {% if entry.is_change %}
+                            <i class="icon-pensil"></i>
+                        {% endif %}
+
+                        {{ entry.object_repr }}
+                    </a>
                 {% endif %}
                 <br/>
                 {% if entry.content_type %}
-                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                    <small>{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</small>
                 {% else %}
                     <span class="mini quiet">{% trans 'Unknown content' %}</span>
                 {% endif %}
