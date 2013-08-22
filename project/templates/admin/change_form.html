@@ -4,10 +4,9 @@
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
-<script type="text/javascript" src="{% get_static_prefix %}js/vente.js"></script>
-
 {{ media }}
 {% endblock %}
+<script type="text/javascript" src="/static/js/vente.js"></script>
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
 
