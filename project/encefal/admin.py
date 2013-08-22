@@ -45,7 +45,11 @@ class VenteAdmin(admin.ModelAdmin):
     def __init__(self, *args, **kwargs):
         super(VenteAdmin, self).__init__(*args, **kwargs)
         self.model.session = Session.current_session()
-        #self.model.employe = current_user()
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(VenteAdmin, self).get_form(request, obj, **kwargs)
+        self.model.employe = request.user
+        return form
 
     model = Facture
     readonly_fields = ('employe','session',)
