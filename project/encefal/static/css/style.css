@@ -51,7 +51,7 @@ h6 {
 /* $PAGE CONTENT
 -------------------------------------------------------------- */
 .page-content {
-  padding-top: 40px;
+  padding-top: 54px;
 }
 
 .breadcrumbs {
@@ -139,6 +139,51 @@ h6 {
     .section:hover {
       color: #ffffff;
     }
+
+  .object-tools {
+    list-style: none;
+    margin: 0;
+  }
+
+  .search-wrapper {
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    border-bottom: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0 ;
+    padding: 10px;
+
+  }
+
+    .search-wrapper label {
+      vertical-align: sub;
+      margin-bottom: 0;
+    }
+
+/* $CHANGE LIST
+-------------------------------------------------------------- */
+.changelist-form {
+  padding: 10px;
+}
+
+  .changelist-search {
+    margin: 0;
+  }
+
+  .table-results-head {
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    border: 1px solid #d4d4d4;
+    border-radius: 4px 4px 0 0;
+  }
 
 
 /* $NAVBAR
