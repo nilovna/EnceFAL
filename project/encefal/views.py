@@ -194,3 +194,6 @@ def add_exemplaire_employee(request):
 
 def sell(request):
     return render_to_response('encefal/employee/sell.html', {})
+
+def rapport(request):
+    return render_to_response('encefal/rapport.html', {})

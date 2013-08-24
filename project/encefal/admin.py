@@ -15,6 +15,8 @@ from project.encefal.models import (
                                     Vente, Facture
                                    )
 
+
+
 class LivreFormInline(admin.TabularInline):
     exclude = ['facture', 'actif', 'etat', 'livre']
     model = Exemplaire
