@@ -91,6 +91,11 @@ class Facture(Metadata):
     def __unicode__(self):
       return 'Facture #%s' % (self.id)
 
+    def nb_livres(self):
+        return self.exemplaires.count()
+    nb_livres.short_description = 'Nombre de livres'     
+
+
 ################################################################################
 # LIVRE (BOOK)
 ################################################################################

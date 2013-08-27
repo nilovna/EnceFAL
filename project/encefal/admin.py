@@ -62,6 +62,7 @@ class VenteAdmin(admin.ModelAdmin):
     model = Facture
     readonly_fields = ('employe','session',)
     fields = ('employe', 'session')
+    list_display = ('date_creation', 'employe', 'session', 'nb_livres')
     exclude = ('actif',)
     inlines = [ LivreVenteFormInline, ]
 
