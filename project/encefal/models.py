@@ -48,13 +48,16 @@ class Vendeur(Metadata):
 
     def nb_livres(self):
         return self.exemplaires.count()
-    nb_livres.short_description = 'Nombre de livres'     
+    nb_livres.short_description = 'Nombre de livres'
 
 
 class Reception(Vendeur):
     class Meta:
         proxy = True
+        verbose_name = "Vendeur"
 
+    def __unicode__(self):
+        return ("Reception de livres de " + self.nom + ', ' + self.prenom)
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
@@ -93,7 +96,7 @@ class Facture(Metadata):
 
     def nb_livres(self):
         return self.exemplaires.count()
-    nb_livres.short_description = 'Nombre de livres'     
+    nb_livres.short_description = 'Nombre de livres'
 
 
 ################################################################################
@@ -110,11 +113,11 @@ class Livre(Metadata):
 
     def exemplaires_en_vente(self):
         return [e for e in self.exemplaires.all() if e.etat == 'VENT']
-    exemplaires_en_vente.short_description = 'Exemplaires en vente'     
+    exemplaires_en_vente.short_description = 'Exemplaires en vente'
 
     def nb_exemplaires_en_vente(self):
         return len(self.exemplaires_en_vente())
-    nb_exemplaires_en_vente.short_description = 'Nombre d\'exemplaires en vente' 
+    nb_exemplaires_en_vente.short_description = 'Nombre d\'exemplaires en vente'
 
     def prix_moyen(self):
         exemplaires = self.exemplaires_en_vente()
@@ -168,5 +171,5 @@ class Exemplaire(Metadata):
 
     def titre(self):
         return (self.livre.titre)
-    titre.short_description = 'Titre'     
+    titre.short_description = 'Titre'
 
