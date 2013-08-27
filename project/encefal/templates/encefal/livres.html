@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+<script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#livres').dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": false,
+            "bInfo": false,
+            "bAutoWidth": false
+        });
+    } );
+</script>
 <style>
     table, td, th{
 
@@ -10,10 +23,11 @@
     }
 
 </style>
-<table class="table table-hover livres">
+<table id="livres" class="table table-hover livres">
     <thead>
         <th>ISBN</th>
         <th>Titre</th>
+        <th>Auteur</th>
         <th>Prix Moyen</th>
         <th>Quantité</th>
     </thead>
@@ -24,6 +38,8 @@
             <td>{{ livre.isbn }}</td> 
 
             <td>{{ livre.titre }}</td> 
+
+            <td>{{ livre.auteur }}</td> 
 
 	    {% if livre.prix_moyen %}
             <td>{{ livre.prix_moyen|floatformat:2 }}$</td> 
