@@ -46,14 +46,14 @@ class Vendeur(Metadata):
     def __unicode__(self):
         return '%s, %s' % (self.nom, self.prenom)
 
+    def nb_livres(self):
+        return self.exemplaires.count()
+    nb_livres.short_description = 'Nombre de livres'     
+
+
 class Reception(Vendeur):
     class Meta:
         proxy = True
-
-    def __unicode__(self):
-        return ("Reception de livres de " + 
-                self.nom + ', ' + 
-                self.prenom)
 
 ################################################################################
 # SESSION (SEMESTER)

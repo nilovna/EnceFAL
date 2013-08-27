@@ -23,7 +23,7 @@ class LivreFormInline(admin.TabularInline):
     model = Exemplaire
     form = LivreVendreForm
     fields = ['isbn', 'titre', 'auteur', 'prix']
-    extra = 1
+    extra = 15
 
 class LivreVenteFormInline(admin.TabularInline):
  
@@ -42,6 +42,7 @@ class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
     inlines = [ LivreFormInline, ]
+    list_display = ('date_creation', 'nom', 'prenom', 'nb_livres', 'code_permanent')
 
 class VenteAdmin(admin.ModelAdmin):
 
@@ -75,9 +76,13 @@ class ExemplaireAdmin(admin.ModelAdmin):
     list_display = ('date_creation','titre','vendeur','etat','prix','pk',)
 
 class FactureAdmin(admin.ModelAdmin):
-    list_display = ('date_creation', 'employe', 'session', 'nb_livres')
+    list_display = ('date_creation', 'employe', 'session', 'nb_livres',)
 
-admin.site.register(Vendeur)
+class VendeurAdmin(admin.ModelAdmin):
+    exclude = ('actif',)
+    list_display = ('date_creation', 'nom', 'prenom', 'nb_livres', 'code_permanent')
+
+admin.site.register(Vendeur, VendeurAdmin)
 admin.site.register(Reception, ReceptionAdmin)
 admin.site.register(Vente, VenteAdmin)
 admin.site.register(Session, SessionAdmin)
