@@ -103,10 +103,10 @@ class LivreVenteForm(ModelForm):
                         help_text="Prix")
 
     def clean(self):
-        cleaned_data = super(LivreVendreForm, self).clean()
-        
-        self.instance.etat = ETAT_LIVRE_CHOICES.VEND
-        
+        cleaned_data = super(LivreVenteForm, self).clean()
+        self.instance = Exemplaire.objects.get(pk=cleaned_data['identifiant'])
+        self.instance.etat = 'VEND'
+        self.instance.save()
         return cleaned_data
 
     class Meta:

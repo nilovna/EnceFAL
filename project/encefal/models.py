@@ -84,9 +84,9 @@ class Session(Metadata):
 ################################################################################
 class Facture(Metadata):
     employe = models.ForeignKey(User, db_column='employe',
-                                related_name='factures',)
+                                related_name='factures',blank=True)
     session = models.ForeignKey(Session, db_column='session',
-                                related_name='factures',)
+                                related_name='factures',blank=True)
 
     def __unicode__(self):
       return 'Facture #%s' % (self.id)

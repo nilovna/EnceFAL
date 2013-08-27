@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import datetime
+import pdb
 
 from django.contrib import admin
 from django.core.urlresolvers import reverse
@@ -53,8 +54,14 @@ class VenteAdmin(admin.ModelAdmin):
         self.model.employe = request.user
         return form
 
+    def save_model(self, request, obj, form, change):
+        obj.employe_id = self.model.employe.id
+        obj.session_id = self.model.session.id
+        obj.save()
+
     model = Facture
     readonly_fields = ('employe','session',)
+    fields = ('employe', 'session')
     exclude = ('actif',)
     inlines = [ LivreVenteFormInline, ]
 
