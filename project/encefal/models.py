@@ -148,3 +148,7 @@ class Exemplaire(Metadata):
     def __unicode__(self):
         return self.livre.__unicode__()
 
+    def titre(self):
+        return (self.livre.titre)
+    titre.short_description = 'Titre'     
+
