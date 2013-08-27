@@ -73,9 +73,8 @@ def liste_livres(request):
                               context_instance = RequestContext(request))
 def livres(request):
 
-    #TODO redefinier le default Manager pour quil ne retourne que les exemplaires en vente
-    livres = Livre.objects.all().annotate(prix_moyen=Avg('exemplaires__prix'),\
-                                          quantite=Count('exemplaires__id'))
+    livres = Livre.objects.all()
+    livres = [livre for livre in livres if livre.nb_exemplaires_en_vente()]
 
     context = {
             'livres':livres,

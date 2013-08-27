@@ -108,6 +108,18 @@ class Livre(Metadata):
     edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
                                           blank=True, null=False,)
 
+    def exemplaires_en_vente(self):
+        return [e for e in self.exemplaires.all() if e.etat == 'VENT']
+    exemplaires_en_vente.short_description = 'Exemplaires en vente'     
+
+    def nb_exemplaires_en_vente(self):
+        return len(self.exemplaires_en_vente())
+    nb_exemplaires_en_vente.short_description = 'Nombre d\'exemplaires en vente' 
+
+    def prix_moyen(self):
+        exemplaires = self.exemplaires_en_vente()
+        return (sum([e.prix for e in exemplaires]) / len(exemplaires))
+
     def save(self, *args, **kwargs):
 
         if not self.edition:
@@ -137,6 +149,7 @@ ETAT_LIVRE_CHOICES = (
     ('VOLE', 'Volé'),
     ('REND', 'Rendu'),
 )
+
 class Exemplaire(Metadata):
     facture = models.ForeignKey(Facture, db_column='facture',
                                 related_name='exemplaires', null=True,
