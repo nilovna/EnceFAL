@@ -74,10 +74,13 @@ class LivreAdmin(admin.ModelAdmin):
 class ExemplaireAdmin(admin.ModelAdmin):
     list_display = ('date_creation','titre','vendeur','etat','prix','pk',)
 
+class FactureAdmin(admin.ModelAdmin):
+    list_display = ('date_creation', 'employe', 'session', 'nb_livres')
+
 admin.site.register(Vendeur)
 admin.site.register(Reception, ReceptionAdmin)
 admin.site.register(Vente, VenteAdmin)
 admin.site.register(Session, SessionAdmin)
 admin.site.register(Livre, LivreAdmin)
-admin.site.register(Facture)
+admin.site.register(Facture, FactureAdmin)
 admin.site.register(Exemplaire, ExemplaireAdmin)
