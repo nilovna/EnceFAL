@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^liste_livres/$', 'encefal.views.liste_livres', name='liste_livres'),
     url(r'^detail_facture/$', 'encefal.views.detail_facture', name='detail_facture'),
     url(r'^rapport/$', 'encefal.views.rapport', name='rapport'),
+    url(r'^rapport-date/$', 'encefal.views.rapport', name='rapport_date'),
+
 )
 
 if settings.DEBUG:

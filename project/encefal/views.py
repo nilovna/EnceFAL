@@ -198,4 +198,21 @@ def sell(request):
     return render_to_response('encefal/employee/sell.html', {})
 
 def rapport(request):
-    return render_to_response('encefal/rapport.html', {})
+
+  vendu = Exemplaire.objects.all().filter(etat="VEND")
+
+  context = {
+    'vendu':vendu
+  }
+
+  return render_to_response('encefal/rapport.html', context)
+
+def rapport_date(request):
+#date= request.GET['nb']
+  vendu = Exemplaire.objects.all().filter(etat="VEND")
+
+  context = {
+    'vendu':vendu
+  }
+
+  return render_to_response('encefal/rapport.html', context)
