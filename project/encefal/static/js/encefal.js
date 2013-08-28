@@ -29,6 +29,10 @@ $(document).ready(function () {
 
         identifiant = $('#' + event.target.id).val();
         if (identifiant.length == 0){
+            $('#id_exemplaires-' + response.nb + '-titre').val('');
+            $('#id_exemplaires-' + response.nb + '-auteur').val('');
+            $('#id_exemplaires-' + response.nb + '-isbn').val('');
+            $('#id_exemplaires-' + response.nb + '-prix').val('');
             return;
         } 
 
@@ -56,8 +60,13 @@ $(document).ready(function () {
 
         code = $('#' + event.target.id).val();
         if (code.length == 0){
-            return;
+            $('#id_exemplaires-' + response.nb + '-titre').val('');
+            $('#id_exemplaires-' + response.nb + '-auteur').val('');
         } 
+
+        if (code.length !== 10 && code.length !== 13){
+            return;
+        }
 
         nb = isbn_regex.exec(event.target.id);
         nb = nb[1];
