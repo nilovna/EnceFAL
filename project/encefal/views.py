@@ -209,10 +209,14 @@ def rapport(request):
 
 def rapport_date(request):
 #date= request.GET['nb']
-  vendu = Exemplaire.objects.all().filter(etat="VEND")
+  assert('date' in request.GET)
+
+  ladate = request.GET['date']
+  vendu = Exemplaire.objects.all().filter(date_creation=ladate)
+
 
   context = {
     'vendu':vendu
   }
 
-  return render_to_response('encefal/rapport.html', context)
+  return render_to_response('encefal/rapport_date.html', context)
