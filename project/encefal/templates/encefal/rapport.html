@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
+<script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#rapport').dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": false,
+            "bInfo": false,
+            "bAutoWidth": false
+        });
+    } );
+</script>
+<style>
+    table, td, th{
+
+    }
+
+    td, th {
+        padding:15px;
+    }
+	
+	#rapport{
+
+	}
+	#rapport_filter{
+		float:right;
+	}
+</style>
+<h1>Rapport</h1>
+
+
+<table id="rapport" class="table table-hover rapport">
+	<thead>
+		<th>Titre</th>
+		<th>isbn</th>
+		
+	</thead>
+	<tbody>
+		{% for livre in vendu %}
+		<tr>
+			<td>{{livre.titre}}</td>			
+			<td>{{livre.isbn}}</td>			
+		</tr>
+
+		{% endfor %}
+
+	</tbody>
+
+</table>
+
+{% endblock %}
+
