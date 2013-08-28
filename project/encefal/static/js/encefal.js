@@ -26,18 +26,17 @@ $(document).ready(function () {
     get_exemplaire = function (event) {
 
         var identifiant_regex = /id_exemplaires-(\d+)-identifiant/;
+        nb = identifiant_regex.exec(event.target.id);
+        nb = nb[1];
 
         identifiant = $('#' + event.target.id).val();
         if (identifiant.length == 0){
-            $('#id_exemplaires-' + response.nb + '-titre').val('');
-            $('#id_exemplaires-' + response.nb + '-auteur').val('');
-            $('#id_exemplaires-' + response.nb + '-isbn').val('');
-            $('#id_exemplaires-' + response.nb + '-prix').val('');
+            $('#id_exemplaires-' + nb + '-titre').val('');
+            $('#id_exemplaires-' + nb + '-auteur').val('');
+            $('#id_exemplaires-' + nb + '-isbn').val('');
+            $('#id_exemplaires-' + nb + '-prix').val('');
             return;
         } 
-
-        nb = identifiant_regex.exec(event.target.id);
-        nb = nb[1];
 
         url = "/exemplaire/?identifiant=" + identifiant + '&nb=' + this.nb;
         $.get(url, function(response, status){
@@ -57,19 +56,19 @@ $(document).ready(function () {
     get_isbn = function (event) {
 
         var isbn_regex = /id_exemplaires-(\d+)-isbn/;
+        nb = isbn_regex.exec(event.target.id);
+        nb = nb[1];
 
         code = $('#' + event.target.id).val();
         if (code.length == 0){
-            $('#id_exemplaires-' + response.nb + '-titre').val('');
-            $('#id_exemplaires-' + response.nb + '-auteur').val('');
+            $('#id_exemplaires-' + nb + '-titre').val('');
+            $('#id_exemplaires-' + nb + '-auteur').val('');
+            $('#id_exemplaires-' + nb + '-prix').val('');
         } 
 
         if (code.length !== 10 && code.length !== 13){
             return;
         }
-
-        nb = isbn_regex.exec(event.target.id);
-        nb = nb[1];
 
         url = "/livre/?isbn=" + code + '&nb=' + this.nb;
         $.get(url, function(response, status){
