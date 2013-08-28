@@ -58,6 +58,7 @@ class Reception(Vendeur):
 
     def __unicode__(self):
         return ("Reception de livres de " + self.nom + ', ' + self.prenom)
+
 ################################################################################
 # SESSION (SEMESTER)
 ################################################################################
@@ -173,3 +174,19 @@ class Exemplaire(Metadata):
         return (self.livre.titre)
     titre.short_description = 'Titre'
 
+    def save(self,*args,**kwargs):
+
+        code_vendeur = self.vendeur.code_carte_etudiante
+        pk_vendeur_temp = self.vendeur.id
+        vendeur = None
+
+        try:
+            self.vendeur = (
+                            Vendeur.objects.all().
+                            exclude(pk=pk_vendeur_temp).
+                            get(code_carte_etudiante=code_vendeur)
+                           )
+        except Vendeur.DoesNotExist:
+            pass
+
+        super(Exemplaire,self).save(*args,**kwargs)
