@@ -146,7 +146,7 @@ def exemplaire(request):
 def vendeur(request):
 
     assert('code' in request.GET)
-    #TODO Problablement ajouter le lenght du code
+    #TODO Problablement ajouter le length du code
 
     vendeur = None
     code = request.GET['code']
@@ -156,10 +156,13 @@ def vendeur(request):
     except Vendeur.DoesNotExist:
         return HttpResponseNotFound()
 
-    reponse = {'nom':vendeur.nom,
+    reponse = {
+               'nom':vendeur.nom,
                'prenom':vendeur.prenom,
                'code_permanent':vendeur.code_permanent,
-               'email':vendeur.email}
+               'telephone':vendeur.telephone,
+               'email':vendeur.email
+              }
     
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 

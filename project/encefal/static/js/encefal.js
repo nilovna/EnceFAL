@@ -14,7 +14,8 @@ $(document).ready(function () {
                 $('#id_code_permanent').val(response.code_permanent);
                 $('#id_prenom').val(response.prenom);
                 $('#id_email').val(response.email);
-                $('#id_nom').val( response.nom);
+                $('#id_nom').val(response.nom);
+                $('#id_telephone').val(response.telephone);
 
             }
         });
