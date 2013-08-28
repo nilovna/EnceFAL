@@ -54,7 +54,8 @@ class Vendeur(Metadata):
 class Reception(Vendeur):
     class Meta:
         proxy = True
-        verbose_name = "Vendeur"
+        verbose_name = "Reception"
+        verbose_name_plural = "Receptions"
 
     def __unicode__(self):
         return ("Reception de livres de " + self.nom + ', ' + self.prenom)
