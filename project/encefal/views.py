@@ -206,10 +206,11 @@ def sell(request):
 
 def rapport(request):
 
-  vendu = Exemplaire.objects.all().filter(etat="VEND")
+  vendu = Exemplaire.objects.all().filter(etat="VEND",facture__date_creation=datetime.date.today())
 
   context = {
-    'vendu':vendu
+    'vendu':vendu,
+    'ladate':datetime.date.today(),
   }
 
   return render_to_response('encefal/rapport.html', context)
@@ -219,11 +220,14 @@ def rapport_date(request):
   assert('date' in request.GET)
 
   ladate = request.GET['date']
+  template_values = {'ladate':ladate}
+
   vendu = Exemplaire.objects.all().filter(facture__date_creation=ladate)
 
 
   context = {
-    'vendu':vendu
+    'vendu':vendu,
+    'ladate':ladate,
   }
 
   return render_to_response('encefal/rapport_date.html', context)
