@@ -4,6 +4,7 @@
 {% load static %}
 {% get_static_prefix as STATIC_URL %}
 <script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
     $(document).ready(function() {
         $('#rapport').dataTable({
@@ -37,6 +38,11 @@
 		ladate= $("#date").val();
 		window.open('/rapport_date/'+'?date='+ladate);
 	}
+	$(function() {
+    $( "#date" ).datepicker({
+    	dateFormat:"yy-mm-dd"
+    });
+  });
 </script>
 <h1>Rapport</h1>
 
