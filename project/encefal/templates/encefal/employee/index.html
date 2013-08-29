@@ -2,15 +2,25 @@
 
 {% block content %}
   <div class="first-action-container">
+
       <a href="{% url 'admin:encefal_reception_add' %}" 
          class="btn btn-inverse btn-large btn-add-book">
       <i class="icon-plus icon-white"></i>
       Ajouter livre(s)
     </a>
+
     <a href="{% url 'admin:encefal_vente_add' %}"
        class="btn btn-primary btn-large btn-sell-book">
       <i class="icon-shopping-cart icon-white"></i>
       Vendre livre(s)
     </a>
+    <br></br>
+
+    <a href="{% url 'admin:encefal_vente_changelist' %}"
+       class="btn btn-primary btn-large btn-sell-book">
+      <i class=""></i>
+      Annuler vente(s)
+    </a>
+
   </div>
 {% endblock content %}

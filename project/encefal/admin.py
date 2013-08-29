@@ -58,7 +58,18 @@ class ReceptionAdmin(admin.ModelAdmin):
         return HttpResponseRedirect('/employee/')
 
     def has_change_permission(self, request, obj=None):
-        return False
+        return obj is not None or False
+
+def annuler_vente(modeladmin, request, queryset):
+    for vente in queryset.all():
+        exemplaires = vente.exemplaires
+        for exemplaire in exemplaires.all():
+            exemplaire.etat = 'VENT'
+            exemplaire.facture = None
+            exemplaire.save()
+    queryset.delete()
+    return HttpResponseRedirect('/employee/')
+annuler_vente.short_description = "Annuler la ou les vente(s) selectionnée(s)"
 
 class VenteAdmin(admin.ModelAdmin):
 
@@ -80,14 +91,22 @@ class VenteAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    #def has_change_permission(self, request, obj=None):
+        #return obj is not None or False
+
+    def has_delete_permission(self, request, obj=None):
+        return obj is not None or False
+
+    def get_actions(self, request):
+        actions = { 'annuler_vente':(annuler_vente, 'annuler_vente', annuler_vente.short_description) }
+        return actions
 
     model = Facture
     readonly_fields = ('employe','session',)
     fields = ('employe', 'session')
     list_display = ('date_creation', 'employe', 'session', 'nb_livres')
     exclude = ('actif',)
+    actions = [ annuler_vente ]
     inlines = [ LivreVenteFormInline, ]
 
 class LivreAdmin(admin.ModelAdmin):
