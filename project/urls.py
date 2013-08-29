@@ -10,9 +10,10 @@ from django.views.generic.base import RedirectView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url='/admin')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^/$', RedirectView.as_view(url='/employee/')),
+    url(r'^$', RedirectView.as_view(url='/employee/')),
     url(r'^employee/', include('encefal.urls')),
+    url(r'^employee/', include(admin.site.urls)),
     url(r'^paiement/$', 'encefal.views.paiement', name='paiement'),
     url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
     url(r'^livres/$', 'encefal.views.livres', name='livres'),

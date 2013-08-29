@@ -57,10 +57,8 @@ class ReceptionAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    def has_change_permission(self, request, obj):
-        return obj is None or False
-
-
+    def has_change_permission(self, request, obj=None):
+        return False
 
 class VenteAdmin(admin.ModelAdmin):
 
@@ -82,7 +80,7 @@ class VenteAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    def has_change_permission(self, request, obj):
+    def has_change_permission(self, request, obj=None):
         return False
 
     model = Facture

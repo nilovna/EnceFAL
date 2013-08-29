@@ -1,6 +1,9 @@
 {% extends "admin/change_form.html" %}
 {% load i18n admin_urls %}
 
+{% block breadcrumbs %}
+{% endblock %}
+
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
 <script src="{{ STATIC_URL }}js/encefal.js"></script>
