@@ -212,7 +212,7 @@ def rapport_date(request):
   assert('date' in request.GET)
 
   ladate = request.GET['date']
-  vendu = Exemplaire.objects.all().filter(date_creation=ladate)
+  vendu = Exemplaire.objects.all().filter(facture__date_creation=ladate)
 
 
   context = {
