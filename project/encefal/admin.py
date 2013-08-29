@@ -115,7 +115,8 @@ class LivreAdmin(admin.ModelAdmin):
     search_fields = ['titre', 'auteur', 'isbn']
 
 class ExemplaireAdmin(admin.ModelAdmin):
-    list_display = ('date_creation','titre','vendeur','etat','prix','pk',)
+    list_display = ('pk','titre','vendeur','etat','prix','date_creation', 'date_modification', 'facture' )
+    order_by = ('date_creation', 'date_modification')
 
 class FactureAdmin(admin.ModelAdmin):
     list_display = ('date_creation', 'employe', 'session', 'nb_livres',)

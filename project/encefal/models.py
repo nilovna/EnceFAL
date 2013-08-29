@@ -23,7 +23,9 @@ class Metadata(models.Model):
     actif == False : objet réputé supprimé.
     """
     actif = models.BooleanField(default=True)
-    date_creation = models.DateField(auto_now_add=True,
+    date_creation = models.DateTimeField(auto_now_add=True,
+                                    help_text=HELP_TEXT_FORMAT_DATE, )
+    date_modification = models.DateTimeField(auto_now=True,
                                     help_text=HELP_TEXT_FORMAT_DATE, )
 
     class Meta:
