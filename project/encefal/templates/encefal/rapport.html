@@ -1,38 +1,9 @@
 
 {% extends 'base.html' %}
 {% block content %}
-{% load static %}
-{% get_static_prefix as STATIC_URL %}
-<script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
+
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#rapport').dataTable({
-            "bPaginate": false,
-            "bLengthChange": false,
-            "bFilter": true,
-            "bSort": false,
-            "bInfo": false,
-            "bAutoWidth": false
-        });
-    } );
-</script>
-<style>
-    table, td, th{
 
-    }
-
-    td, th {
-        padding:15px;
-    }
-	
-	#rapport{
-
-	}
-	#rapport_filter{
-		float:right;
-	}
-</style>
 <script type="text/javascript">
 	function go_rapport(){
 		ladate= $("#date").val();
@@ -44,27 +15,13 @@
     });
   });
 </script>
+<style type="text/css">
+table td{ 
+	padding: 5px;
+}
+</style>
 <h1>Rapport</h1>
 
-
-<table id="rapport" class="table table-hover rapport">
-	<thead>
-		<th>Titre</th>
-		<th>isbn</th>
-		
-	</thead>
-	<tbody>
-		{% for livre in vendu %}
-		<tr>
-			<td><a href="/rapport/{{livre.id}}">{{livre.titre}}</a></td>			
-			<td>{{livre.isbn}}</td>			
-		</tr>
-
-		{% endfor %}
-
-	</tbody>
-
-</table>
 
 <input id="date" type="text">
 <a class="btn btn-primary btn-large" onclick="go_rapport();">Voir rapport</a>	
