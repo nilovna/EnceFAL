@@ -206,7 +206,7 @@ def sell(request):
 
 def rapport(request):
 
-  vendu = Exemplaire.objects.all().filter(etat="VEND",facture__date_creation=datetime.date.today())
+  vendu = Exemplaire.objects.all().filter(etat="VEND",facture__date_creation__contains=datetime.date.today())
 
   context = {
     'vendu':vendu,
@@ -222,7 +222,7 @@ def rapport_date(request):
   ladate = request.GET['date']
   template_values = {'ladate':ladate}
 
-  vendu = Exemplaire.objects.all().filter(facture__date_creation=ladate)
+  vendu = Exemplaire.objects.all().filter(facture__date_creation__contains=ladate)
 
 
   context = {
