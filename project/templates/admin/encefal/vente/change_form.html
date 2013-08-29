@@ -5,5 +5,8 @@
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
 <script src="{{ STATIC_URL }}js/encefal.js"></script>
 {{ media }}
-{% endblock %}</script>
-</script></script>
+{% endblock %}
+
+{% block content %}{{ block.super }}
+<p id="p_total" style="text-align:right;">Total: <span id="total">0</span>$</p>
+{% endblock %}

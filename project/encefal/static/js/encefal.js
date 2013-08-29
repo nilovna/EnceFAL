@@ -1,5 +1,33 @@
 $(document).ready(function () {
 
+    actualiserTotal = function () {
+
+        total = 0;
+        total = $('#total').text('0');
+        var prix_regex = /id_exemplaires-(?:\d+)-prix/;
+
+        prix = $('input').filter(function(){
+            return prix_regex.test(this.id);
+        });
+
+        prix.each(function () {
+
+            if ($(this).val()){
+                total = $('#total');
+                nouveau = parseInt(total.text()) + parseInt($(this).val());
+                total.text(nouveau);
+            }
+
+        });
+
+    };
+
+    actualiserTotal();
+    
+    prix = $('input').filter(function(){
+        return /id_exemplaires-(?:\d+)-prix/.test(this.id);
+    }).change(actualiserTotal);
+
     $('#id_code_carte_etudiante').change(function () {
 
         code = $('#id_code_carte_etudiante').val();
