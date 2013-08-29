@@ -53,6 +53,10 @@ class ReceptionAdmin(admin.ModelAdmin):
             obj.save()
         return
 
+    #TODO: utiliser url reverser
+    def response_add(self, request, obj, post_url_continue=None):
+        return HttpResponseRedirect('/employee/')
+
 class VenteAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
@@ -68,6 +72,10 @@ class VenteAdmin(admin.ModelAdmin):
         obj.employe_id = self.model.employe.id
         obj.session_id = self.model.session.id
         obj.save()
+
+    #TODO: utiliser url reverser
+    def response_add(self, request, obj, post_url_continue=None):
+        return HttpResponseRedirect('/employee/')
 
     model = Facture
     readonly_fields = ('employe','session',)
