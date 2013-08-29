@@ -130,16 +130,23 @@ def exemplaire(request):
         exemplaire = Exemplaire.objects.get(pk=identifiant)
     except Exemplaire.DoesNotExist:
         return HttpResponseNotFound()
-
+    
     assert(exemplaire.livre)
 
-    reponse = {
-               'titre':exemplaire.livre.titre,
-               'auteur':exemplaire.livre.auteur,
-               'prix':int(exemplaire.prix),
-               'isbn':exemplaire.livre.isbn,
-               'nb':nb
-              }
+    if exemplaire.etat != 'VENT':
+        reponse = {
+                   'status':'error',
+                   'message':"L'exemplaire n'est pas en vente"
+                  }
+    else:
+        reponse = {
+                   'status':'ok',
+                   'titre':exemplaire.livre.titre,
+                   'auteur':exemplaire.livre.auteur,
+                   'prix':int(exemplaire.prix),
+                   'isbn':exemplaire.livre.isbn,
+                   'nb':nb
+                  }
 
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 

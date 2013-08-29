@@ -70,12 +70,18 @@ $(document).ready(function () {
         url = "/exemplaire/?identifiant=" + identifiant + '&nb=' + this.nb;
         $.get(url, function(response, status){
             if (status == "success"){
+                if (response.status === "ok"){
 
-                $('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
-                $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
-                $('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
-                $('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
-                actualiserTotal();
+                    $('#id_exemplaires-' + response.nb + '-titre').val(response.titre);
+                    $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
+                    $('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
+                    $('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
+                    actualiserTotal();
+
+                } else {
+
+                    // #TODO afficher l'erreur à l'utilisateur (nilo plz)
+                }
 
             }
 
