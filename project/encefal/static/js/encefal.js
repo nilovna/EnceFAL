@@ -3,7 +3,7 @@ $(document).ready(function () {
     actualiserTotal = function () {
 
         total = 0;
-        total = $('#total').text('0');
+        $('#total').text('0');
         var prix_regex = /id_exemplaires-(?:\d+)-prix/;
 
         prix = $('input').filter(function(){
@@ -63,6 +63,7 @@ $(document).ready(function () {
             $('#id_exemplaires-' + nb + '-auteur').val('');
             $('#id_exemplaires-' + nb + '-isbn').val('');
             $('#id_exemplaires-' + nb + '-prix').val('');
+            actualiserTotal();
             return;
         } 
 
@@ -74,6 +75,7 @@ $(document).ready(function () {
                 $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
                 $('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
                 $('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
+                actualiserTotal();
 
             }
 
