@@ -2,6 +2,8 @@
 import datetime
 import json
 import urllib
+
+from datetime import datetime as dt # est utilisé dans la views  rapport_date
 from django.shortcuts import render_to_response,render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
@@ -206,7 +208,11 @@ def sell(request):
 
 def rapport(request):
 
-  vendu = Exemplaire.objects.all().filter(etat="VEND",facture__date_creation__contains=datetime.date.today())
+  vendu = Exemplaire.objects.all().filter(etat="VEND",
+                                          facture__date_creation__year=datetime.date.today().year,
+                                          facture__date_creation__month=datetime.date.today().month,
+                                          facture__date_creation__day=datetime.date.today().day,
+                                          )
 
   context = {
     'vendu':vendu,
@@ -220,11 +226,12 @@ def rapport_date(request):
   assert('date' in request.GET)
 
   ladate = request.GET['date']
-  template_values = {'ladate':ladate}
+  ladate_dt = dt.strptime(ladate,"%Y-%m-%d")
+ 
 
-  vendu = Exemplaire.objects.all().filter(facture__date_creation__contains=ladate)
-
-
+  vendu = Exemplaire.objects.all().filter(facture__date_creation__year=ladate_dt.strftime('%Y'),
+                                          facture__date_creation__month=ladate_dt.strftime('%m'),
+                                          facture__date_creation__day=ladate_dt.strftime('%d'),)
   context = {
     'vendu':vendu,
     'ladate':ladate,
