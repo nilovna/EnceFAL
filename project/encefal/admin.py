@@ -31,7 +31,6 @@ class LivreVenteFormInline(admin.TabularInline):
     model = Exemplaire
     form = LivreVenteForm
     fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
-    #readonly_fields = ('isbn','titre','auteur', 'prix')
     extra = 15
 
 class SessionAdmin(admin.ModelAdmin):
@@ -87,12 +86,12 @@ class VenteAdmin(admin.ModelAdmin):
         obj.session_id = self.model.session.id
         obj.save()
 
-    #TODO: utiliser url reverser
+    #TODO: utiliser url reverser admin_index ??
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    #def has_change_permission(self, request, obj=None):
-        #return obj is not None or False
+    def has_change_permission(self, request, obj=None):
+        return obj is None or False
 
     def has_delete_permission(self, request, obj=None):
         return obj is not None or False

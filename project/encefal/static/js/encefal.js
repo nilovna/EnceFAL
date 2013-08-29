@@ -63,6 +63,7 @@ $(document).ready(function () {
             $('#id_exemplaires-' + nb + '-auteur').val('');
             $('#id_exemplaires-' + nb + '-isbn').val('');
             $('#id_exemplaires-' + nb + '-prix').val('');
+            $('#id_exemplaires-' + nb + '-prix').attr('readonly',false);
             actualiserTotal();
             return;
         } 
@@ -76,6 +77,7 @@ $(document).ready(function () {
                     $('#id_exemplaires-' + response.nb + '-auteur').val(response.auteur);
                     $('#id_exemplaires-' + response.nb + '-isbn').val(response.isbn);
                     $('#id_exemplaires-' + response.nb + '-prix').val(response.prix);
+                    $('#id_exemplaires-' + response.nb + '-prix').attr('readonly',true);
                     actualiserTotal();
 
                 } else {
