@@ -43,7 +43,7 @@ calculer_prix_ajoute();
 <script type="text/javascript">
 function go_rapport(){
 	ladate= $("#date").val();
-	window.open('/rapport_date/'+'?date='+ladate);
+	window.open('/rapport/'+'?date='+ladate);
 }
 $(function() {
 	$( "#date" ).datepicker({
@@ -91,7 +91,7 @@ table td{
 
 
 <div id="rapport-wrap">
-	<h1>Rapport d'aujourd'hui : {{ladate}}</h1>
+	<h1>Date du rapport : {{ladate}} </h1>
 
 	<div class="rapport-vendu-wrap">
 		<h3>Rapport des livres vendus</h3>
