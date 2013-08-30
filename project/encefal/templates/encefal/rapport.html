@@ -19,15 +19,24 @@ $(document).ready(function() {
 
 */
 
-calculer_prix = function(){
+calculer_prix_vendu = function(){
 	var total =0;
-	cells = $(".prix");
+	cells = $("#rapport-vendu .prix");
 	$.each(cells,function(){
 		total = parseFloat(total) + parseFloat($(this).html().replace(',','.'));
 	});
-	$('#total').html(total.toFixed(2));
+	$('#total-vendu').html(total.toFixed(2));
 }
-calculer_prix();
+calculer_prix_ajoute = function(){
+	var total =0;
+	cells = $("#rapport-ajoute .prix");
+	$.each(cells,function(){
+		total = parseFloat(total) + parseFloat($(this).html().replace(',','.'));
+	});
+	$('#total-ajoute').html(total.toFixed(2));
+}
+calculer_prix_vendu();
+calculer_prix_ajoute();
 
 });
 </script>
@@ -45,7 +54,7 @@ $(function() {
 
 <style type="text/css">
 body{
- 	top: 50px;
+	top: 50px;
 }
 table td{ 
 	padding: 5px;
@@ -63,6 +72,16 @@ table td{
 #rapport_filter{
 	float:right;
 }
+#rapport-wrap h1{
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	padding-bottom: 100px;
+}
+#rapport-wrap h3{
+	color: #0044cc;
+}
 </style>
 
 
@@ -72,33 +91,73 @@ table td{
 
 
 <div id="rapport-wrap">
-<h1>Rapport d'aujourd'hui : {{ladate}}</h1>
-	<table id="rapport" class="table table-hover rapport">
+	<h1>Rapport d'aujourd'hui : {{ladate}}</h1>
+
+	<div class="rapport-vendu-wrap">
+		<h3>Rapport des livres vendus</h3>
+		<table id="rapport-vendu" class="table table-hover rapport">
+
+			<thead>
+				<th>Titre</th>
+				<th>Auteur</th>
+				<th>isbn</th>
+				<th>Prix</th>
+			</thead>
+			<tbody>
+				{% for livre in vendu %}
+				<tr>
+					<td>{{livre.titre}}</td>
+					<td>{{livre.livre.auteur}}</td>			
+					<td>{{livre.livre.isbn}}</td>
+					<td class="prix">{{livre.prix}}</td>			
+				</tr>
+
+				{% endfor %}
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td id="total-vendu"><td><b>TOTAL</b></td></td>
+				</tr>
+
+			</tbody>
+
+		</table>
+
+	</div>
+
+	<div class="rapport-ajoute-wrap">
+
+	</div>
+	<h3>Rapport des livres ajoutés</h3>
+	<table id="rapport-ajoute" class="table table-hover rapport">
 
 		<thead>
 			<th>Titre</th>
+			<th>Auteur</th>
 			<th>isbn</th>
 			<th>Prix</th>
 		</thead>
 		<tbody>
-			{% for livre in vendu %}
+			{% for livre in ajoute %}
 			<tr>
-				<td>{{livre.titre}}</td>			
+				<td>{{livre.titre}}</td>
+				<td>{{livre.livre.auteur}}</td>			
 				<td>{{livre.livre.isbn}}</td>
-				<td class="prix">{{livre.prix}}</td>			
+				<td class="prix">{{livre.prix}}</td>
 			</tr>
 
 			{% endfor %}
 			<tr>
 				<td></td>
 				<td></td>
-				<td id="total"><td><b>TOTAL</b></td></td>
+				<td></td>
+				<td id="total-ajoute"><td><b>TOTAL</b></td></td>
 			</tr>
 
 		</tbody>
 
 	</table>
-	
 </div>
 
 

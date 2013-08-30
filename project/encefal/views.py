@@ -213,9 +213,14 @@ def rapport(request):
                                           facture__date_creation__month=datetime.date.today().month,
                                           facture__date_creation__day=datetime.date.today().day,
                                           )
+  ajoute = Exemplaire.objects.all().filter(date_creation__year=datetime.date.today().year,
+                                          date_creation__month=datetime.date.today().month,
+                                          date_creation__day=datetime.date.today().day,
+                                          )
 
   context = {
     'vendu':vendu,
+    'ajoute':ajoute,
     'ladate':datetime.date.today(),
   }
 
