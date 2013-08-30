@@ -237,8 +237,13 @@ def rapport_date(request):
   vendu = Exemplaire.objects.all().filter(facture__date_creation__year=ladate_dt.strftime('%Y'),
                                           facture__date_creation__month=ladate_dt.strftime('%m'),
                                           facture__date_creation__day=ladate_dt.strftime('%d'),)
+  ajoute = Exemplaire.objects.all().filter(date_creation__year=ladate_dt.strftime('%Y'),
+                                          date_creation__month=ladate_dt.strftime('%m'),
+                                          date_creation__day=ladate_dt.strftime('%d'),
+                                          )
   context = {
     'vendu':vendu,
+    'ajoute':ajoute,
     'ladate':ladate,
   }
 
