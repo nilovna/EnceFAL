@@ -57,8 +57,8 @@ class ReceptionAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    #def has_change_permission(self, request, obj=None):
-        #return obj is None or False
+    def has_change_permission(self, request, obj=None):
+        return obj is None or False
 
 def annuler_vente(modeladmin, request, queryset):
     for vente in queryset.all():
@@ -91,8 +91,8 @@ class VenteAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    #def has_change_permission(self, request, obj=None):
-        #return obj is None or False
+    def has_change_permission(self, request, obj=None):
+        return obj is None or False
 
     def has_delete_permission(self, request, obj=None):
         return obj is not None or False
@@ -104,7 +104,7 @@ class VenteAdmin(admin.ModelAdmin):
     model = Facture
     readonly_fields = ('employe','session',)
     fields = ('employe', 'session')
-    list_display = ('date_creation', 'employe', 'session', 'nb_livres')
+    list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_total',)
     exclude = ('actif',)
     actions = [ annuler_vente ]
     inlines = [ ExemplaireVenteInline, ]

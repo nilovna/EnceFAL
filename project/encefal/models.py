@@ -102,6 +102,10 @@ class Facture(Metadata):
         return self.exemplaires.count()
     nb_livres.short_description = 'Nombre de livres'
 
+    def prix_total(self):
+        return sum([e.prix for e in self.exemplaires.all()]) or 0
+    prix_total.short_description = 'Prix total de la facture'
+
 
 ################################################################################
 # LIVRE (BOOK)
