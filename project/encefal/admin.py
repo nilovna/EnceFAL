@@ -20,6 +20,13 @@ from project.encefal.models import (
 
 class ExemplaireReceptionInline(admin.TabularInline):
 
+    def __init__(self, *args, **kwargs):
+        super(ExemplaireReceptionInline, self).__init__(*args, **kwargs)
+        pdb.set_trace()
+        self.fields['isbn'].initial = self.model.livre.isbn
+        self.fields['titre'].initial = self.model.livre.titre
+        self.fields['auteur'].initial = self.model.livre.auteur
+
     exclude = ['facture', 'actif', 'etat', 'livre']
     model = Exemplaire
     form = ExemplaireReceptionForm
@@ -57,8 +64,8 @@ class ReceptionAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    def has_change_permission(self, request, obj=None):
-        return obj is None or False
+    #def has_change_permission(self, request, obj=None):
+        #return obj is None or False
 
 def annuler_vente(modeladmin, request, queryset):
     for vente in queryset.all():
@@ -91,8 +98,8 @@ class VenteAdmin(admin.ModelAdmin):
     def response_add(self, request, obj, post_url_continue=None):
         return HttpResponseRedirect('/employee/')
 
-    def has_change_permission(self, request, obj=None):
-        return obj is None or False
+    #def has_change_permission(self, request, obj=None):
+        #return obj is None or False
 
     def has_delete_permission(self, request, obj=None):
         return obj is not None or False
