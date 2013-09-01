@@ -41,7 +41,7 @@ class IdentifiantTextInput(TextInput):
 
         super(TextInput, self).__init__(attrs) 
 
-class LivreVendreForm(ModelForm):
+class ExemplaireReceptionForm(ModelForm):
     exclude = ( 'actif', 'livre', 'etat',)
 
     isbn = CharField(
@@ -61,7 +61,7 @@ class LivreVendreForm(ModelForm):
                        help_text="Auteur")
     
     def clean(self):
-        cleaned_data = super(LivreVendreForm, self).clean()
+        cleaned_data = super(ExemplaireReceptionForm, self).clean()
         
         livre, created = Livre.objects.get_or_create(isbn=cleaned_data.get('isbn'))
         if created:
@@ -76,7 +76,7 @@ class LivreVendreForm(ModelForm):
     class Meta:
         model = Exemplaire
 
-class LivreVenteForm(ModelForm):
+class ExemplaireVenteForm(ModelForm):
 
     exclude = ( 'actif', 'livre', 'etat',)
 
@@ -103,7 +103,7 @@ class LivreVenteForm(ModelForm):
                         help_text="Prix")
 
     def clean(self):
-        cleaned_data = super(LivreVenteForm, self).clean()
+        cleaned_data = super(ExemplaireVenteForm, self).clean()
         self.instance = Exemplaire.objects.get(pk=cleaned_data['identifiant'])
         self.instance.etat = 'VEND'
         self.instance.save()

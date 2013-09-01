@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
 
-from project.encefal.forms import LivreVendreForm, VendeurForm, LivreVenteForm
+from project.encefal.forms import ExemplaireVenteForm, ExemplaireReceptionForm, VendeurForm
 from project.encefal.models import (
                                     Vendeur, Session,
                                     Livre, Facture,
@@ -18,18 +18,19 @@ from project.encefal.models import (
 
 
 
-class LivreFormInline(admin.TabularInline):
+class ExemplaireReceptionInline(admin.TabularInline):
+
     exclude = ['facture', 'actif', 'etat', 'livre']
     model = Exemplaire
-    form = LivreVendreForm
+    form = ExemplaireReceptionForm
     fields = ['isbn', 'titre', 'auteur', 'prix']
     extra = 15
     
-class LivreVenteFormInline(admin.TabularInline):
- 
+class ExemplaireVenteInline(admin.TabularInline):
+
     exclude = [ 'actif', 'etat', 'livre']
     model = Exemplaire
-    form = LivreVenteForm
+    form = ExemplaireVenteForm
     fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
     extra = 15
 
@@ -40,7 +41,7 @@ class SessionAdmin(admin.ModelAdmin):
 class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
-    inlines = [ LivreFormInline, ]
+    inlines = [ ExemplaireReceptionInline, ]
     list_display = ('date_creation', 'nom', 'prenom', 
                     'nb_livres', 'code_permanent')
     
@@ -57,7 +58,7 @@ class ReceptionAdmin(admin.ModelAdmin):
         return HttpResponseRedirect('/employee/')
 
     def has_change_permission(self, request, obj=None):
-        return obj is not None or False
+        return obj is None or False
 
 def annuler_vente(modeladmin, request, queryset):
     for vente in queryset.all():
@@ -106,7 +107,7 @@ class VenteAdmin(admin.ModelAdmin):
     list_display = ('date_creation', 'employe', 'session', 'nb_livres')
     exclude = ('actif',)
     actions = [ annuler_vente ]
-    inlines = [ LivreVenteFormInline, ]
+    inlines = [ ExemplaireVenteInline, ]
 
 class LivreAdmin(admin.ModelAdmin):
     fields = ('isbn', 'titre', 'auteur', 'edition')
