@@ -6,14 +6,24 @@ import urllib
 from datetime import datetime as dt # est utilisé dans la views  rapport_date
 from django.shortcuts import render_to_response,render
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.http import (
+                         HttpResponseRedirect,
+                         HttpResponse, 
+                         HttpResponseNotFound
+                        )
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q
 from django.db.models import Count, Min, Sum, Avg
 from django.forms.formsets import formset_factory
 
-from project.encefal.models import Facture, Livre, Vendeur, ETAT_LIVRE_CHOICES, Exemplaire, ISBN_DB_BASE_QUERY
-from project.encefal.forms import ExemplaireForm,LivreVendreForm, VendeurForm
+from project.encefal.models import (
+                                    Facture, 
+                                    Livre, 
+                                    Vendeur, 
+                                    ETAT_LIVRE_CHOICES, 
+                                    Exemplaire, 
+                                    ISBN_DB_BASE_QUERY
+                                   )
 from django.conf import settings
 
 def index(request):
@@ -46,33 +56,6 @@ def vendre(request):
     facture.save()
     return HttpResponseRedirect(reverse('paiement')+"?id=%s" % (facture.id))
 
-def ajouter_livres(request):
-    if request.method == 'POST':
-        formset = formset_factory(LivreVendreFrom, request.POST) 
-        if formset.is_valid():
-          
-            return HttpResponseRedirect('/thanks/') 
-    else:
-        formset = formset_factory(LivreVendreForm, extra=5)
-        vendeur = VendeurForm()
-
-    return render(request, 'encefal/employee/ajouter_livres.html', {
-        'formset': formset,
-        'vendeur': vendeur,
-    }) 
-
-def liste_livres(request):
-    if request.method == "POST":
-        return HttpResponseRedirect(reverse('admin:encefal_vendeur_changelist'))
-
-    vendeur = Vendeur.objects.get(id=request.GET.get('id'))
-    date = datetime.date.today()
-    livres = Livre.objects.filter(vendeur=vendeur)
-    prix = livres.filter(Q(etat=ETAT_LIVRE_CHOICES[1][0])|Q(etat=ETAT_LIVRE_CHOICES[2][0])| Q(etat=ETAT_LIVRE_CHOICES[3][0])).aggregate(total=Sum('prix'))
-    return render_to_response('encefal/liste_livres.html',
-                              {'vendeur':vendeur, 'livres':livres, 'date':date,
-                              'total': prix['total']},
-                              context_instance = RequestContext(request))
 def livres(request):
 
     livres = Livre.objects.all()
@@ -175,36 +158,10 @@ def vendeur(request):
     
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 
-def detail_facture(request):
-    if request.method == "POST":
-        return HttpResponseRedirect(reverse('admin:encefal_facture_changelist'))
-
-    facture = Facture.objects.get(id=request.GET.get('id'))
-    livres = facture.livres.all()
-    return render_to_response('encefal/detail_facture.html', {'facture':facture,
-                              'livres': livres},
-                              context_instance = RequestContext(request))
-
-
 # Default employee index page
 def index_employee(request):
     return render_to_response('encefal/employee/index.html', {},
                               RequestContext(request))
-
-def add_exemplaire_employee(request):
-    if request.method == 'POST':
-        form = ExemplaireForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/')
-    else:
-        form = ExemplaireForm()
-
-    return render_to_response('encefal/employee/add_exemplaire.html', {
-                                'form': form,
-                              }, RequestContext(request))
-
-def sell(request):
-    return render_to_response('encefal/employee/sell.html', {})
 
 def rapport(request):
 
