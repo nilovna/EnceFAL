@@ -39,12 +39,12 @@ class Vendeur(Metadata):
         verbose_name = "Vendeur (Vrai)"
         verbose_name_plural = "Vendeurs (Vrai)"
 
+    code_carte_etudiante = models.IntegerField(null=False, blank=False,
+                                       verbose_name="Code carte étudiante",
+                                       help_text="Scannez la carte étudiante")
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
     code_permanent = models.CharField(max_length=12, )
-    code_carte_etudiante = models.IntegerField(null=False, blank=False,
-                                       verbose_name="Code de la carte étudiante",
-                                       help_text="Scannez la carte étudiante")
     telephone = models.CharField(max_length=255, verbose_name='Téléphone',
                                  blank=True)
     email = models.EmailField(max_length=255, blank=True)
