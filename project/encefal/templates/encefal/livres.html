@@ -1,5 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<div class="page-content">
+    <table id="livres" class="table table-hover table-bordered livres">
+        <thead>
+            <th>ISBN</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Prix Moyen</th>
+            <th>Quantité</th>
+        </thead>
+        <tbody>
+            {% for livre in livres %}
+            <tr>
+
+                <td>{{ livre.isbn }}</td> 
+
+                <td>{{ livre.titre }}</td> 
+
+                <td>{{ livre.auteur }}</td> 
+
+    	    {% if livre.prix_moyen %}
+                <td>{{ livre.prix_moyen|floatformat:2 }}$</td> 
+    	    {% else %}
+                <td>N.A.</td> 
+    	    {% endif %}
+
+    	    {% if livre.nb_exemplaires_en_vente %}
+                <td>{{ livre.nb_exemplaires_en_vente }}</td> 
+    	    {% else %}
+                <td>N.A.</td> 
+    	    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+
 <script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -13,49 +52,5 @@
         });
     } );
 </script>
-<style>
-    table, td, th{
-
-    }
-
-    td, th {
-        padding:15px;
-    }
-
-</style>
-<table id="livres" class="table table-hover livres">
-    <thead>
-        <th>ISBN</th>
-        <th>Titre</th>
-        <th>Auteur</th>
-        <th>Prix Moyen</th>
-        <th>Quantité</th>
-    </thead>
-    <tbody>
-        {% for livre in livres %}
-        <tr>
-
-            <td>{{ livre.isbn }}</td> 
-
-            <td>{{ livre.titre }}</td> 
-
-            <td>{{ livre.auteur }}</td> 
-
-	    {% if livre.prix_moyen %}
-            <td>{{ livre.prix_moyen|floatformat:2 }}$</td> 
-	    {% else %}
-            <td>N.A.</td> 
-	    {% endif %}
-
-	    {% if livre.nb_exemplaires_en_vente %}
-            <td>{{ livre.nb_exemplaires_en_vente }}</td> 
-	    {% else %}
-            <td>N.A.</td> 
-	    {% endif %}
-
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
 {% endblock %}  

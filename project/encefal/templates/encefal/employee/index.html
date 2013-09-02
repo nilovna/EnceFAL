@@ -21,13 +21,18 @@
       Annuler vente(s)
     </a>
   </div>
-  {% if user.is_superuser %}
   <div class="action-container">
+    <a href="{% url 'admin:encefal_exemplaire_changelist' %}"
+       class="btn btn-primary btn-large btn-info btn-report">
+      <i class="icon-book icon-white"></i>
+      Voir exemplaires
+    </a>
+  {% if user.is_superuser %}
     <a href="{% url 'rapport' %}"
        class="btn btn-primary btn-large btn-info btn-report">
       <i class="icon-list-alt icon-white"></i>
       Voir rapports des ventes
     </a>
-  </div>
   {% endif %}
+  </div>
 {% endblock content %}
