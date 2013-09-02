@@ -9,4 +9,5 @@ urlpatterns = patterns('encefal.views',
     url(r'^exemplaire/$', 'exemplaire', name='exemplaire'),
     url(r'^vendeur/$', 'vendeur', name='vendeur'),
     url(r'^rapport/$', 'rapport', name='rapport'),
+    url(r'^facture/$', 'facture', name='facture'),
 )

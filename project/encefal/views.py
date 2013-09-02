@@ -169,3 +169,17 @@ def rapport(request):
 
     return render_to_response('encefal/rapport.html', context)
 
+def facture(request):
+
+    if 'facture' in request.GET:
+        id_facture = request.GET['date']
+        facture = Vente.objects.get(pk=id_facture)
+    else: 
+        facture = None
+
+    context = {
+        'facture':facture,
+    }
+
+    return render_to_response('encefal/facture.html', context)
+
