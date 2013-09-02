@@ -58,7 +58,7 @@ class ReceptionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         #ne save pas le modele si le meme vendeur existe deja!
         try:
-            Vendeur.objects.get(code_carte_etudiante=obj.code_carte_etudiante)
+            Vendeur.objects.get(code_permanent=obj.code_permanent)
         except Vendeur.DoesNotExist:
             obj.save()
         return
