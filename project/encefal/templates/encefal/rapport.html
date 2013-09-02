@@ -1,125 +1,89 @@
 
 {% extends 'base.html' %}
+{% block extra_head %}
+    <link href='/static/css/datepicker.css' rel='stylesheet' type='text/css'>
+    <script src="/static/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $( "#date_rapport" ).datepicker({
+                autoclose : true
+            }).on("changeDate", function(e) {
+                var day = ('0'+(e.date.getDate())).slice(-2)
+                var month = ('0'+(e.date.getMonth()+1)).slice(-2)
+                window.location.href = '/rapport/' + '?date=' 
+                                        + e.date.getFullYear() + "-" 
+                                        + month + "-" 
+                                        + day;
+            });
+        }); 
+    </script>
+{% endblock %}
+
 {% block content %}
 {% load static %}
-{% get_static_prefix as STATIC_URL %}
 
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript">
-function go_rapport(){
-	ladate= $("#date").val();
-	window.location = '/rapport/' + '?date=' + ladate;
-}
-$(function() {
-	$( "#date" ).datepicker({
-		dateFormat:"yy-mm-dd"
-	});
-});
-</script>
+<div class="page-content">
+    <h1>Rapport de ventes</h1>
+    <div class="control-group">
+        <label class="control-label">Date:
+            <div class="input-append date datepicker" id="date_rapport" data-date-format="DD, dd M yyyy">
+                <input class="input-medium" size="16" type="text" value=""><span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </label>
+    </div>
 
-<style type="text/css">
-body{
-	top: 50px;
-}
-table td{ 
-	padding: 5px;
-}
-
-.ui-datepicker{
-	margin-top: -50px;
-}
-
-#rapport-wrap{
-	margin-top: 100px;
-}
-
-
-#rapport_filter{
-	float:right;
-}
-#rapport-wrap h1{
-	position: relative;
-	margin-right: auto;
-	margin-left: auto;
-	text-align: center;
-	padding-bottom: 100px;
-}
-#rapport-wrap h3{
-	color: #0044cc;
-}
-</style>
-
-
-
-<h3>Choisir une date  :</h3><input id="date" type="text">
-<a class="btn btn-primary btn-large" onclick="go_rapport();">Voir rapport</a>	
-
-<div id="rapport-wrap">
-	<h3>Date du rapport : {{date}} </h1>
-
-    <table>
-        <tr>
-
-            <td>
-                Nombre de ventes:
-            </td>
-            <td>
-            {% if nb_factures %}
-                {{nb_factures}}
-            {% else %}
-                0
-            {% endif %}
-            </td>
+    <div class="rapport-wrap">
+        <table class="table table-striped table-report">
+            <caption>Date du rapport : {{ date }} </caption>
+            <tr>
+                <td>Nombre de livres ajoutés:</td>
+                <td>
+                    {% if nb_ajoutes %}
+                        {{ nb_ajoutes }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Nombre de livres vendus:</td>
+                <td>
+                {% if nb_vendus %}
+                    {{ nb_vendus }}
+                {% else %}
+                    0
+                {% endif %}
+                </td>
+            </tr>
         
-        </tr>
+            <tr>
+                <td>Nombre de ventes:</td>
+                <td>
+                    {% if nb_factures %}
+                        {{ nb_factures }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
 
-        <tr>
+            <tr>
+                <td>Prix total des ventes:</td>
+                <td>
+                {% if prix_total_vendu %}
+                    {{ prix_total_vendu }}$
+                {% else %}
+                    0$
+                {% endif %}
+                </td>
+            </tr>
 
-            <td>
-                Nombre de livres vendus:
-            </td>
-            <td>
-            {% if nb_vendus %}
-                {{nb_vendus}}
-            {% else %}
-                0
-            {% endif %}
-            </td>
-        
-        </tr>
-    
-        <tr>
 
-            <td>
-                Prix total des ventes:
-            </td>
-            <td>
-            {% if prix_total_vendu %}
-                {{prix_total_vendu}}$
-            {% else %}
-                0$
-            {% endif %}
-            </td>
-        
-        </tr>
 
-        <tr>
+        </table>
 
-            <td>
-                Nombre de livres ajoutés:
-            </td>
-            <td>
-            {% if nb_ajoutes%}
-                {{nb_ajoutes}}
-            {% else %}
-                0
-            {% endif %}
-            </td>
-        
-        </tr>
-
-    </table>
-
+    </div>
 </div>
 
 {% endblock %}
