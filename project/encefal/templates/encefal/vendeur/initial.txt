@@ -1,0 +1,9 @@
+contrat de la foire aux livres ... blabla
+
+Voici vos livres:
+{% for e in vendeur.exemplaires.all %}
+      {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}} , {{e.etat}} 
+
+{% endfor %}
+
+Merci de faire affaire avec la foire aux livres

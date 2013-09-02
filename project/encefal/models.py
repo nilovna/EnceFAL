@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from django.forms import ValidationError
 import urllib, json
 
-
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 ################################################################################
 # CONSTANTES (CONSTANTS)
@@ -56,6 +58,21 @@ class Vendeur(Metadata):
         return self.exemplaires.count()
     nb_livres.short_description = 'Nombre de livres'
 
+    def envoyer_recu(self):
+        '''
+        lorsque le vendeur apporte des livres, on envoie le contrat par email.
+        '''
+        plaintext = get_template('encefal/vendeur/initial.txt')
+        htmly     = get_template('encefal/vendeur/initial.html')
+
+        d = Context({ 'vendeur': self })
+
+        subject, from_email, to = 'contrat', 'aess@aessuqam.org', self.email
+        text_content = plaintext.render(d)
+        html_content = htmly.render(d)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 class Reception(Vendeur):
     class Meta:

@@ -1,0 +1,45 @@
+contrat de la foire aux livres ... blabla
+
+Voici vos livres:
+<table>
+    <thead>
+        <td>
+            ISBN
+        </td>
+        <td>
+            Titre
+        </td>
+        <td>
+            Auteur
+        </td>
+        <td>
+            Prix
+        </td>
+        <td>
+            Etat
+        </td>
+    </thead>
+{%for e in vendeur.exemplaires.all%}
+<tr>
+    <td>
+      {{e.livre.isbn}} 
+    </td>
+    <td>
+      {{e.livre.titre}} 
+    </td>
+    <td>
+      {{e.livre.auteur}} 
+    </td>
+    <td>
+      {{e.prix}} 
+    </td>
+    <td>
+      {{e.etat}} 
+    </td>
+
+</tr>
+
+{% endfor %}
+</table>
+
+Merci de faire affaire avec la foire aux livres
