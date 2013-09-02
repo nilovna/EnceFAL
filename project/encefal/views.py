@@ -169,7 +169,7 @@ def rapport(request):
 
     return render_to_response('encefal/rapport.html', context)
 
-def facture(request):
+def factures(request):
 
     if 'facture' in request.GET:
         id_facture = request.GET['date']
@@ -181,5 +181,5 @@ def facture(request):
         'facture':facture,
     }
 
-    return render_to_response('encefal/facture.html', context)
+    return render_to_response('encefal/factures.html', context)
 
