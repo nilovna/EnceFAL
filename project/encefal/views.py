@@ -31,7 +31,7 @@ def index(request):
                               RequestContext(request))
     
 def acceuil(request):
-    return render_to_response('index.html', {},
+    return render_to_response('encefal/index.html', {},
                               RequestContext(request))
 
 def vendre(request):

@@ -10,16 +10,9 @@ from django.views.generic.base import RedirectView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^/$', RedirectView.as_view(url='/employee/')),
-    url(r'^$', RedirectView.as_view(url='/employee/')),
-    url(r'^employee/', include('encefal.urls')),
+    url(r'^', include('encefal.urls')),
+    url(r'^employee/$', 'encefal.views.index_employee', name='employee_home'),
     url(r'^employee/', include(admin.site.urls)),
-    url(r'^vendre/$', 'encefal.views.vendre', name='vendre'),
-    url(r'^livres/$', 'encefal.views.livres', name='livres'),
-    url(r'^livre/$', 'encefal.views.livre', name='livre'),
-    url(r'^exemplaire/$', 'encefal.views.exemplaire', name='exemplaire'),
-    url(r'^vendeur/$', 'encefal.views.vendeur', name='vendeur'),
-    url(r'^rapport/$', 'encefal.views.rapport', name='rapport'),
 )
 
 if settings.DEBUG:
