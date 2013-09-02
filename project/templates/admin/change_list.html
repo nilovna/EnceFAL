@@ -37,34 +37,29 @@
 
 {% if not is_popup %}
 {% block breadcrumbs %}
-<div class="breadcrumbs pull-left">
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-&rsaquo; <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{{ app_label|capfirst|escape }}</a>
-&rsaquo; {{ cl.opts.verbose_name_plural|capfirst }}
-</div>
+
 {% endblock %}
 {% endif %}
 
 {% block coltype %}flex{% endblock %}
 
 {% block content %}
-  <div id="content-main">
-    <div class="clearfix">
-    {% block object-tools %}
-      {% if has_add_permission %}
-        <ul class="object-tools pull-right">
-          {% block object-tools-items %}
-            <li>
-              <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class=" btn btn-small btn-primary addlink"><i class="icon-plus icon-white"></i>
-                {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
-              </a>
-            </li>
-          {% endblock %}
-        </ul>
-      {% endif %}
-    {% endblock %}
+{% block object-tools %}
+  {% if has_add_permission %}
+    <ul class="object-tools pull-right">
+      {% block object-tools-items %}
+        <li>
+          <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class=" btn btn-small btn-primary addlink"><i class="icon-plus icon-white"></i>
+            {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+          </a>
+        </li>
+      {% endblock %}
+    </ul>
+  {% endif %}
+{% endblock %}
       
-    </div>
+  <div id="content-main">
+
       {% if cl.formset.errors %}
         <div class="alert alert-error">
           <p class="errornote">

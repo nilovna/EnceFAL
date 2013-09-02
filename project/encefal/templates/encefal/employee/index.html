@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="first-action-container">
+  <div class="primary-action-container action-container">
 
       <a href="{% url 'admin:encefal_reception_add' %}" 
          class="btn btn-inverse btn-large btn-add-book">
-      <i class="icon-plus icon-white"></i>
+      <i class="icon-plus-sign icon-white"></i>
       Ajouter livre(s)
     </a>
 
@@ -14,19 +14,20 @@
       <i class="icon-shopping-cart icon-white"></i>
       Vendre livre(s)
     </a>
-    <br></br>
 
     <a href="{% url 'admin:encefal_vente_changelist' %}"
-       class="btn btn-primary btn-large btn-sell-book">
-      <i class=""></i>
+       class="btn btn-primary btn-large  btn-danger btn-cancel-sell">
+      <i class="icon-remove-sign icon-white"></i>
       Annuler vente(s)
     </a>
-
-    <a href="{% url 'rapport' %}"
-       class="btn btn-primary btn-large btn-sell-book">
-      <i class=""></i>
-      Voir rapports
-    </a>
-
   </div>
+  {% if user.is_superuser %}
+  <div class="action-container">
+    <a href="{% url 'rapport' %}"
+       class="btn btn-primary btn-large btn-info btn-report">
+      <i class="icon-list-alt icon-white"></i>
+      Voir rapports des ventes
+    </a>
+  </div>
+  {% endif %}
 {% endblock content %}

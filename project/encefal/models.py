@@ -11,7 +11,7 @@ import urllib, json
 ################################################################################
 # CONSTANTES (CONSTANTS)
 ################################################################################
-HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ-MM-AAAA"
+HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ/MM/AAAA"
 #Ajouter une KEY propre a Encefal. On doit creer un compte sur isbndb
 ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}"
 

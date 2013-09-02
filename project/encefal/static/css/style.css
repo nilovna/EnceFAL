@@ -53,6 +53,16 @@ input {
   font-weight: 700;
 }
 
+.btn-large {
+  font-weight: 700;
+  margin: 0 30px;
+  padding: 20px 30px;
+}
+
+.btn-report {
+  margin: 0 15px 0 0;
+}
+
 /* $PAGE CONTENT
 -------------------------------------------------------------- */
 .page-content {
@@ -65,15 +75,13 @@ input {
 
 /* $INDEX EMPLOYEE
 -------------------------------------------------------------- */
-.first-action-container {
-  text-align: center;
+.primary-action-container {
   margin-top: 250px;
 }
 
-.first-action-container .btn {
-  font-weight: 700;
-  margin: 0 30px;
-  padding: 20px 30px;
+.action-container {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 /* $ADMIN
@@ -147,7 +155,8 @@ input {
 
   .object-tools {
     list-style: none;
-    margin: 0;
+    margin-top: 12px;
+    margin-right: 12px;
   }
 
   .search-wrapper {
