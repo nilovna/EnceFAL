@@ -34,15 +34,6 @@ def acceuil(request):
     return render_to_response('encefal/index.html', {},
                               RequestContext(request))
 
-def vendre(request):
-    livre_ids = request.GET.get('ids').split(',')
-    livres = Livre.objects.filter(id__in=livre_ids)
-    facture = Facture()
-    facture.save()
-    facture.livres = livres
-    facture.save()
-    return HttpResponseRedirect(reverse('paiement')+"?id=%s" % (facture.id))
-
 def livres(request):
 
     livres = Livre.objects.all()
