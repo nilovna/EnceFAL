@@ -28,9 +28,9 @@ $(document).ready(function () {
         return /id_exemplaires-(?:\d+)-prix/.test(this.id);
     }).change(actualiserTotal);
 
-    $('#id_code_carte_etudiante').change(function () {
+    $('#id_code_permanent').change(function () {
 
-        code = $('#id_code_carte_etudiante').val();
+        code = $('#id_code_permanent').val();
         if (code.length == 0){
             return;
         } 
@@ -39,7 +39,6 @@ $(document).ready(function () {
         $.get(url, function(response, status){
             if (status == "success"){
 
-                $('#id_code_permanent').val(response.code_permanent);
                 $('#id_prenom').val(response.prenom);
                 $('#id_email').val(response.email);
                 $('#id_nom').val(response.nom);

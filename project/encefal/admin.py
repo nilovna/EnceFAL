@@ -7,7 +7,10 @@ from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
 
-from project.encefal.forms import ExemplaireVenteForm, ExemplaireReceptionForm, VendeurForm
+from project.encefal.forms import (
+                                   ExemplaireVenteForm, 
+                                   ExemplaireReceptionForm, 
+                                  )
 from project.encefal.models import (
                                     Vendeur, Session,
                                     Livre, Facture,
@@ -41,6 +44,13 @@ class SessionAdmin(admin.ModelAdmin):
 class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
+    fields = [
+              'code_permanent', 
+              'prenom', 
+              'nom' , 
+              'email',
+              'telephone'
+             ]
     inlines = [ ExemplaireReceptionInline, ]
     list_display = ('date_creation', 'nom', 'prenom',
                     'nb_livres', 'code_permanent')
@@ -123,8 +133,14 @@ class FactureAdmin(admin.ModelAdmin):
     list_display = ('date_creation', 'employe', 'session', 'nb_livres',)
 
 class VendeurAdmin(admin.ModelAdmin):
-    exclude = ('actif',)
     list_display = ('date_creation', 'nom', 'prenom', 'nb_livres', 'code_permanent')
+    exclude = ['actif']
+    fields = [
+              'code_permanent', 
+              'prenom', 
+              'nom' , 
+              'email'
+             ]
 
 admin.site.register(Vendeur, VendeurAdmin)
 admin.site.register(Reception, ReceptionAdmin)

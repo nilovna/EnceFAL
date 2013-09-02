@@ -3,24 +3,6 @@ from django.forms import ModelForm,Form, TextInput
 from django.forms import IntegerField, CharField, DecimalField
 from project.encefal.models import Exemplaire,Vendeur,Livre,ETAT_LIVRE_CHOICES
 
-class ExemplaireForm(ModelForm):
-    class Meta:
-        model = Exemplaire
-
-class VendeurForm(ModelForm):
-    class Meta:
-        model = Vendeur
-        exclude = ['actif']
-        fields = ['code_carte_etudiante', 
-                  'code_permanent', 
-                  'prenom', 
-                  'nom' , 
-                  'email']
-    class Media:
-        js = {
-                all: ('js/vente.js',)
-                }
-
 class IsbnTextInput(TextInput):
 
     def __init__(self, attrs=None):

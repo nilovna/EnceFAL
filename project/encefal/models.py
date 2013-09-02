@@ -41,9 +41,10 @@ class Vendeur(Metadata):
         verbose_name = "Vendeur (Vrai)"
         verbose_name_plural = "Vendeurs (Vrai)"
 
-    code_carte_etudiante = models.IntegerField(null=False, blank=False,
-                                       verbose_name="Code carte étudiante",
-                                       help_text="Scannez la carte étudiante")
+    # En attendant les scanners, ce champ est inutile.
+    #code_carte_etudiante = models.IntegerField(null=False, blank=False,
+                                       #verbose_name="Code carte étudiante",
+                                       #help_text="Scannez la carte étudiante")
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
     code_permanent = models.CharField(max_length=12, )
@@ -203,7 +204,7 @@ class Exemplaire(Metadata):
 
     def save(self,*args,**kwargs):
 
-        code_vendeur = self.vendeur.code_carte_etudiante
+        code_permanent = self.vendeur.code_permanent
         pk_vendeur_temp = self.vendeur.id
         vendeur = None
 
@@ -211,7 +212,7 @@ class Exemplaire(Metadata):
             self.vendeur = (
                             Vendeur.objects.all().
                             exclude(pk=pk_vendeur_temp).
-                            get(code_carte_etudiante=code_vendeur)
+                            get(code_permanent=code_permanent)
                            )
         except Vendeur.DoesNotExist:
             pass

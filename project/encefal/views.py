@@ -117,20 +117,19 @@ def exemplaire(request):
 def vendeur(request):
 
     assert('code' in request.GET)
-    #TODO Problablement ajouter le length du code
+    assert(len(request.GET['code']) == 12)
 
     vendeur = None
     code = request.GET['code']
 
     try:
-        vendeur = Vendeur.objects.get(code_carte_etudiante=code)
+        vendeur = Vendeur.objects.get(code_permanent=code)
     except Vendeur.DoesNotExist:
         return HttpResponseNotFound()
 
     reponse = {
                'nom':vendeur.nom,
                'prenom':vendeur.prenom,
-               'code_permanent':vendeur.code_permanent,
                'telephone':vendeur.telephone,
                'email':vendeur.email
               }
