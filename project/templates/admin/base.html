@@ -6,7 +6,12 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>EnceFAL - {%block pagetitle %}{% endblock pagetitle %}</title>    <meta name="description" content="">
+    <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/inlines.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" /> -->
+
+
     {% bootstrap_stylesheet_tag %}
     {% bootstrap_stylesheet_tag "responsive" %}
     <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
@@ -17,7 +22,7 @@
     <![endif]-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     {% bootstrap_javascript_tag %}
-    
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% get_static_prefix %}css/style.css" type='text/css'>
     {% block extrastyle %}{% endblock %}

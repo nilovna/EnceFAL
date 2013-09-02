@@ -24,8 +24,8 @@ class ExemplaireReceptionInline(admin.TabularInline):
     model = Exemplaire
     form = ExemplaireReceptionForm
     fields = ['isbn', 'titre', 'auteur', 'prix']
-    extra = 15
-    
+    extra = 5
+
 class ExemplaireVenteInline(admin.TabularInline):
 
     exclude = [ 'actif', 'etat', 'livre']
@@ -42,9 +42,9 @@ class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
     inlines = [ ExemplaireReceptionInline, ]
-    list_display = ('date_creation', 'nom', 'prenom', 
+    list_display = ('date_creation', 'nom', 'prenom',
                     'nb_livres', 'code_permanent')
-    
+
     def save_model(self, request, obj, form, change):
         #ne save pas le modele si le meme vendeur existe deja!
         try:

@@ -35,6 +35,10 @@ class Metadata(models.Model):
 # VENDEUR (SELLER)
 ################################################################################
 class Vendeur(Metadata):
+    class Meta:
+        verbose_name = "Vendeur (Vrai)"
+        verbose_name_plural = "Vendeurs (Vrai)"
+
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
     code_permanent = models.CharField(max_length=12, )
@@ -56,8 +60,8 @@ class Vendeur(Metadata):
 class Reception(Vendeur):
     class Meta:
         proxy = True
-        verbose_name = "Reception"
-        verbose_name_plural = "Receptions"
+        verbose_name = "Vendeur"
+        verbose_name_plural = "Vendeurs"
 
     def __unicode__(self):
         return ("Reception de livres de " + self.nom + ', ' + self.prenom)
