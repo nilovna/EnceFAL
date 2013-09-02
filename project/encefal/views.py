@@ -107,7 +107,7 @@ def exemplaire(request):
                    'status':'ok',
                    'titre':exemplaire.livre.titre,
                    'auteur':exemplaire.livre.auteur,
-                   'prix':int(exemplaire.prix),
+                   'prix':exemplaire.prix,
                    'isbn':exemplaire.livre.isbn,
                    'nb':nb
                   }
