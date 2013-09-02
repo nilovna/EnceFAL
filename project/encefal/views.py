@@ -29,6 +29,10 @@ from django.conf import settings
 def index(request):
     return render_to_response('admin', {},
                               RequestContext(request))
+    
+def acceuil(request):
+    return render_to_response('index.html', {},
+                              RequestContext(request))
 
 def vendre(request):
     livre_ids = request.GET.get('ids').split(',')
