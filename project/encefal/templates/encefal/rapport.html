@@ -92,9 +92,10 @@ table td{
 
 <div id="rapport-wrap">
 	<h1>Date du rapport : {{ladate}} </h1>
-
 	<div class="rapport-vendu-wrap">
 		<h3>Rapport des livres vendus</h3>
+		<h4 style="float:right;">Nombre  de vente: {{vendu.count}}</h4>
+
 		<table id="rapport-vendu" class="table table-hover rapport">
 
 			<thead>
@@ -130,6 +131,7 @@ table td{
 
 	</div>
 	<h3>Rapport des livres ajoutés</h3>
+	<h4 style="float:right;">Nombre d'entre: {{ajoute.count}}</h4>
 	<table id="rapport-ajoute" class="table table-hover rapport">
 
 		<thead>
