@@ -26,10 +26,11 @@ from project.encefal.models import (
                                    )
 from django.conf import settings
 
-def index(request):
-    return render_to_response('admin', {},
+# Default employee index page
+def index_employee(request):
+    return render_to_response('encefal/employee/index.html', {},
                               RequestContext(request))
-    
+
 def acceuil(request):
     return render_to_response('encefal/index.html', {},
                               RequestContext(request))
@@ -135,11 +136,6 @@ def vendeur(request):
               }
     
     return HttpResponse(json.dumps(reponse), content_type="application/json")
-
-# Default employee index page
-def index_employee(request):
-    return render_to_response('encefal/employee/index.html', {},
-                              RequestContext(request))
 
 def rapport(request):
 
