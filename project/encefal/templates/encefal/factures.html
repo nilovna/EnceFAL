@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+{% block extra_head %}
+    <link href='/static/css/datepicker.css' rel='stylesheet' type='text/css'>
+    <script src="/static/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $( "#date_rapport" ).datepicker({
+                autoclose : true
+            }).on("changeDate", function(e) {
+                var day = ('0'+(e.date.getDate())).slice(-2)
+                var month = ('0'+(e.date.getMonth()+1)).slice(-2)
+                window.location.href = '/rapport/' + '?date=' 
+                                        + e.date.getFullYear() + "-" 
+                                        + month + "-" 
+                                        + day;
+            });
+        }); 
+    </script>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="page-content">
+    <label for="no_facture" class="control-label">Numéro de facture:
+        <input id="no_facture" class="input-mini" size="16" type="text" value="">
+    </label>
+
+    <div class="facture-wrap">
+        <table class="table table-striped table-facture">
+            <caption>Facture #{{ date }} </caption>
+            <tr>
+                <td>Nombre de livres ajoutés:</td>
+                <td>
+                    {% if nb_ajoutes %}
+                        {{ nb_ajoutes }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Nombre de livres vendus:</td>
+                <td>
+                {% if nb_vendus %}
+                    {{ nb_vendus }}
+                {% else %}
+                    0
+                {% endif %}
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nombre de ventes:</td>
+                <td>
+                    {% if nb_factures %}
+                        {{ nb_factures }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Prix total des ventes:</td>
+                <td>
+                {% if prix_total_vendu %}
+                    {{ prix_total_vendu }}$
+                {% else %}
+                    0$
+                {% endif %}
+                </td>
+            </tr>
+
+
+
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}
+
