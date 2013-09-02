@@ -5,45 +5,10 @@
 {% get_static_prefix as STATIC_URL %}
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
-<script>
-$(document).ready(function() {
-	/*$('#rapport').dataTable({
-		"bPaginate": false,
-		"bLengthChange": false,
-		"bFilter": true,
-		"bSort": false,
-		"bInfo": false,
-		"bAutoWidth": false
-	});
-
-*/
-
-calculer_prix_vendu = function(){
-	var total =0;
-	cells = $("#rapport-vendu .prix");
-	$.each(cells,function(){
-		total = parseFloat(total) + parseFloat($(this).html().replace(',','.'));
-	});
-	$('#total-vendu').html(total.toFixed(2));
-}
-calculer_prix_ajoute = function(){
-	var total =0;
-	cells = $("#rapport-ajoute .prix");
-	$.each(cells,function(){
-		total = parseFloat(total) + parseFloat($(this).html().replace(',','.'));
-	});
-	$('#total-ajoute').html(total.toFixed(2));
-}
-calculer_prix_vendu();
-calculer_prix_ajoute();
-
-});
-</script>
 <script type="text/javascript">
 function go_rapport(){
 	ladate= $("#date").val();
-	window.open('/rapport/'+'?date='+ladate);
+	window.location = '/rapport/' + '?date=' + ladate;
 }
 $(function() {
 	$( "#date" ).datepicker({
@@ -65,7 +30,7 @@ table td{
 }
 
 #rapport-wrap{
-	margin-top: 200px;
+	margin-top: 100px;
 }
 
 
@@ -89,79 +54,42 @@ table td{
 <h3>Choisir une date  :</h3><input id="date" type="text">
 <a class="btn btn-primary btn-large" onclick="go_rapport();">Voir rapport</a>	
 
-
 <div id="rapport-wrap">
-	<h1>Date du rapport : {{ladate}} </h1>
-	<div class="rapport-vendu-wrap">
-		<h3>Rapport des livres vendus</h3>
-		<h4 style="float:right;">Nombre  de vente: {{vendu.count}}</h4>
+	<h1>Date du rapport : {{date}} </h1>
 
-		<table id="rapport-vendu" class="table table-hover rapport">
+	<h4>Nombre de ventes: 
+      {% if nb_factures %}
+        {{nb_factures}}
+      {% else %}
+        0
+      {% endif %}
+    </h4>
 
-			<thead>
-				<th>Titre</th>
-				<th>Auteur</th>
-				<th>isbn</th>
-				<th>Prix</th>
-			</thead>
-			<tbody>
-				{% for livre in vendu %}
-				<tr>
-					<td>{{livre.titre}}</td>
-					<td>{{livre.livre.auteur}}</td>			
-					<td>{{livre.livre.isbn}}</td>
-					<td class="prix">{{livre.prix}}</td>			
-				</tr>
+	<h4>Nombre de livres vendus: 
+      {% if nb_vendus %}
+        {{nb_vendus}}
+      {% else %}
+        0
+      {% endif %}
+    </h4>
 
-				{% endfor %}
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td id="total-vendu"><td><b>TOTAL</b></td></td>
-				</tr>
+	<h4>Prix total des ventes: 
+      {% if prix_total_vendu %}
+        {{prix_total_vendu}}$
+      {% else %}
+        0$
+      {% endif %}
+    </h4>
 
-			</tbody>
+	<h4>Nombre de livres ajoutés: 
+      {% if nb_ajoutes %}
+        {{nb_ajoutes}}$
+      {% else %}
+        0$
+      {% endif %}
+    </h4>
 
-		</table>
-
-	</div>
-
-	<div class="rapport-ajoute-wrap">
-
-	</div>
-	<h3>Rapport des livres ajoutés</h3>
-	<h4 style="float:right;">Nombre d'entre: {{ajoute.count}}</h4>
-	<table id="rapport-ajoute" class="table table-hover rapport">
-
-		<thead>
-			<th>Titre</th>
-			<th>Auteur</th>
-			<th>isbn</th>
-			<th>Prix</th>
-		</thead>
-		<tbody>
-			{% for livre in ajoute %}
-			<tr>
-				<td>{{livre.titre}}</td>
-				<td>{{livre.livre.auteur}}</td>			
-				<td>{{livre.livre.isbn}}</td>
-				<td class="prix">{{livre.prix}}</td>
-			</tr>
-
-			{% endfor %}
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td id="total-ajoute"><td><b>TOTAL</b></td></td>
-			</tr>
-
-		</tbody>
-
-	</table>
 </div>
-
 
 {% endblock %}
 

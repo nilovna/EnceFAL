@@ -3,7 +3,7 @@ import datetime
 import json
 import urllib
 
-from datetime import datetime as dt # est utilisé dans la views  rapport_date
+from datetime import datetime, timedelta
 from django.shortcuts import render_to_response,render
 from django.template import RequestContext
 from django.http import (
@@ -139,71 +139,34 @@ def vendeur(request):
 
 def rapport(request):
 
-  #date= request.GET['nb']
-  if request.GET:
+    if 'date' in request.GET:
+        date = request.GET['date']
+        date = datetime.strptime(date,"%Y-%m-%d")
+    else: 
+        date = datetime.today()
 
-    ladate = request.GET['date']
-    ladate_dt = dt.strptime(ladate,"%Y-%m-%d")
+    lendemain = date + timedelta(days=1)
    
+    # on met les deux dates a minuit
+    date = date.replace(hour=0, minute=0, second=0)
+    lendemain = lendemain.replace(hour=0, minute=0, second=0)
 
-    vendu = Exemplaire.objects.all().filter(facture__date_creation__year=ladate_dt.strftime('%Y'),
-                                            facture__date_creation__month=ladate_dt.strftime('%m'),
-                                            facture__date_creation__day=ladate_dt.strftime('%d'),)
-    ajoute = Exemplaire.objects.all().filter(date_creation__year=ladate_dt.strftime('%Y'),
-                                            date_creation__month=ladate_dt.strftime('%m'),
-                                            date_creation__day=ladate_dt.strftime('%d'),
-                                            )
-  else:
-    ladate = datetime.date.today()
-    vendu = Exemplaire.objects.all().filter(etat="VEND",
-                                            facture__date_creation__year=datetime.date.today().year,
-                                            facture__date_creation__month=datetime.date.today().month,
-                                            facture__date_creation__day=datetime.date.today().day,
-                                            )
-    ajoute = Exemplaire.objects.all().filter(date_creation__year=datetime.date.today().year,
-                                            date_creation__month=datetime.date.today().month,
-                                            date_creation__day=datetime.date.today().day,
-                                            )
+    ajoutes = Exemplaire.objects.all().filter(date_creation__gt=date,
+                                              date_creation__lt=lendemain)
+    factures = Facture.objects.all().filter(date_creation__gt=date,
+                             date_creation__lt=lendemain)
+    
+    nb_nouveaux = ajoutes.count()
+    nb_factures = factures.count()
+    nb_vendus = sum([f.nb_livres() for f in factures])
+    prix_total_vendu = sum([f.prix_total() for f in factures])
 
-  context = {
-    'vendu':vendu,
-    'ajoute':ajoute,
-    'ladate':ladate,
-  }
+    context = {
+        'nb_nouveaux':nb_nouveaux,
+        'date':date.date(),
+        'nb_vendus':nb_vendus,
+        'prix_total_vendu':prix_total_vendu,
+    }
 
-  return render_to_response('encefal/rapport.html', context)
+    return render_to_response('encefal/rapport.html', context)
 
-def rapport_date(request):
-#date= request.GET['nb']
-  if request.GET:
-
-    ladate = request.GET['date']
-    ladate_dt = dt.strptime(ladate,"%Y-%m-%d")
-   
-
-    vendu = Exemplaire.objects.all().filter(facture__date_creation__year=ladate_dt.strftime('%Y'),
-                                            facture__date_creation__month=ladate_dt.strftime('%m'),
-                                            facture__date_creation__day=ladate_dt.strftime('%d'),)
-    ajoute = Exemplaire.objects.all().filter(date_creation__year=ladate_dt.strftime('%Y'),
-                                            date_creation__month=ladate_dt.strftime('%m'),
-                                            date_creation__day=ladate_dt.strftime('%d'),
-                                            )
-  else:
-    ladate = datetime.date.today()
-    vendu = Exemplaire.objects.all().filter(etat="VEND",
-                                            facture__date_creation__year=datetime.date.today().year,
-                                            facture__date_creation__month=datetime.date.today().month,
-                                            facture__date_creation__day=datetime.date.today().day,
-                                            )
-    ajoute = Exemplaire.objects.all().filter(date_creation__year=datetime.date.today().year,
-                                            date_creation__month=datetime.date.today().month,
-                                            date_creation__day=datetime.date.today().day,
-                                            )
-
-  context = {
-    'vendu':vendu,
-    'ajoute':ajoute,
-    'ladate':ladate,
-  }
-
-  return render_to_response('encefal/rapport_date.html', context)
