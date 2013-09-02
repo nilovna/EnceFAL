@@ -55,39 +55,70 @@ table td{
 <a class="btn btn-primary btn-large" onclick="go_rapport();">Voir rapport</a>	
 
 <div id="rapport-wrap">
-	<h1>Date du rapport : {{date}} </h1>
+	<h3>Date du rapport : {{date}} </h1>
 
-	<h4>Nombre de ventes: 
-      {% if nb_factures %}
-        {{nb_factures}}
-      {% else %}
-        0
-      {% endif %}
-    </h4>
+    <table>
+        <tr>
 
-	<h4>Nombre de livres vendus: 
-      {% if nb_vendus %}
-        {{nb_vendus}}
-      {% else %}
-        0
-      {% endif %}
-    </h4>
+            <td>
+                Nombre de ventes:
+            </td>
+            <td>
+            {% if nb_factures %}
+                {{nb_factures}}
+            {% else %}
+                0
+            {% endif %}
+            </td>
+        
+        </tr>
 
-	<h4>Prix total des ventes: 
-      {% if prix_total_vendu %}
-        {{prix_total_vendu}}$
-      {% else %}
-        0$
-      {% endif %}
-    </h4>
+        <tr>
 
-	<h4>Nombre de livres ajoutés: 
-      {% if nb_ajoutes %}
-        {{nb_ajoutes}}$
-      {% else %}
-        0$
-      {% endif %}
-    </h4>
+            <td>
+                Nombre de livres vendus:
+            </td>
+            <td>
+            {% if nb_vendus %}
+                {{nb_vendus}}
+            {% else %}
+                0
+            {% endif %}
+            </td>
+        
+        </tr>
+    
+        <tr>
+
+            <td>
+                Prix total des ventes:
+            </td>
+            <td>
+            {% if prix_total_vendu %}
+                {{prix_total_vendu}}$
+            {% else %}
+                0$
+            {% endif %}
+            </td>
+        
+        </tr>
+
+        <tr>
+
+            <td>
+                Nombre de livres ajoutés:
+            </td>
+            <td>
+            {% if nb_ajoutes%}
+                {{nb_ajoutes}}
+            {% else %}
+                0
+            {% endif %}
+            </td>
+        
+        </tr>
+
+    </table>
 
 </div>
 
