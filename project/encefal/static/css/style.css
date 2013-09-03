@@ -232,3 +232,12 @@ input {
   font-weight: 600;
   font-size: 1.2em;
 }
+
+/* $FACTURE
+-------------------------------------------------------------- */
+.table-facture tfoot td {
+  font-size: 1.2em;
+  font-weight: 700;
+  padding-right: 83px;
+  text-align: right;
+}

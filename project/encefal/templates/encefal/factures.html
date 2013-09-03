@@ -35,10 +35,16 @@
                 <td>{{ exemplaire.livre.isbn }}</td>
                 <td>{{ exemplaire.livre.titre }}</td>
                 <td>{{ exemplaire.livre.auteur }}</td>
-                <td>{{ exemplaire.prix }}</td>
+                <td>{{ exemplaire.prix }} $</td>
             </tr>
             {% endfor %}
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total: {{ facture.prix_total }} $</td>
+                </tr>
+            </tfoot>
         </table>
+
     </div>
     {% endif %}
 </div>
