@@ -182,7 +182,6 @@ def factures(request):
     else:
         facture = None
 
-    # import pdb;pdb.set_trace();
     context = {
         'facture':facture,
     }
