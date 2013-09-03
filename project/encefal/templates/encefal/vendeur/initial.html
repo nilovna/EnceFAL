@@ -1,13 +1,15 @@
 <h3>Remise des chèques et des livres non vendus :</h3>
-mercredi 18, 10h-18h
-jeudi 19, 10h-14h
-vendredi 20, 10h-14h
-lundi 23, 10h-18h
-mardi 24, 10h-14h
-mercredi 25, 10h-14h
+<ul>
+    <li>mercredi 18, 10h-18h</li>
+    <li>jeudi 19, 10h-14h</li>
+    <li>vendredi 20, 10h-14h</li>
+    <li>lundi 23, 10h-18h</li>
+    <li>mardi 24, 10h-14h</li>
+    <li>mercredi 25, 10h-14h</li>
+</ul>
 
-Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
-récuperer vos livres et votre chèque.
+<p>Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
+récuperer vos livres et votre chèque.</p>
 
 Voici vos livres:
 <table>
@@ -43,7 +45,7 @@ Voici vos livres:
       {{e.prix}} $
     </td>
     <td>
-      {{e.etat}} 
+      {{e.get_etat_display}} 
     </td>
 
 </tr>

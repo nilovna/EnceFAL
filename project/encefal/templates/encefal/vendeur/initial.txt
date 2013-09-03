@@ -11,7 +11,7 @@ récuperer vos livres et votre chèque.
 
 Voici vos livres:
 {% for e in vendeur.exemplaires.all %}
-      {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}}$ , {{e.etat}} 
+      {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}}$ , {{e.get_etat_display}} 
 
 {% endfor %}
 
