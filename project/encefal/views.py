@@ -172,7 +172,7 @@ def rapport(request):
 
 def factures(request):
 
-    if 'id' in request.GET:
+    if 'id' in request.GET and request.GET['id']:
         id_facture = request.GET['id']
 
         try:
