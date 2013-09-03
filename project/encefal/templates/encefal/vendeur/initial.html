@@ -1,56 +1,34 @@
 <h3>Remise des chèques et des livres non vendus :</h3>
 <ul>
-    <li>mercredi 18, 10h-18h</li>
-    <li>jeudi 19, 10h-14h</li>
-    <li>vendredi 20, 10h-14h</li>
-    <li>lundi 23, 10h-18h</li>
-    <li>mardi 24, 10h-14h</li>
-    <li>mercredi 25, 10h-14h</li>
+    <li>mercredi 18 septembre 2013, 10h-18h</li>
+    <li>jeudi 19 septembre 2013, 10h-14h</li>
+    <li>vendredi 20 septembre 2013, 10h-14h</li>
+    <li>lundi 23 septembre 2013, 10h-18h</li>
+    <li>mardi 24 septembre 2013, 10h-14h</li>
+    <li>mercredi 25 septembre 2013, 10h-14h</li>
 </ul>
 
 <p>Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
 récuperer vos livres et votre chèque.</p>
+<p>Tous les livres non-récupérés après cette période seront considérés un don à la foire aux livres.</p>
 
 <h4>Voici vos livres:</h4>
 <table>
     <thead>
-        <td>
-            ISBN
-        </td>
-        <td>
-            Titre
-        </td>
-        <td>
-            Auteur
-        </td>
-        <td>
-            Prix
-        </td>
-        <td>
-            Etat
-        </td>
+        <td>ISBN</td>
+        <td>Titre</td>
+        <td>Auteur</td>
+        <td>Prix</td>
+        <td>Etat</td>
     </thead>
 {%for e in vendeur.exemplaires.all%}
 <tr>
-    <td>
-      {{e.livre.isbn}} 
-    </td>
-    <td>
-      {{e.livre.titre}} 
-    </td>
-    <td>
-      {{e.livre.auteur}} 
-    </td>
-    <td>
-      {{e.prix}} $
-    </td>
-    <td>
-      {{e.get_etat_display}} 
-    </td>
-
+    <td>{{e.livre.isbn}} </td>
+    <td>{{e.livre.titre}}</td>
+    <td>{{e.livre.auteur}}</td>
+    <td>{{e.prix}} $</td>
+    <td>{{e.get_etat_display}}</td>
 </tr>
-
 {% endfor %}
 </table>
-<br></br>
-Merci de faire affaire avec la foire aux livres :) .
+<p>Merci de faire affaire avec la foire aux livres :) .</p>

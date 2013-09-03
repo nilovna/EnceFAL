@@ -1,18 +1,18 @@
 Remise des chèques et des livres non vendus :
-mercredi 18, 10h-18h
-jeudi 19, 10h-14h
-vendredi 20, 10h-14h
-lundi 23, 10h-18h
-mardi 24, 10h-14h
-mercredi 25, 10h-14h
+mercredi 18 septembre 2013, 10h-18h
+jeudi 19 septembre 2013, 10h-14h
+vendredi 20 septembre 2013, 10h-14h
+lundi 23 septembre 2013, 10h-18h
+mardi 24 septembre 2013, 10h-14h
+mercredi 25 septembre 2013, 10h-14h
 
 Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
 récuperer vos livres et votre chèque.
+Tous les livres non-récupérés après cette période seront considérés un don à la foire aux livres.
 
 Voici vos livres:
 {% for e in vendeur.exemplaires.all %}
       {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}}$ , {{e.get_etat_display}} 
-
 {% endfor %}
 
 Merci de faire affaire avec la foire aux livres
