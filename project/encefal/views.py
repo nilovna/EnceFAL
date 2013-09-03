@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response,render
 from django.template import RequestContext
 from django.http import (
                          HttpResponseRedirect,
-                         HttpResponse, 
+                         HttpResponse,
                          HttpResponseNotFound
                         )
 from django.core.urlresolvers import reverse
@@ -17,11 +17,11 @@ from django.db.models import Count, Min, Sum, Avg
 from django.forms.formsets import formset_factory
 
 from project.encefal.models import (
-                                    Facture, 
-                                    Livre, 
-                                    Vendeur, 
-                                    ETAT_LIVRE_CHOICES, 
-                                    Exemplaire, 
+                                    Facture,
+                                    Livre,
+                                    Vendeur,
+                                    ETAT_LIVRE_CHOICES,
+                                    Exemplaire,
                                     ISBN_DB_BASE_QUERY
                                    )
 from django.conf import settings
@@ -94,7 +94,7 @@ def exemplaire(request):
         exemplaire = Exemplaire.objects.get(pk=identifiant)
     except Exemplaire.DoesNotExist:
         return HttpResponseNotFound()
-    
+
     assert(exemplaire.livre)
 
     if exemplaire.etat != 'VENT':
@@ -133,7 +133,7 @@ def vendeur(request):
                'telephone':vendeur.telephone,
                'email':vendeur.email
               }
-    
+
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 
 def rapport(request):
@@ -141,11 +141,11 @@ def rapport(request):
     if 'date' in request.GET:
         date = request.GET['date']
         date = datetime.strptime(date,"%Y-%m-%d")
-    else: 
+    else:
         date = datetime.today()
 
     lendemain = date + timedelta(days=1)
-   
+
     # on met les deux dates a minuit
     date = date.replace(hour=0, minute=0, second=0)
     lendemain = lendemain.replace(hour=0, minute=0, second=0)
@@ -154,7 +154,7 @@ def rapport(request):
                                               date_creation__lt=lendemain)
     factures = Facture.objects.all().filter(date_creation__gt=date,
                              date_creation__lt=lendemain)
-    
+
     nb_nouveaux = ajoutes.count()
     nb_factures = factures.count()
     nb_vendus = sum([f.nb_livres() for f in factures])
@@ -171,12 +171,17 @@ def rapport(request):
 
 def factures(request):
 
-    if 'facture' in request.GET:
-        id_facture = request.GET['date']
-        facture = Vente.objects.get(pk=id_facture)
-    else: 
+    if 'id' in request.GET:
+        id_facture = request.GET['id']
+
+        try:
+            facture = Facture.objects.get(id=id_facture)
+        except Facture.DoesNotExist:
+            facture = None
+    else:
         facture = None
 
+    # import pdb;pdb.set_trace();
     context = {
         'facture':facture,
     }
