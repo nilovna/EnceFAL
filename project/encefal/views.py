@@ -155,13 +155,14 @@ def rapport(request):
     factures = Facture.objects.all().filter(date_creation__gt=date,
                              date_creation__lt=lendemain)
 
-    nb_nouveaux = ajoutes.count()
+    nb_ajoutes = ajoutes.count()
     nb_factures = factures.count()
     nb_vendus = sum([f.nb_livres() for f in factures])
     prix_total_vendu = sum([f.prix_total() for f in factures])
 
     context = {
-        'nb_nouveaux':nb_nouveaux,
+        'nb_ajoutes':nb_ajoutes,
+        'nb_factures':nb_factures,
         'date':date.date(),
         'nb_vendus':nb_vendus,
         'prix_total_vendu':prix_total_vendu,
