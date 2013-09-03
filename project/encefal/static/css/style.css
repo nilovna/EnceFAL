@@ -218,6 +218,14 @@ input {
   padding: 1rem;
 }
 
+/* $ VENTE
+-------------------------------------------------------------- */
+#p_total {
+  font-size: 24px;
+  font-weight: 600;
+  text-align:right;
+}
+
 /* $ RAPPORT
 -------------------------------------------------------------- */
 .table-report caption {
