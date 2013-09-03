@@ -42,12 +42,12 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">
+          <a class="brand" href="/employee">
             {% block branding %}{% endblock branding %}
           </a>
           <ul class="nav">
             <li class="">
-              <a href="/">Accueil</a>
+              <a href="/employee">Accueil</a>
             </li>
              <li>
               <a href="/livres">Livres</a>
@@ -79,12 +79,7 @@
 
     <!-- END Header -->
     <div class="page-content">
-      {% block breadcrumbs %}
-      <div class="breadcrumbs">
-      <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-      {% if title %} &rsaquo; {{ title }}{% endif %}
-      </div>
-      {% endblock %}
+
       {% endif %}
 
       {% block messages %}
