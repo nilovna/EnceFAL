@@ -35,7 +35,7 @@ class ExemplaireVenteInline(admin.TabularInline):
     model = Exemplaire
     form = ExemplaireVenteForm
     fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
-    extra = 15
+    extra = 5
 
 class SessionAdmin(admin.ModelAdmin):
     exclude = ('actif',)
