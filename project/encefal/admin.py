@@ -65,6 +65,11 @@ class ReceptionAdmin(admin.ModelAdmin):
 
     #TODO: utiliser url reverser
     def response_add(self, request, obj, post_url_continue=None):
+        try:
+            vendeur = Vendeur.objects.all().exclude(pk=obj.pk).get(code_permanent=obj.code_permanent)
+            vendeur.envoyer_recu()
+        except Vendeur.DoesNotExist:
+            obj.envoyer_recu()
         return HttpResponseRedirect('/employee/')
 
     def has_change_permission(self, request, obj=None):

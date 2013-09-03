@@ -1,8 +1,17 @@
-contrat de la foire aux livres ... blabla
+Remise des chèques et des livres non vendus :
+mercredi 18, 10h-18h
+jeudi 19, 10h-14h
+vendredi 20, 10h-14h
+lundi 23, 10h-18h
+mardi 24, 10h-14h
+mercredi 25, 10h-14h
+
+Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
+récuperer vos livres et votre chèque.
 
 Voici vos livres:
 {% for e in vendeur.exemplaires.all %}
-      {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}} , {{e.etat}} 
+      {{e.livre.isbn}} , {{e.livre.titre}} , {{e.livre.auteur}} , {{e.prix}}$ , {{e.etat}} 
 
 {% endfor %}
 
