@@ -9,6 +9,7 @@ ADMINS = (
     # ('Nilovna Bascunan-Vasquez', 'contact@nilovna.com'),
 )
 
+
 MANAGERS = ADMINS
 
 # Local time zone for this installation. Choices can be found here:
@@ -99,3 +100,5 @@ INSTALLED_APPS = (
 )
 
 STATIC_URL = '/static/'
+
+
