@@ -8,8 +8,8 @@ from django import forms
 from django.http import HttpResponseRedirect
 
 from project.encefal.forms import (
-                                   ExemplaireVenteForm, 
-                                   ExemplaireReceptionForm, 
+                                   ExemplaireVenteForm,
+                                   ExemplaireReceptionForm,
                                   )
 from project.encefal.models import (
                                     Vendeur, Session,
@@ -45,9 +45,9 @@ class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
     fields = [
-              'code_permanent', 
-              'prenom', 
-              'nom' , 
+              'code_permanent',
+              'prenom',
+              'nom' ,
               'email',
               'telephone'
              ]
@@ -135,15 +135,15 @@ class ExemplaireAdmin(admin.ModelAdmin):
     search_fields = ('livre__isbn','livre__titre','id')
 
 class FactureAdmin(admin.ModelAdmin):
-    list_display = ('date_creation', 'employe', 'session', 'nb_livres',)
+    list_display = ('id', 'date_creation', 'employe', 'session', 'nb_livres',)
 
 class VendeurAdmin(admin.ModelAdmin):
     list_display = ('date_creation', 'nom', 'prenom', 'nb_livres', 'code_permanent')
     exclude = ['actif']
     fields = [
-              'code_permanent', 
-              'prenom', 
-              'nom' , 
+              'code_permanent',
+              'prenom',
+              'nom' ,
               'email'
              ]
 
