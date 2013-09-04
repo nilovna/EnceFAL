@@ -90,7 +90,6 @@ class VenteAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(VenteAdmin, self).__init__(*args, **kwargs)
-        print(Session.current_session())
         self.model.session = Session.current_session()
 
     def get_form(self, request, obj=None, **kwargs):
