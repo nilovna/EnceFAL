@@ -68,8 +68,12 @@ def livre(request):
         reponse_query = json.load(urllib.urlopen(query))
         if 'error' not in reponse_query:
             reponse_query = reponse_query['data'][0]
-            reponse = {'titre':reponse_query['title'],
-                       'auteur':reponse_query['author_data'][0]['name'],
+
+            titre = reponse_query['title'] if reponse_query['title'] else ''
+            auteur = reponse_query['author_data'][0]['name'] if reponse_query['author_data'] else ''
+
+            reponse = {'titre':titre,
+                       'auteur':auteur,
                        'nb':nb}
 
     else:
