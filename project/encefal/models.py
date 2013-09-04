@@ -174,6 +174,7 @@ ETAT_LIVRE_CHOICES = (
     ('PERD', 'Perdu'),
     ('VOLE', 'Volé'),
     ('REND', 'Rendu'),
+    ('REMB', 'Remboursé'),
 )
 
 class Exemplaire(Metadata):
@@ -194,6 +195,10 @@ class Exemplaire(Metadata):
     def titre(self):
         return (self.livre.titre)
     titre.short_description = 'Titre'
+
+    def code_permanent_vendeur(self):
+        return (self.vendeur.code_permanent)
+    code_permanent_vendeur.short_description = 'Vendeur'
 
     def save(self,*args,**kwargs):
 

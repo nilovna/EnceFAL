@@ -90,6 +90,7 @@ class VenteAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(VenteAdmin, self).__init__(*args, **kwargs)
+        print(Session.current_session())
         self.model.session = Session.current_session()
 
     def get_form(self, request, obj=None, **kwargs):
@@ -129,10 +130,33 @@ class LivreAdmin(admin.ModelAdmin):
     list_display = ('isbn', 'titre', 'auteur', 'edition')
     search_fields = ['titre', 'auteur', 'isbn']
 
+def remettre_exemplaires(modeladmin, request, queryset):
+    for exemplaire in queryset.all():
+
+        if exemplaire.etat != 'VENT':
+            modeladmin.message_user(request, "Erreur! Seul les exemplaires en vente peuvent être rendus")
+            return
+
+    queryset.all().update(etat='REND')
+remettre_exemplaires.short_description = "Remettre le(s) exemplaire(s) au client"
+
+
+def rembourser_exemplaires(modeladmin, request, queryset):
+    for exemplaire in queryset.all():
+
+        if exemplaire.etat != 'VEND':
+            modeladmin.message_user(request, "Erreur! Seul les exemplaires vendus peuvent être remboursés")
+            return
+
+    queryset.all().update(etat='REMB')
+
+rembourser_exemplaires.short_description = "Rembourser le(s) exemplaire(s) au client"
+
 class ExemplaireAdmin(admin.ModelAdmin):
-    list_display = ('id','titre','vendeur','etat','prix','date_creation', 'date_modification', 'facture' )
+    list_display = ('id','titre','code_permanent_vendeur','etat','prix','date_creation', 'date_modification', 'facture' )
     order_by = ('date_creation', 'date_modification')
-    search_fields = ('livre__isbn','livre__titre','id')
+    search_fields = ('livre__isbn','livre__titre','id', 'vendeur__code_permanent')
+    actions = [remettre_exemplaires, rembourser_exemplaires]
 
 class FactureAdmin(admin.ModelAdmin):
     list_display = ('id', 'date_creation', 'employe', 'session', 'nb_livres',)
