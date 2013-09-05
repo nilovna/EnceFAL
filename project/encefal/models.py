@@ -71,9 +71,9 @@ class Vendeur(Metadata):
         subject, from_email, to = 'contrat', 'aess@aessuqam.org', self.email
         text_content = plaintext.render(d)
         html_content = htmly.render(d)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to],)
         msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        msg.send(fail_silently=True)
 
 class Reception(Vendeur):
     class Meta:
