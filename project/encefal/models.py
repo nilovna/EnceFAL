@@ -47,7 +47,7 @@ class Vendeur(Metadata):
                                        #help_text="Scannez la carte étudiante")
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
-    code_permanent = models.CharField(max_length=12)
+    code_permanent = models.CharField(max_length=12, unique=True)
     email = models.EmailField(max_length=255, blank=False)
     telephone = models.CharField(max_length=255, verbose_name='Téléphone',
                                  blank=True)
@@ -135,7 +135,7 @@ class Facture(Metadata):
 class Livre(Metadata):
     vendeur = models.ManyToManyField(Vendeur, db_column='vendeur',
                                      related_name='livres', through='Exemplaire')
-    isbn = models.CharField(max_length=13, blank=True, null=False)
+    isbn = models.CharField(max_length=13, blank=True, null=False, unique=True)
     titre = models.CharField(max_length=255, blank=True, )
     auteur = models.CharField(max_length=255, blank=True)
     edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
