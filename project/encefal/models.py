@@ -47,7 +47,7 @@ class Vendeur(Metadata):
                                        #help_text="Scannez la carte étudiante")
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255, verbose_name='Prénom', )
-    code_permanent = models.CharField(max_length=12, unique=True)
+    code_permanent = models.CharField(max_length=12)
     email = models.EmailField(max_length=255, blank=False)
     telephone = models.CharField(max_length=255, verbose_name='Téléphone',
                                  blank=True)
