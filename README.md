@@ -14,15 +14,13 @@ python bootstrap.py -v 2.1.1
 bin/buildout
 
 # Modifier les settings pour développement
-cd projet
+cd project
 cp conf.py.edit conf.py
 # dans conf.py, editer les configs de la bd locale
 
 # créer la bd locale.
 cd ..
-bin/django syncdb
-# si migration:
-# bin/django syncdb --migrate
+bin/django syncdb --migrate
 
 # Lancer le serveur !
 bin/django runserver
