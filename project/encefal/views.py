@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-import datetime
 import json
 import urllib
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.shortcuts import render_to_response,render
 from django.template import RequestContext
 from django.http import (
@@ -19,6 +18,7 @@ from django.forms.formsets import formset_factory
 from project.encefal.models import (
                                     Facture,
                                     Livre,
+                                    Session,
                                     Vendeur,
                                     ETAT_LIVRE_CHOICES,
                                     Exemplaire,
@@ -32,7 +32,8 @@ def index_employee(request):
                               RequestContext(request))
 
 def acceuil(request):
-    return render_to_response('encefal/index.html', {},
+    return render_to_response('encefal/index.html', 
+                              {'next_session':Session.next_session(), 'current_session':Session.current_session()},
                               RequestContext(request))
 
 def livres(request):

@@ -97,6 +97,14 @@ class Session(Metadata):
         return '%s' % (self.nom)
 
     @staticmethod
+    def next_session():
+        reponse = Session.objects.filter(date_debut__gte=datetime.date.today())
+        if not reponse.count():
+            return None
+        else:
+            return reponse.order_by('date_debut')[0]
+
+    @staticmethod
     def current_session():
         try:
             reponse = Session.objects.get(date_debut__lte=datetime.date.today(),
