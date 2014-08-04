@@ -100,7 +100,11 @@ class VenteAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.employe_id = self.model.employe.id
-        obj.session_id = self.model.session.id
+        if not self.model.session:
+            session = Session.current_session()
+        else:
+            session = self.model.session
+        obj.session_id = session.id
         obj.save()
 
     #TODO: utiliser url reverser admin_index ??
