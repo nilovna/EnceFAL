@@ -2,29 +2,30 @@
 {% block content %}
 
 <div class="page-content">
-    <h1>Liste des livres disponibles à la foire aux livres</h1>
+    <h1 class="hidden-phone">Voici la liste des livres disponibles à la foire aux livres.</h1>
+    <h1 class="visible-phone">Livres disponibles.</h1>
     <table id="livres" class="table table-hover livres">
         <thead>
-            <th>ISBN</th>
+            <th class="hidden-phone">ISBN</th>
             <th>Titre</th>
-            <th>Auteur</th>
-            <th>Prix Moyen</th>
+            <th class="hidden-phone">Auteur</th>
+            <th class="hidden-phone">Prix Moyen</th>
             <th>Quantité</th>
         </thead>
         <tbody>
             {% for livre in livres %}
             <tr>
 
-                <td>{{ livre.isbn }}</td> 
+                <td class="hidden-phone">{{ livre.isbn }}</td> 
 
                 <td>{{ livre.titre }}</td> 
 
-                <td>{{ livre.auteur }}</td> 
+                <td class="hidden-phone">{{ livre.auteur }}</td> 
 
     	    {% if livre.prix_moyen %}
-                <td>{{ livre.prix_moyen|floatformat:2 }}$</td> 
+                <td class="hidden-phone">{{ livre.prix_moyen|floatformat:2 }}$</td> 
     	    {% else %}
-                <td>N.A.</td> 
+                <td class="hidden-phone">N.A.</td> 
     	    {% endif %}
 
     	    {% if livre.nb_exemplaires_en_vente %}
