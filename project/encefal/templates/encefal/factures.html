@@ -1,25 +1,23 @@
+{% extends 'admin/base.html' %}
 
-{% extends 'base.html' %}
+{% block branding %}
+Administration
+{% endblock %}
 
 {% block content %}
 {% load static %}
 
-<div class="page-content">
-    <p>Pour des considérations environnementales, 
-    EnceFAL vous permet de visualiser en ligne vos factures.
-    Veuillez saisir le numero de votre facture, obtenu 
-    auprès du personnel de la foire lors de votre transaction.</p>
 
-    <form action="" method="get" id="facture_form" class="form-inline">
-        <label for="no_facture" class="control-label">Numéro de facture:
-            <input id="no_facture" name="id" class="input-mini" size="16" type="text" value="">
-            <button class="btn btn-primary" type="submit">Visualiser facture</button>
-        </label>
-    </form>
+<div class="page-content">
     {% if facture %}
     <div class="facture-wrap">
+      <p>
+        <img style="height:80px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+      </p>
+      <p>Facture #{{ facture.id }}</p>
+      <p>Transaction effectuée le {{ facture.date_creation }}</p>
+      <p>Servi par {{ facture.employe }}</p>
         <table class="table table-striped table-facture">
-            <caption>Facture #{{ facture.id }} - {{ facture.date_creation }}</caption>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -46,6 +44,8 @@
         </table>
 
     </div>
+    {% else %}
+      <p>Aucune facture n'existe avec ce numéro!</p>
     {% endif %}
 </div>
 

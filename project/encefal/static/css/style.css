@@ -241,3 +241,10 @@ input {
   padding-right: 83px;
   text-align: right;
 }
+
+
+@media print {
+  .navbar {
+    display:none;
+  }
+}

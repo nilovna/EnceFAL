@@ -109,7 +109,7 @@ class VenteAdmin(admin.ModelAdmin):
 
     #TODO: utiliser url reverser admin_index ??
     def response_add(self, request, obj, post_url_continue=None):
-        return HttpResponseRedirect('/employee/')
+        return HttpResponseRedirect('/factures/?id=' + str(obj.id))
 
     def has_change_permission(self, request, obj=None):
         return obj is None or False
