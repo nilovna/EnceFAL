@@ -50,6 +50,9 @@ def livres(request):
 
 def livre(request):
 
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
+
     assert('isbn' in request.GET)
     assert('nb' in request.GET)
     assert(len(request.GET['isbn']) in [10,13])
@@ -89,6 +92,9 @@ def livre(request):
 
 def exemplaire(request):
 
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
+
     assert('identifiant' in request.GET)
     assert('nb' in request.GET)
 
@@ -120,6 +126,9 @@ def exemplaire(request):
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 
 def vendeur(request):
+
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
 
     assert('code' in request.GET)
     assert(len(request.GET['code']) == 12)
@@ -176,6 +185,9 @@ def rapport(request):
     return render_to_response('encefal/rapport.html', context)
 
 def factures(request):
+
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
 
     if 'id' in request.GET and request.GET['id']:
         id_facture = request.GET['id']
