@@ -16,6 +16,7 @@ from django.template import Context
 HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ/MM/AAAA"
 #Ajouter une KEY propre a Encefal. On doit creer un compte sur isbndb
 ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}"
+COOP_UQAM_BASE_QUERY = "http://www.coopuqam.com/resultat-recherche.html?MotCle={0}"
 
 ################################################################################
 # ABSTRAIT (ABSTRACT)

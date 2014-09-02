@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import json
 import urllib
+from lxml import html
 
 from datetime import datetime, timedelta, date
 from django.shortcuts import render_to_response,render
@@ -22,7 +23,8 @@ from project.encefal.models import (
                                     Vendeur,
                                     ETAT_LIVRE_CHOICES,
                                     Exemplaire,
-                                    ISBN_DB_BASE_QUERY
+                                    ISBN_DB_BASE_QUERY,
+                                    COOP_UQAM_BASE_QUERY
                                    )
 from django.conf import settings
 
@@ -79,6 +81,22 @@ def livre(request):
             reponse = {'titre':titre,
                        'auteur':auteur,
                        'nb':nb}
+        else:
+
+            query = COOP_UQAM_BASE_QUERY.format(isbn)
+            reponse_query = urllib.urlopen(query)
+            tree = html.fromstring(reponse_query.read())
+
+            titres = tree.cssselect("h3 a")
+            if titres:
+
+                titre = titres[0].text
+
+                auteur = tree.cssselect("h3 + p")[0].text_content().split(' : ')[1].split('\r')[0].strip()
+
+                reponse = {'titre':titre,
+                           'auteur':auteur,
+                           'nb':nb}
 
     else:
         reponse = {'titre':livre.titre,
