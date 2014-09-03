@@ -90,7 +90,6 @@ class VenteAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(VenteAdmin, self).__init__(*args, **kwargs)
-        print(Session.current_session())
         self.model.session = Session.current_session()
 
     def get_form(self, request, obj=None, **kwargs):
@@ -100,8 +99,9 @@ class VenteAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.employe_id = self.model.employe.id
+        # If the book is from this session
         if not self.model.session:
-            session = Session.current_session()
+            session = Session.session_null()
         else:
             session = self.model.session
         obj.session_id = session.id

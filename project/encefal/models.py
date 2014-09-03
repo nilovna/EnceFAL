@@ -90,8 +90,8 @@ class Reception(Vendeur):
 class Session(Metadata):
     nom = models.CharField(max_length=255, unique=True, )
     date_debut = models.DateField(verbose_name="Date début",
-                             help_text=HELP_TEXT_FORMAT_DATE,)
-    date_fin = models.DateField(help_text=HELP_TEXT_FORMAT_DATE,)
+                             help_text=HELP_TEXT_FORMAT_DATE, null=True, blank=True)
+    date_fin = models.DateField(help_text=HELP_TEXT_FORMAT_DATE, null=True, blank=True)
 
     def __unicode__(self):
         return '%s' % (self.nom)
@@ -113,6 +113,10 @@ class Session(Metadata):
             reponse = None
 
         return reponse
+
+    @staticmethod
+    def session_null():
+        return Session.objects.get(nom="/dev/null")
 
 
 
