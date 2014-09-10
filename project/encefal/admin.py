@@ -80,7 +80,6 @@ class ReceptionAdmin(admin.ModelAdmin):
 
         context['date_transaction'] = datetime.date.today()
         context['employe'] = request.user.username
-        context['montant_total'] = sum([e.prix for e in context['exemplaires']]) or 0
 
         return render_to_response('encefal/depots.html', Context(context))
 
