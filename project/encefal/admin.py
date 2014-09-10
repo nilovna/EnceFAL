@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.template import Context
 
 from project.encefal.forms import (
                                    ExemplaireVenteForm,
@@ -65,12 +67,22 @@ class ReceptionAdmin(admin.ModelAdmin):
 
     #TODO: utiliser url reverser
     def response_add(self, request, obj, post_url_continue=None):
+        context = {}
         try:
             vendeur = Vendeur.objects.all().exclude(pk=obj.pk).get(code_permanent=obj.code_permanent)
-            vendeur.envoyer_recu()
+            # vendeur.envoyer_recu()
+            context['vendeur'] = vendeur
+            exemplaires = Exemplaire.objects.filter(vendeur__code_permanent=obj.code_permanent,
+                    date_creation__startswith=obj.date_creation.date())
+            context['exemplaires'] = exemplaires
+
         except Vendeur.DoesNotExist:
-            obj.envoyer_recu()
-        return HttpResponseRedirect('/employee/')
+            # obj.envoyer_recu()
+            import pdb; pdb.set_trace()
+            context['vendeur'] = obj
+            context['exemplaires']
+
+        return render_to_response('encefal/depots.html', Context(context))
 
     def has_change_permission(self, request, obj=None):
         return obj is None or False
