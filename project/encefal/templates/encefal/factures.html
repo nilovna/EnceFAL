@@ -17,9 +17,7 @@
     </form>
     {% if facture %}
     <div class="facture-wrap">
-      <p>
-        <img style="height:80px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
-      </p>
+      <img style="float:right;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
       <p>Facture #{{ facture.id }}</p>
       <p>Transaction effectuée le {{ facture.date_creation }}</p>
       <p>Servi par {{ facture.employe }}</p>
