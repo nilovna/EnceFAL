@@ -68,19 +68,19 @@ class ReceptionAdmin(admin.ModelAdmin):
     #TODO: utiliser url reverser
     def response_add(self, request, obj, post_url_continue=None):
         context = {}
+        # Afficher recu
         try:
             vendeur = Vendeur.objects.all().exclude(pk=obj.pk).get(code_permanent=obj.code_permanent)
-            # vendeur.envoyer_recu()
             context['vendeur'] = vendeur
-            exemplaires = Exemplaire.objects.filter(vendeur__code_permanent=obj.code_permanent,
-                    date_creation__startswith=obj.date_creation.date())
-            context['exemplaires'] = exemplaires
+            context['exemplaires'] = vendeur.exemplaires.filter(date_creation__startswith=datetime.date.today())
 
         except Vendeur.DoesNotExist:
-            # obj.envoyer_recu()
-            import pdb; pdb.set_trace()
             context['vendeur'] = obj
-            context['exemplaires']
+            context['exemplaires'] = obj.exemplaires.all()
+
+        context['date_transaction'] = datetime.date.today()
+        context['employe'] = request.user.username
+        context['montant_total'] = sum([e.prix for e in context['exemplaires']]) or 0
 
         return render_to_response('encefal/depots.html', Context(context))
 

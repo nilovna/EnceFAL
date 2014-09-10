@@ -11,40 +11,55 @@ Administration
 <div class="page-content">
     {% if exemplaires %}
     <div class="facture-wrap">
-      <p>
-        <img style="height:80px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
-      </p>
-      <p>Transaction effectuée le {{ facture.date_creation }}</p>
-      <p>Servi par {{ facture.employe }}</p>
-        <table class="table table-striped table-facture">
-            <thead>
+        <img style="float:right;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+        <h4>Liste des livres de {{vendeur.prenom}} {{vendeur.nom}} ({{vendeur.code_permanent}})</h4>
+        <p>Transaction effectuée le {{ date_transaction }}</p>
+        <p>Servi par {{ employe }}</p>
+            <table class="table table-striped table-facture">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>ISBN</th>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Etat</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                {% for e in exemplaires %}
                 <tr>
-                    <th>Id</th>
-                    <th>ISBN</th>
-                    <th>Titre</th>
-                    <th>Auteur</th>
-                    <th>Prix</th>
+                    <td>{{e.id}}</td>
+                    <td>{{e.livre.isbn}} </td>
+                    <td>{{e.livre.titre}}</td>
+                    <td>{{e.livre.auteur}}</td>
+                    <td>{{e.get_etat_display}}</td>
+                    <td>{{e.prix}} $</td>
                 </tr>
-            </thead>
-            {% for exemplaire in facture.exemplaires.all %}
-            <tr>
-                <td>{{ exemplaire.id }}</td>
-                <td>{{ exemplaire.livre.isbn }}</td>
-                <td>{{ exemplaire.livre.titre }}</td>
-                <td>{{ exemplaire.livre.auteur }}</td>
-                <td>{{ exemplaire.prix }} $</td>
-            </tr>
-            {% endfor %}
-            <tfoot>
-                <tr>
-                    <td colspan="5">Total: {{ facture.prix_total }} $</td>
-                </tr>
-            </tfoot>
-        </table>
+                {% endfor %}
+                <tfoot>
+                    <tr>
+                        <td colspan="6">Total: {{ montant_total }} $</td>
+                    </tr>
+                </tfoot>
+            </table>
+        <p>Merci de faire affaire avec la foire aux livres :) .</p>
 
     </div>
-    {% else %}
-      <p>Aucune facture n'existe avec ce numéro!</p>
+      <hr>
+      <h5>Dates remise des chèques et des livres non vendus :</h5>
+      <ul>
+          <li>lundi 22 septembre 2014, 10h-18h</li> 
+          <li>mardi 23 septembre 2014, 10h-14h</li> 
+          <li>mercredi 24 septembre 2014, 10h-14h</li> 
+          <li>jeudi 25 septembre 2014, 10h-14h</li> 
+          <li>vendredi 26 septembre 2014, 10h-18h</li> 
+          <li>lundi 29 septembre 2014, 10h-14h</li>
+      </ul>
+
+      <p>Vous devrez avoir en votre possession une preuve d'identité (carte étudiante) pour
+      récuperer vos livres et votre chèque.</p>
+      <p>Tous les livres non-récupérés après cette période seront considérés un don à la foire aux livres.</p>
+
     {% endif %}
 </div>
 
