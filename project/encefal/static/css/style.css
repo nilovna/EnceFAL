@@ -244,6 +244,7 @@ input {
 
 
 @media print {
+  #facture_form,
   .navbar {
     display:none;
   }

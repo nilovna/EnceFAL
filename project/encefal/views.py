@@ -34,7 +34,7 @@ def index_employee(request):
                               RequestContext(request))
 
 def acceuil(request):
-    return render_to_response('encefal/index.html', 
+    return render_to_response('encefal/index.html',
                               {'next_session':Session.next_session(), 'current_session':Session.current_session()},
                               RequestContext(request))
 
@@ -204,8 +204,8 @@ def rapport(request):
 
 def factures(request):
 
-    if not request.user.is_authenticated():
-        return HttpResponseNotFound()
+    #if not request.user.is_authenticated():
+    #    return HttpResponseNotFound()
 
     if 'id' in request.GET and request.GET['id']:
         id_facture = request.GET['id']
@@ -215,7 +215,8 @@ def factures(request):
         except Facture.DoesNotExist:
             facture = None
     else:
-        facture = None
+        # Hack louche pour l'instant
+        facture = 0
 
     context = {
         'facture':facture,

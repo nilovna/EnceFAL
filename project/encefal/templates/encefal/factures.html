@@ -1,14 +1,20 @@
-{% extends 'admin/base.html' %}
-
-{% block branding %}
-Administration
-{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
 {% load static %}
 
 
 <div class="page-content">
+    <form action="" method="get" id="facture_form" class="form-inline">
+        <p>
+            Veuillez saisir le numero de votre facture, obtenu 
+            auprès du personnel de la foire lors de votre transaction.
+        </p>
+        <label for="no_facture" class="control-label">Numéro de facture:
+            <input id="no_facture" name="id" class="input-mini" size="16" type="text" value="">
+            <button class="btn btn-primary" type="submit">Visualiser facture</button>
+        </label>
+    </form>
     {% if facture %}
     <div class="facture-wrap">
       <p>
@@ -45,7 +51,9 @@ Administration
 
     </div>
     {% else %}
-      <p>Aucune facture n'existe avec ce numéro!</p>
+        {% if facture != 0 %}
+            <p>Aucune facture n'existe avec ce numéro!</p>
+        {% endif %}
     {% endif %}
 </div>
 
