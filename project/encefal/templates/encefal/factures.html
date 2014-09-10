@@ -15,10 +15,11 @@
             <button class="btn btn-primary" type="submit">Visualiser facture</button>
         </label>
     </form>
+    <hr>
     {% if facture %}
     <div class="facture-wrap">
-      <img style="float:right;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
-      <p>Facture #{{ facture.id }}</p>
+      <img style="float: left;width: 120px;margin-right: 20px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+      <h5>Facture #{{ facture.id }}</h5>
       <p>Transaction effectuée le {{ facture.date_creation }}</p>
       <p>Servi par {{ facture.employe }}</p>
         <table class="table table-striped table-facture">
