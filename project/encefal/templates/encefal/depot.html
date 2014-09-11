@@ -1,0 +1,53 @@
+{% extends 'admin/base.html' %}
+
+{% block branding %}
+Administration
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="page-content">
+    {% if facture %}
+    <div class="facture-wrap">
+      <p>
+        <img style="height:80px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+      </p>
+      <p>Facture #{{ facture.id }}</p>
+      <p>Transaction effectuée le {{ facture.date_creation }}</p>
+      <p>Servi par {{ facture.employe }}</p>
+        <table class="table table-striped table-facture">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>ISBN</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            {% for exemplaire in facture.exemplaires.all %}
+            <tr>
+                <td>{{ exemplaire.id }}</td>
+                <td>{{ exemplaire.livre.isbn }}</td>
+                <td>{{ exemplaire.livre.titre }}</td>
+                <td>{{ exemplaire.livre.auteur }}</td>
+                <td>{{ exemplaire.prix }} $</td>
+            </tr>
+            {% endfor %}
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total: {{ facture.prix_total }} $</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    {% else %}
+      <p>Aucune facture n'existe avec ce numéro!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
